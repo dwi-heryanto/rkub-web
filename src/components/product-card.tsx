@@ -9,7 +9,7 @@ import type { Product } from "@/types/catalog";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <motion.div
+    <motion.article
       whileHover={{ y: -2 }}
       transition={{ duration: 0.15 }}
       className="h-full"
@@ -33,6 +33,6 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </Link>
       </Card>
-    </motion.div>
+    </motion.article>
   );
 }
