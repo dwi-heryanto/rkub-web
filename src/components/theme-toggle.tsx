@@ -38,6 +38,10 @@ export function ThemeToggle({ className }: { className?: string }) {
   const actionLabel = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
 
   useEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") {
+      return;
+    }
+
     const syncTheme = () => {
       setTheme(resolveCurrentTheme());
     };
