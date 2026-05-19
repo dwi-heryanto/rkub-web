@@ -1,6 +1,8 @@
 "use client";
 
+import { buttonVariants } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
 export function WhatsAppFab() {
@@ -12,7 +14,7 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noreferrer"
       onClick={() => trackEvent("whatsapp_click", { location: "fab" })}
-      className="fixed bottom-5 right-5 z-40 rounded-[var(--radius-card)] bg-[--color-deep-teal] px-4 py-3 text-sm font-semibold text-white hover:bg-[--color-forest-canopy]"
+      className={cn(buttonVariants({ variant: "primary" }), "fixed bottom-5 right-5 z-40")}
       aria-label="Contact via WhatsApp"
     >
       WhatsApp

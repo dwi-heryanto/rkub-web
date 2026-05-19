@@ -31,15 +31,16 @@ export function Navbar() {
             <Button variant="secondary">Browse</Button>
           </Link>
         </div>
-        <button
+        <Button
           type="button"
-          className="inline-flex items-center rounded-[var(--radius-card)] border border-[--color-border] px-3 py-2 text-sm font-semibold text-[--color-text] sm:hidden"
+          variant="secondary"
+          className="sm:hidden"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
           aria-label="Toggle navigation"
         >
           Menu
-        </button>
+        </Button>
       </nav>
       <div
         className={cn(

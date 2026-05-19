@@ -547,4 +547,6 @@ The final product should feel:
 - Introduced shadcn/ui baseline configuration via `components.json`.
 - Migrated catalog filters from handmade controls to shadcn-compatible `Select` (Radix) and `Toggle` components.
 - Remaining migration work is tracked in `TODO.md` under the shadcn rework task.
-
+- Aligned key controls to the current design system: input radius is now 16px and select popover no longer uses elevated shadows.
+- Continued shadcn-style migration on high-traffic surfaces by reusing UI primitives for product cards, navbar mobile toggle, WhatsApp FAB, and retry actions.
+- Added a non-priority theme changer item (light/dark) to the TODO tracker for future implementation.
