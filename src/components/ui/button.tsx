@@ -12,6 +12,9 @@ export const buttonVariants = cva(
         secondary:
           "border border-[--color-deep-teal] bg-transparent text-[--color-deep-teal] hover:bg-[--color-soft-peach]",
         ghost: "bg-transparent text-[--color-text] hover:bg-[--color-soft-peach]",
+        chip: "min-h-0 rounded-[var(--radius-pill)] border border-[--color-border] bg-white px-3 py-1 text-xs font-medium text-[--color-text] hover:border-[--color-deep-teal]",
+        chipActive:
+          "min-h-0 rounded-[var(--radius-pill)] border border-[--color-deep-teal] bg-[--color-deep-teal] px-3 py-1 text-xs font-medium text-white",
       },
     },
     defaultVariants: {

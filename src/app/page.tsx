@@ -25,7 +25,7 @@ export default async function Home() {
         {JSON.stringify(localBusinessJsonLd)}
       </Script>
 
-      <section className="rounded-[var(--radius-card)] bg-[--color-soft-peach] p-6 sm:p-10">
+      <Card className="border-0 bg-[--color-soft-peach] p-6 sm:p-10">
         <p className="text-sm font-semibold uppercase tracking-wide text-[--color-deep-teal]">{content.hero.eyebrow}</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-5xl">{content.hero.title}</h1>
         <p className="mt-4 max-w-2xl text-base leading-7 text-[--color-text-muted]">{content.hero.description}</p>
@@ -43,7 +43,7 @@ export default async function Home() {
             <Button variant="secondary">{content.hero.secondaryCta.label}</Button>
           </a>
         </div>
-      </section>
+      </Card>
 
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Category Showcase</h2>
@@ -138,7 +138,7 @@ export default async function Home() {
         </Card>
       </section>
 
-      <section className="rounded-[var(--radius-card)] bg-[--color-sky-haze] p-6 sm:p-8">
+      <Card className="border-0 bg-[--color-sky-haze] p-6 sm:p-8">
         <div className="flex flex-wrap items-center gap-3">
           <Badge>WhatsApp Ready</Badge>
           <h2 className="text-xl font-semibold">{content.whatsappCta.title}</h2>
@@ -149,7 +149,7 @@ export default async function Home() {
             <Button>Ask via WhatsApp</Button>
           </a>
         </div>
-      </section>
+      </Card>
 
       <Card>
         <h2 className="text-xl font-semibold">{content.map.title}</h2>
