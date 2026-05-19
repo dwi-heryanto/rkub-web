@@ -87,7 +87,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
         <Card className="space-y-4 p-6">
-          <aside>
           <p className="text-xs font-semibold uppercase tracking-wide text-[--color-deep-teal]">{product.category.replace(/-/g, " ")}</p>
           <h1 className="text-2xl font-bold">{product.name}</h1>
           <div className="flex flex-wrap gap-2">
@@ -108,7 +107,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <WhatsAppButton url={whatsappUrl} location="product_detail" productName={product.name} className="w-full">
             Ask via WhatsApp
           </WhatsAppButton>
-          </aside>
         </Card>
       </div>
 
