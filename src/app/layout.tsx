@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { getSiteSettings } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
+import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme";
 
 import "./globals.css";
 
@@ -20,18 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {gscVerification ? <meta name="google-site-verification" content={gscVerification} /> : null}
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem("rkub-tailoring-theme");
-                if (theme === "light" || theme === "dark") {
-                  document.documentElement.dataset.theme = theme;
-                } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                  document.documentElement.dataset.theme = "dark";
-                }
-              } catch (error) {
-                // ignore storage access issues in restricted browsers
-              }
-            `,
+            __html: THEME_BOOTSTRAP_SCRIPT,
           }}
         />
       </head>
