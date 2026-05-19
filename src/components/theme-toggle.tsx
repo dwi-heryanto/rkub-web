@@ -46,9 +46,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       setTheme(resolveCurrentTheme());
     };
 
-    const observer = new MutationObserver(() => {
-      syncTheme();
-    });
+    const observer = new MutationObserver(syncTheme);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     window.addEventListener("storage", syncTheme);
@@ -75,7 +73,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       variant="secondary"
       className={className}
       onClick={toggleTheme}
-      aria-label={`Current theme: ${theme}. Switch to ${actionLabel} mode`}
+      aria-label={`Switch to ${actionLabel} mode`}
       suppressHydrationWarning
     >
       Toggle theme
