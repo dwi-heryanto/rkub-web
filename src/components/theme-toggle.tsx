@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
 
@@ -32,11 +34,12 @@ function resolveCurrentTheme(): Theme {
 }
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const currentTheme = resolveCurrentTheme();
-  const actionLabel = currentTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+  const [theme, setTheme] = useState<Theme>(() => resolveCurrentTheme());
+  const actionLabel = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
 
   const toggleTheme = () => {
-    const nextTheme: Theme = resolveCurrentTheme() === "dark" ? "light" : "dark";
+    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
     document.documentElement.dataset.theme = nextTheme;
     window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
   };
