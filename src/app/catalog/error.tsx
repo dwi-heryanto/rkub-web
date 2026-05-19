@@ -1,12 +1,14 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+
 export default function CatalogError({ reset }: { reset: () => void }) {
   return (
-    <div className="rounded-[var(--radius-card)] border border-red-200 bg-[--color-surface] p-6 text-sm">
+    <div className="rounded-[var(--radius-card)] border border-[--color-border-strong] bg-[--color-surface] p-6 text-sm text-[--color-text-muted]">
       Something went wrong while loading the catalog.
-      <button onClick={reset} className="ml-3 rounded-[var(--radius-card)] bg-[--color-soft-peach] px-3 py-1 font-medium">
+      <Button variant="secondary" onClick={reset} className="ml-3 min-h-0 px-3 py-1 text-sm">
         Try again
-      </button>
+      </Button>
     </div>
   );
 }
