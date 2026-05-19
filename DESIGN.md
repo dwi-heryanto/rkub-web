@@ -1,3 +1,130 @@
+---
+name: Workable Style
+colors:
+  surface: '#f8f9ff'
+  surface-dim: '#d4dae6'
+  surface-bright: '#f8f9ff'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#eef4ff'
+  surface-container: '#e8eefa'
+  surface-container-high: '#e2e9f4'
+  surface-container-highest: '#dce3ee'
+  on-surface: '#151c24'
+  on-surface-variant: '#404946'
+  inverse-surface: '#2a313a'
+  inverse-on-surface: '#eaf1fd'
+  outline: '#707976'
+  outline-variant: '#bfc8c5'
+  surface-tint: '#32675e'
+  primary: '#002823'
+  on-primary: '#ffffff'
+  primary-container: '#004038'
+  on-primary-container: '#76aca1'
+  inverse-primary: '#9bd1c6'
+  secondary: '#43655d'
+  on-secondary: '#ffffff'
+  secondary-container: '#c2e7dd'
+  on-secondary-container: '#476961'
+  tertiary: '#002823'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#004038'
+  on-tertiary-container: '#00b5a2'
+  error: '#ba1a1a'
+  on-error: '#ffffff'
+  error-container: '#ffdad6'
+  on-error-container: '#93000a'
+  primary-fixed: '#b6ede2'
+  primary-fixed-dim: '#9bd1c6'
+  on-primary-fixed: '#00201b'
+  on-primary-fixed-variant: '#174f47'
+  secondary-fixed: '#c5eae0'
+  secondary-fixed-dim: '#aacec4'
+  on-secondary-fixed: '#00201b'
+  on-secondary-fixed-variant: '#2b4d46'
+  tertiary-fixed: '#25fde4'
+  tertiary-fixed-dim: '#00dfc8'
+  on-tertiary-fixed: '#00201c'
+  on-tertiary-fixed-variant: '#005047'
+  background: '#f8f9ff'
+  on-background: '#151c24'
+  surface-variant: '#dce3ee'
+  canvas-porcelain: '#fff5ee'
+  white: '#ffffff'
+  harbor-mist: '#333942'
+  muted-sage: '#00544c'
+  soft-peach: '#fde8ce'
+  muted-mandarin: '#ffdcbf'
+  sky-haze: '#bee9f4'
+  lime-glow: '#d5ff4d'
+  spring-bud: '#7edcaf'
+  fresh-teal-gradient: 'linear-gradient(90deg, #00f5dc 0%, #d5ff4d 48.5%, #b773ff
+    100%)'
+typography:
+  display:
+    fontFamily: Open Sans
+    fontSize: 72px
+    fontWeight: '700'
+    lineHeight: '1.0'
+  heading-lg:
+    fontFamily: Open Sans
+    fontSize: 56px
+    fontWeight: '700'
+    lineHeight: '1.13'
+  heading-lg-mobile:
+    fontFamily: Open Sans
+    fontSize: 40px
+    fontWeight: '700'
+    lineHeight: '1.1'
+  heading:
+    fontFamily: Open Sans
+    fontSize: 32px
+    fontWeight: '700'
+    lineHeight: '1.17'
+  heading-sm:
+    fontFamily: Open Sans
+    fontSize: 24px
+    fontWeight: '700'
+    lineHeight: '1.22'
+  subheading:
+    fontFamily: Open Sans
+    fontSize: 20px
+    fontWeight: '400'
+    lineHeight: '1.25'
+  body:
+    fontFamily: Open Sans
+    fontSize: 18px
+    fontWeight: '400'
+    lineHeight: '1.5'
+  body-sm:
+    fontFamily: Open Sans
+    fontSize: 16px
+    fontWeight: '400'
+    lineHeight: '1.5'
+  serif-accent:
+    fontFamily: Merriweather
+    fontSize: 24px
+    fontWeight: '400'
+    lineHeight: '1.5'
+rounded:
+  sm: 0.25rem
+  DEFAULT: 0.5rem
+  md: 0.75rem
+  lg: 1rem
+  xl: 1.5rem
+  full: 9999px
+spacing:
+  unit: 8px
+  xs: 8px
+  sm: 16px
+  md: 24px
+  lg: 32px
+  xl: 40px
+  xxl: 64px
+  section-gap: 32px
+  card-padding: 32px
+  element-gap: 8px
+---
+
 # Workable — Style Reference
 > Clean canvas, purposeful accents
 
@@ -171,163 +298,3 @@ This system primarily uses photography for human elements (diverse faces in card
 ## Layout
 
 The page primarily uses a full-bleed structure, with content sections extending across the viewport width, though a clear implicit max-width ensures readability. Hero sections often feature a full-bleed background (e.g., Forest Canopy) with centered headings. Content typically alternates between two-column layouts (text left, image right) and centered stacks. Feature sections use a 3-column card grid. Vertical spacing between sections is consistent at 32px, creating a comfortable yet information-dense rhythm. The navigation is a persistent top bar featuring a logo, product/pricing links, and two call-to-action buttons, maintaining a fixed presence.
-
-## Agent Prompt Guide
-
-### Quick Color Reference
-text: #0f161e
-background: #fff5ee
-border: #0f161e
-accent: #00f5dc
-primary action: #004038 (outlined action border)
-
-### 3-5 Example Component Prompts
-1. Create a hero section with a Forest Canopy (#012620) background. Headline 'The future-ready HR platform' using Proxima Nova, size 56px, weight 700, color white, lineHeight 1.13. Subtext 'Redefining HR...' using Proxima Nova, size 18px, weight 400, color white, lineHeight 1.5. Include a ghost button 'Request a demo' (background transparent, text #0f161e, 0px radius) and a contrasting filled button 'Start a free trial' (background #004038, text white, 16px radius, padding 11px 24px).
-2. Design a feature card: Default Card (background #ffffff, 16px radius, 32px padding). Heading 'Talent CRM database' using Proxima Nova, size 24px, weight 700, color #0f161e. Body text 'Manage your talent pool...' using Proxima Nova, size 16px, weight 400, color #333942.
-3. Implement a navigation bar: Background transparent. Logo in Deep Teal (#004038). Navigation links ('Product', 'Pricing') text in Midnight Ink (#0f161e), Proxima Nova, size 16px, weight 400. 'Log in' button as a secondary ghost button (background transparent, text #0f161e, 16px radius, padding 12px 24px). 'Request a demo' button as a secondary ghost button (background transparent, text #0f161e, 16px radius, padding 12px 24px). 'Start a free trial' button as a contained navigation button (background #004038, text white, 16px radius, padding 12px 24px).
-4. Create a highlight card showing an applicant: Highlight Card - Soft Peach (background #fde8ce, 16px radius, 32px padding). Text 'Applicant tracking system' using Proxima Nova, size 16px, weight 700, color #0f161e. Use an image of a person (16px radius).
-
-## Similar Brands
-
-- **Rippling** — Clean SaaS UI with strong typography and a clear accent color, often featuring human elements in product context.
-- **Gusto** — Similar light, approachable aesthetic for HR/payroll, utilizing distinct, soft background colors within content blocks.
-- **BambooHR** — Employs a clean layout, clear hierarchy, and uses color strategically for accents and calls to action against a predominantly light background.
-- **Greenhouse** — Focus on clean, functional interfaces with distinct branded colors for interactive elements and clear content segmentation.
-
-## Quick Start
-
-### CSS Custom Properties
-
-```css
-:root {
-  /* Colors */
-  --color-canvas-porcelain: #fff5ee;
-  --color-white: #ffffff;
-  --color-midnight-ink: #0f161e;
-  --color-harbor-mist: #333942;
-  --color-forest-canopy: #012620;
-  --color-deep-teal: #004038;
-  --color-fresh-teal: #00f5dc;
-  --gradient-fresh-teal: linear-gradient(90deg, rgb(0, 245, 220), rgb(213, 255, 77) 48.5%, rgb(183, 115, 255));
-  --color-muted-sage: #00544c;
-  --color-soft-peach: #fde8ce;
-  --color-muted-mandarin: #ffdcbf;
-  --color-sky-haze: #bee9f4;
-  --color-lime-glow: #d5ff4d;
-  --color-spring-bud: #7edcaf;
-
-  /* Typography — Font Families */
-  --font-proxima-nova: 'Proxima Nova', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-source-serif-pro: 'Source Serif Pro', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-
-  /* Typography — Scale */
-  --text-body-sm: 16px;
-  --leading-body-sm: 1.5;
-  --text-body: 18px;
-  --leading-body: 1.5;
-  --text-subheading: 20px;
-  --leading-subheading: 1.25;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.22;
-  --text-heading: 32px;
-  --leading-heading: 1.17;
-  --text-heading-lg: 56px;
-  --leading-heading-lg: 1.13;
-  --text-display: 72px;
-  --leading-display: 1;
-
-  /* Typography — Weights */
-  --font-weight-regular: 400;
-  --font-weight-bold: 700;
-
-  /* Spacing */
-  --spacing-unit: 8px;
-  --spacing-8: 8px;
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-64: 64px;
-  --spacing-88: 88px;
-  --spacing-104: 104px;
-
-  /* Layout */
-  --section-gap: 32px;
-  --card-padding: 32px;
-  --element-gap: 8px;
-
-  /* Border Radius */
-  --radius-lg: 8px;
-  --radius-2xl: 16px;
-  --radius-3xl: 25px;
-
-  /* Named Radii */
-  --radius-cards: 16px;
-  --radius-badges: 25px;
-  --radius-buttons: 16px;
-  --radius-navigation: 8px;
-
-  /* Surfaces */
-  --surface-canvas-porcelain: #fff5ee;
-  --surface-white: #ffffff;
-  --surface-soft-peach: #fde8ce;
-  --surface-muted-mandarin: #ffdcbf;
-  --surface-sky-haze: #bee9f4;
-}
-```
-
-### Tailwind v4
-
-```css
-@theme {
-  /* Colors */
-  --color-canvas-porcelain: #fff5ee;
-  --color-white: #ffffff;
-  --color-midnight-ink: #0f161e;
-  --color-harbor-mist: #333942;
-  --color-forest-canopy: #012620;
-  --color-deep-teal: #004038;
-  --color-fresh-teal: #00f5dc;
-  --color-muted-sage: #00544c;
-  --color-soft-peach: #fde8ce;
-  --color-muted-mandarin: #ffdcbf;
-  --color-sky-haze: #bee9f4;
-  --color-lime-glow: #d5ff4d;
-  --color-spring-bud: #7edcaf;
-
-  /* Typography */
-  --font-proxima-nova: 'Proxima Nova', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-source-serif-pro: 'Source Serif Pro', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-
-  /* Typography — Scale */
-  --text-body-sm: 16px;
-  --leading-body-sm: 1.5;
-  --text-body: 18px;
-  --leading-body: 1.5;
-  --text-subheading: 20px;
-  --leading-subheading: 1.25;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.22;
-  --text-heading: 32px;
-  --leading-heading: 1.17;
-  --text-heading-lg: 56px;
-  --leading-heading-lg: 1.13;
-  --text-display: 72px;
-  --leading-display: 1;
-
-  /* Spacing */
-  --spacing-8: 8px;
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-64: 64px;
-  --spacing-88: 88px;
-  --spacing-104: 104px;
-
-  /* Border Radius */
-  --radius-lg: 8px;
-  --radius-2xl: 16px;
-  --radius-3xl: 25px;
-}
-```
