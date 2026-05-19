@@ -8,7 +8,7 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-[var(--color-deep-teal)] text-[var(--color-on-primary)] hover:bg-[var(--color-forest-canopy)]",
+        primary: "bg-[var(--color-deep-teal)] text-white hover:bg-[var(--color-forest-canopy)]",
         secondary:
           "border border-[var(--color-deep-teal)] bg-transparent text-[var(--color-deep-teal)] hover:bg-[var(--color-soft-peach)]",
         ghost: "bg-transparent text-[var(--color-text)] hover:bg-[var(--color-soft-peach)]",
@@ -27,7 +27,7 @@ export const buttonVariants = cva(
   },
 );
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {}
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> { }
 
 export function Button({ className, variant, ...props }: ButtonProps) {
   return <button className={cn(buttonVariants({ variant }), className)} {...props} />;
