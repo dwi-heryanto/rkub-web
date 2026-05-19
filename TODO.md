@@ -1,9 +1,9 @@
 # RKUB Web Progress Tracker
 
 ## Summary
-- Total tracked tasks: **16**
+- Total tracked tasks: **17**
 - Completed: **10**
-- Remaining: **6**
+- Remaining: **7**
 
 ## Tasks
 - [x] Apply DESIGN.md color palette and typography base tokens
@@ -20,5 +20,6 @@
 - [ ] Replace fallback seed content with fully managed Payload CMS content in production
 - [ ] Validate Supabase search ranking and typo tolerance against real catalog data
 - [ ] Continue migrating remaining handmade UI components to shadcn/ui primitives (cards, buttons, inputs, tabs)
+- [ ] Audit and either migrate/remove unused handmade UI helper components (`ui/chip`) to keep primitive usage consistent
 - [ ] Add optional light/dark theme changer (non-priority)
 - [ ] Finalize launch checklist (analytics verification, accessibility pass, production QA)

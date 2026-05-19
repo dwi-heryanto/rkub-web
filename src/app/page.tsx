@@ -151,10 +151,10 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="rounded-[var(--radius-card)] border border-[--color-border] bg-[--color-surface] p-6">
+      <Card>
         <h2 className="text-xl font-semibold">{content.map.title}</h2>
         <p className="mt-2 text-sm text-[--color-text-muted]">{content.map.description}</p>
-      </section>
+      </Card>
     </div>
   );
 }
