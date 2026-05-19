@@ -20,8 +20,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {gscVerification ? <meta name="google-site-verification" content={gscVerification} /> : null}
         <script
           dangerouslySetInnerHTML={{
-            __html:
-              "try{var t=localStorage.getItem('rkub-theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.dataset.theme='dark'}}catch(e){}",
+            __html: `
+              try {
+                const theme = localStorage.getItem("rkub-tailoring-theme");
+                if (theme === "light" || theme === "dark") {
+                  document.documentElement.dataset.theme = theme;
+                } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                  document.documentElement.dataset.theme = "dark";
+                }
+              } catch (error) {
+                // ignore storage access issues in restricted browsers
+              }
+            `,
           }}
         />
       </head>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
-const STORAGE_KEY = "rkub-theme";
+const STORAGE_KEY = "rkub-tailoring-theme";
 
 type Theme = "light" | "dark";
 
@@ -39,7 +39,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       onClick={toggleTheme}
       aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
     >
-      Theme
+      Toggle theme
     </Button>
   );
 }
