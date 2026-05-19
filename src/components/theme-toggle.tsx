@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
@@ -43,10 +42,8 @@ export function ThemeToggle({ className }: { className?: string }) {
       setTheme(resolveCurrentTheme());
     };
 
-    const observer = new MutationObserver((mutations) => {
-      if (mutations.some((mutation) => mutation.attributeName === "data-theme")) {
-        syncTheme();
-      }
+    const observer = new MutationObserver(() => {
+      syncTheme();
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
