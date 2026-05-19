@@ -59,7 +59,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4">
-          <div className="overflow-hidden rounded-[var(--radius-card)] bg-[--color-soft-peach]">
+          <Card className="overflow-hidden border-0 bg-[--color-soft-peach] p-0">
             <Image
               src={product.image}
               alt={product.name}
@@ -69,10 +69,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               priority
               sizes="(max-width: 1024px) 100vw, 60vw"
             />
-          </div>
+          </Card>
           <div className="grid gap-3 sm:grid-cols-2">
             {product.gallery.map((image) => (
-              <div key={image} className="overflow-hidden rounded-[var(--radius-card)] bg-[--color-muted-mandarin]">
+              <Card key={image} className="overflow-hidden border-0 bg-[--color-muted-mandarin] p-0">
                 <Image
                   src={image}
                   alt={`${product.name} preview`}
@@ -82,11 +82,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   loading="lazy"
                   sizes="(max-width: 1024px) 50vw, 25vw"
                 />
-              </div>
+              </Card>
             ))}
           </div>
         </div>
-        <aside className="space-y-4 rounded-[var(--radius-card)] border border-[--color-border] bg-[--color-surface] p-6">
+        <Card className="space-y-4 p-6">
           <p className="text-xs font-semibold uppercase tracking-wide text-[--color-deep-teal]">{product.category.replace(/-/g, " ")}</p>
           <h1 className="text-2xl font-bold">{product.name}</h1>
           <div className="flex flex-wrap gap-2">
@@ -107,7 +107,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <WhatsAppButton url={whatsappUrl} location="product_detail" productName={product.name} className="w-full">
             Ask via WhatsApp
           </WhatsAppButton>
-        </aside>
+        </Card>
       </div>
 
       {related.length ? (

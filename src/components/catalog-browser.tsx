@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { ProductCard } from "@/components/product-card";
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -154,8 +155,8 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
         {suggestions.length ? (
           <ul className="mt-3 flex flex-wrap gap-2">
             {suggestions.map((suggestion) => (
-              <li key={suggestion} className="rounded-[var(--radius-pill)] bg-[--color-sky-haze] px-3 py-1 text-xs text-[--color-forest-canopy]">
-                {suggestion}
+              <li key={suggestion}>
+                <Badge variant="suggestion">{suggestion}</Badge>
               </li>
             ))}
           </ul>
