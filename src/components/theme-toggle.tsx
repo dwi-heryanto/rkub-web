@@ -35,7 +35,7 @@ function resolveCurrentTheme(): Theme {
 
 export function ThemeToggle({ className }: { className?: string }) {
   const [theme, setTheme] = useState<Theme>(() => resolveCurrentTheme());
-  const actionLabel = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+  const actionLabel = theme === "dark" ? "light" : "dark";
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof document === "undefined") {
@@ -75,10 +75,10 @@ export function ThemeToggle({ className }: { className?: string }) {
       variant="secondary"
       className={className}
       onClick={toggleTheme}
-      aria-label={actionLabel}
+      aria-label={`Current theme: ${theme}. Switch to ${actionLabel} mode`}
       suppressHydrationWarning
     >
-      {actionLabel}
+      Toggle theme
     </Button>
   );
 }
