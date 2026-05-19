@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 
 import { ProductCard } from "@/components/product-card";
-import { Chip } from "@/components/ui/chip";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Toggle } from "@/components/ui/toggle";
 import { autocomplete, searchProducts } from "@/lib/search";
 import { trackEvent } from "@/lib/analytics";
 import type { Category, Product } from "@/types/catalog";
@@ -74,21 +74,26 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
           <label className="space-y-2 text-sm font-medium text-[--color-text]">
             Category
             <Select
-              value={category ?? ""}
-              onChange={(event) => {
-                const value = event.target.value || undefined;
+              value={category ?? "all"}
+              onValueChange={(nextValue) => {
+                const value = nextValue === "all" ? undefined : nextValue;
                 setCategory(value as Product["category"] | undefined);
                 setAttributeFilters({});
                 setActiveTags([]);
                 trackEvent("category_engagement", { category: value || "all" });
               }}
             >
-              <option value="">All categories</option>
-              {categories.map((item) => (
-                <option key={item.slug} value={item.slug}>
-                  {item.name}
-                </option>
-              ))}
+              <SelectTrigger>
+                <SelectValue placeholder="All categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All categories</SelectItem>
+                {categories.map((item) => (
+                  <SelectItem key={item.slug} value={item.slug}>
+                    {item.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
             </Select>
           </label>
         </div>
@@ -97,15 +102,15 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
             <p className="text-xs font-semibold uppercase tracking-wide text-[--color-text-muted]">Popular tags</p>
             <div className="flex flex-wrap gap-2">
               {availableTags.map((tag) => (
-                <Chip
+                <Toggle
                   key={tag}
-                  isActive={activeTags.includes(tag)}
-                  onClick={() => {
+                  pressed={activeTags.includes(tag)}
+                  onPressedChange={() => {
                     setActiveTags((prev) => (prev.includes(tag) ? prev.filter((item) => item !== tag) : [...prev, tag]));
                   }}
                 >
                   {tag}
-                </Chip>
+                </Toggle>
               ))}
             </div>
           </div>
@@ -116,9 +121,9 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
               <label key={definition.key} className="space-y-2 text-xs font-semibold uppercase tracking-wide text-[--color-text-muted]">
                 {definition.label}
                 <Select
-                  value={attributeFilters[definition.key] ?? ""}
-                  onChange={(event) => {
-                    const value = event.target.value;
+                  value={attributeFilters[definition.key] ?? "all"}
+                  onValueChange={(nextValue) => {
+                    const value = nextValue === "all" ? "" : nextValue;
                     setAttributeFilters((prev) => {
                       if (!value) {
                         const rest = { ...prev };
@@ -129,12 +134,17 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
                     });
                   }}
                 >
-                  <option value="">All</option>
-                  {options.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  <SelectTrigger>
+                    <SelectValue placeholder="All" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    {options.map((option) => (
+                      <SelectItem key={option} value={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
                 </Select>
               </label>
             ))}
