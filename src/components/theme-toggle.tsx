@@ -18,15 +18,11 @@ function resolveInitialTheme(): Theme {
 }
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [ready, setReady] = useState(false);
+  const [theme, setTheme] = useState<Theme>(() => resolveInitialTheme());
 
   useEffect(() => {
-    const initialTheme = resolveInitialTheme();
-    setTheme(initialTheme);
-    document.documentElement.dataset.theme = initialTheme;
-    setReady(true);
-  }, []);
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   const toggleTheme = () => {
     const nextTheme = theme === "light" ? "dark" : "light";
@@ -36,8 +32,14 @@ export function ThemeToggle({ className }: { className?: string }) {
   };
 
   return (
-    <Button type="button" variant="secondary" className={className} onClick={toggleTheme} disabled={!ready}>
-      {theme === "light" ? "Dark mode" : "Light mode"}
+    <Button
+      type="button"
+      variant="secondary"
+      className={className}
+      onClick={toggleTheme}
+      aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+    >
+      Theme
     </Button>
   );
 }
