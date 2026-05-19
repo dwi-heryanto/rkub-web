@@ -4,7 +4,7 @@
   --color-bg: #fff5ee;
   --color-surface: #ffffff;
   --color-text: #0f161e;
-  --color-text-muted: #4a5663;
+  --color-text-muted: #333942;
   --color-deep-teal: #004038;
   --color-forest-canopy: #012620;
   --color-soft-peach: #fde8ce;
@@ -13,7 +13,7 @@
   --color-border: rgba(15, 22, 30, 0.08);
   --color-border-strong: rgba(15, 22, 30, 0.15);
   --radius-card: 16px;
-  --radius-pill: 999px;
+  --radius-pill: 25px;
   --radius-input: 14px;
   --shadow-soft: 0 12px 24px rgba(15, 22, 30, 0.08);
 }

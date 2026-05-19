@@ -9,8 +9,9 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-[--color-deep-teal] text-white hover:bg-[--color-forest-canopy]",
-        secondary: "bg-[--color-soft-peach] text-[--color-text] hover:bg-[--color-muted-mandarin]",
-        ghost: "bg-white text-[--color-deep-teal] hover:bg-[--color-soft-peach]",
+        secondary:
+          "border border-[--color-deep-teal] bg-transparent text-[--color-deep-teal] hover:bg-[--color-soft-peach]",
+        ghost: "bg-transparent text-[--color-text] hover:bg-[--color-soft-peach]",
       },
     },
     defaultVariants: {

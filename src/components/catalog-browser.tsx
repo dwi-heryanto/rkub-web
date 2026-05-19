@@ -121,7 +121,8 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
                     const value = event.target.value;
                     setAttributeFilters((prev) => {
                       if (!value) {
-                        const { [definition.key]: _removed, ...rest } = prev;
+                        const rest = { ...prev };
+                        delete rest[definition.key];
                         return rest;
                       }
                       return { ...prev, [definition.key]: value };
