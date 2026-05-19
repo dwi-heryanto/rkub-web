@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -16,17 +17,18 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[--color-border] bg-[--color-bg]/90 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-lg font-bold text-[--color-deep-teal]">
+        <Link href="/" className="text-lg font-bold text-[var(--color-deep-teal)]">
           RKUB Tailoring
         </Link>
         <div className="hidden items-center gap-4 sm:flex">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-[--color-text] hover:text-[--color-deep-teal]">
+            <Link key={link.href} href={link.href} className="text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-deep-teal)]">
               {link.label}
             </Link>
           ))}
+          <ThemeToggle />
           <Link href="/catalog">
             <Button variant="secondary">Browse</Button>
           </Link>
@@ -44,7 +46,7 @@ export function Navbar() {
       </nav>
       <div
         className={cn(
-          "border-t border-[--color-border] bg-[--color-bg] px-4 py-4 sm:hidden",
+          "border-t border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-4 sm:hidden",
           open ? "block" : "hidden",
         )}
       >
@@ -53,12 +55,13 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-[--color-text]"
+              className="text-sm font-medium text-[var(--color-text)]"
               onClick={() => setOpen(false)}
             >
               {link.label}
             </Link>
           ))}
+          <ThemeToggle className="w-full" />
           <Link href="/catalog" onClick={() => setOpen(false)}>
             <Button variant="secondary" className="w-full">
               Browse Catalog

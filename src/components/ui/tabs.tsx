@@ -15,11 +15,11 @@ function TabsList({ className, ...props }: ComponentProps<typeof TabsPrimitive.L
 
 function TabsTrigger({ className, ...props }: ComponentProps<typeof TabsPrimitive.Trigger>) {
   return (
-    <TabsPrimitive.Trigger
-      className={cn(
-        "rounded-[var(--radius-pill)] border border-[--color-border] bg-white px-4 py-2 text-sm font-semibold text-[--color-text] transition-colors hover:border-[--color-deep-teal] data-[state=active]:border-[--color-deep-teal] data-[state=active]:bg-[--color-deep-teal] data-[state=active]:text-white",
-        className,
-      )}
+      <TabsPrimitive.Trigger
+        className={cn(
+          "rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-deep-teal)] data-[state=active]:border-[var(--color-deep-teal)] data-[state=active]:bg-[var(--color-deep-teal)] data-[state=active]:text-[var(--color-on-primary)]",
+          className,
+        )}
       {...props}
     />
   );
@@ -29,7 +29,7 @@ function TabsContent({ className, ...props }: ComponentProps<typeof TabsPrimitiv
   return (
     <TabsPrimitive.Content
       className={cn(
-        "rounded-[var(--radius-card)] border border-[--color-border] bg-[--color-surface] p-8",
+        "rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-8",
         className,
       )}
       {...props}
