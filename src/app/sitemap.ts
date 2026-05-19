@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...products.map((product) => `/products/${product.slug}`),
   ].map((path) => ({
     url: `${baseUrl}${path}`,
-    changeFrequency: "weekly",
     priority: path === "" ? 1 : 0.7,
   }));
 }

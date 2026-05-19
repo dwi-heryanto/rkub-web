@@ -7,7 +7,7 @@ export const payloadConfig = {
     user: "users",
   },
   db: {
-    adapter: "postgres",
-    url: process.env.DATABASE_URL || "",
+    provider: "postgres",
+    url: process.env.DATABASE_URL,
   },
 };

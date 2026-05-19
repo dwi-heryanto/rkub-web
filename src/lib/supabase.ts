@@ -7,7 +7,18 @@ export function getSupabaseConfig() {
   };
 }
 
+export function createCatalogFtsWhereClause() {
+  return "to_tsvector('simple', coalesce(name, '') || ' ' || coalesce(array_to_string(aliases, ' '), '') || ' ' || coalesce(array_to_string(tags, ' '), '') || ' ' || coalesce(category, '')) @@ to_tsquery('simple', ?)";
+}
+
+export function createCatalogFtsSqlParam(query: string) {
+  return createPostgresSearchQuery(query);
+}
+
 export function createCatalogFtsSql(query: string) {
   const tsQuery = createPostgresSearchQuery(query);
-  return `to_tsvector('simple', coalesce(name, '') || ' ' || coalesce(array_to_string(aliases, ' '), '') || ' ' || coalesce(array_to_string(tags, ' '), '') || ' ' || coalesce(category, '')) @@ to_tsquery('simple', '${tsQuery}')`;
+  return {
+    whereClause: createCatalogFtsWhereClause(),
+    params: [tsQuery],
+  };
 }

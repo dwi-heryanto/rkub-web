@@ -44,7 +44,14 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
         <aside className="space-y-4 rounded-3xl border border-black/5 bg-white p-6">
           <p className="text-xs font-semibold uppercase tracking-wide text-[--color-deep-teal]">{product.category.replace(/-/g, " ")}</p>
           <h1 className="text-2xl font-bold">{product.name}</h1>
-          <p className="text-sm text-[--color-text-muted]">Aliases: {product.aliases.join(", ")}</p>
+          <div className="text-sm text-[--color-text-muted]">
+            <p className="font-medium text-[--color-text]">Aliases</p>
+            <ul className="mt-1 list-inside list-disc">
+              {product.aliases.map((alias) => (
+                <li key={alias}>{alias}</li>
+              ))}
+            </ul>
+          </div>
           <p className="text-lg font-semibold">{product.unitPrice}</p>
           <p className="text-sm leading-6 text-[--color-text-muted]">{product.description}</p>
           <ul className="space-y-2 text-sm">

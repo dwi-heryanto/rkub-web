@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FALLBACK_PHONE_NUMBER } from "@/lib/whatsapp";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rkub-web.example.com";
 
@@ -39,7 +40,7 @@ export function createLocalBusinessJsonLd() {
     name: "RKUB Family Tailoring Store",
     description: "Tailoring equipment, fabrics, accessories, rentals, and custom tailoring services.",
     areaServed: "Indonesia",
-    telephone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+628123456789",
+    telephone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || `+${FALLBACK_PHONE_NUMBER}`,
     url: siteUrl,
   };
 }

@@ -1,5 +1,9 @@
 import type { Product } from "@/types/catalog";
 
+const MAX_LENGTH_DIFFERENCE = 3;
+const MAX_EDIT_DISTANCE = 2;
+const MAX_TYPO_TOKEN_LENGTH = 64;
+
 function normalize(value: string) {
   return value.toLowerCase().trim();
 }
@@ -34,7 +38,11 @@ export function searchProducts(products: Product[], query: string, category?: Pr
     .map((product) => {
       const tokens = searchableTokens(product);
       const exact = tokens.some((token) => token.includes(q));
-      const typoMatch = tokens.some((token) => Math.abs(token.length - q.length) <= 3 && levenshtein(token, q) <= 2);
+      const typoMatch = tokens.some((token) => {
+        if (token.length > MAX_TYPO_TOKEN_LENGTH || q.length > MAX_TYPO_TOKEN_LENGTH) return false;
+        if (Math.abs(token.length - q.length) > MAX_LENGTH_DIFFERENCE) return false;
+        return levenshtein(token, q) <= MAX_EDIT_DISTANCE;
+      });
       return {
         product,
         score: exact ? 2 : typoMatch ? 1 : 0,

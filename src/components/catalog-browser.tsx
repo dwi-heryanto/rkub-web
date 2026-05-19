@@ -10,10 +10,10 @@ import type { Product } from "@/types/catalog";
 
 export function CatalogBrowser({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<Product["category"] | "">("");
+  const [category, setCategory] = useState<Product["category"] | undefined>(undefined);
 
   const suggestions = useMemo(() => autocomplete(products, query), [products, query]);
-  const filtered = useMemo(() => searchProducts(products, query, category || undefined), [products, query, category]);
+  const filtered = useMemo(() => searchProducts(products, query, category), [products, query, category]);
 
   return (
     <section className="space-y-5">
@@ -22,6 +22,7 @@ export function CatalogBrowser({ products }: { products: Product[] }) {
           <label className="space-y-2 text-sm font-medium text-[--color-text]">
             Search by name, alias, tags, or category
             <input
+              type="search"
               className="w-full rounded-2xl border border-black/10 bg-[--color-bg] px-4 py-3 text-sm focus:border-[--color-deep-teal] focus:outline-none"
               value={query}
               onChange={(event) => {
@@ -38,10 +39,11 @@ export function CatalogBrowser({ products }: { products: Product[] }) {
             Category
             <select
               className="w-full rounded-2xl border border-black/10 bg-[--color-bg] px-4 py-3 text-sm focus:border-[--color-deep-teal] focus:outline-none"
-              value={category}
+              value={category ?? ""}
               onChange={(event) => {
-                setCategory(event.target.value as Product["category"] | "");
-                trackEvent("category_engagement", { category: event.target.value || "all" });
+                const value = event.target.value || undefined;
+                setCategory(value as Product["category"] | undefined);
+                trackEvent("category_engagement", { category: value || "all" });
               }}
             >
               <option value="">All categories</option>
