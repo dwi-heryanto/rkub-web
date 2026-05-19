@@ -540,3 +540,11 @@ The final product should feel:
 * optimized for product browsing
 * optimized for WhatsApp conversion
 * maintainable for family business operations
+# Implementation Notes (2026-05-19)
+
+- Fixed Next.js 16 dynamic API usage in `/products/[slug]` by unwrapping async `params` before reading `slug`.
+- Fixed cross-page anchor navigation: navbar `Services` and `FAQ` now point to `/#services` and `/#faq`.
+- Introduced shadcn/ui baseline configuration via `components.json`.
+- Migrated catalog filters from handmade controls to shadcn-compatible `Select` (Radix) and `Toggle` components.
+- Remaining migration work is tracked in `TODO.md` under the shadcn rework task.
+

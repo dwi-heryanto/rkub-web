@@ -6,6 +6,7 @@ A minimalist, mobile-first catalog website for a family tailoring store.
 
 - Next.js (App Router, TypeScript)
 - Tailwind CSS
+- shadcn/ui (Radix-based component primitives)
 - Framer Motion
 - Payload CMS schema stubs
 - Supabase-hosted Postgres (via Payload CMS) with Cloudinary-ready abstractions
@@ -19,6 +20,7 @@ A minimalist, mobile-first catalog website for a family tailoring store.
 - SEO foundations: metadata, OpenGraph, robots.txt, sitemap.xml, local business schema
 - Analytics script hooks for Google Analytics and Microsoft Clarity
 - Storage provider abstraction for Cloudinary/S3/R2 migration readiness
+- Stable section navigation from any page (`Services` and `FAQ` links route to homepage anchors)
 
 ## Environment Variables
 
@@ -48,6 +50,12 @@ npm run dev
 npm run lint
 npm run build
 ```
+
+## UI Components (shadcn/ui)
+
+- Project-level shadcn config is available in `/components.json`.
+- Current catalog filters use shadcn-style Radix Select and Toggle primitives.
+- To add more shadcn components later, use the shadcn CLI and keep outputs in `src/components/ui`.
 
 ## Payload CMS
 
