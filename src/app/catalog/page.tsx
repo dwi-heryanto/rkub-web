@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { CatalogBrowser } from "@/components/catalog-browser";
-import { products } from "@/data/products";
+import { getCategories, getProducts } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata(
@@ -10,14 +10,16 @@ export const metadata: Metadata = createMetadata(
   "/catalog",
 );
 
-export default function CatalogPage() {
+export default async function CatalogPage() {
+  const [products, categories] = await Promise.all([getProducts(), getCategories()]);
+
   return (
     <div className="space-y-6">
       <header>
         <h1 className="text-3xl font-bold">Product Catalog</h1>
         <p className="mt-2 text-sm text-[--color-text-muted]">Search by product name, aliases, tags, and categories with typo-aware matching.</p>
       </header>
-      <CatalogBrowser products={products} />
+      <CatalogBrowser products={products} categories={categories} />
     </div>
   );
 }

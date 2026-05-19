@@ -22,5 +22,20 @@ export const ProductsCollection = {
       ],
     },
     dynamicAttributesField,
+    {
+      name: "related",
+      type: "relationship",
+      relationTo: "products",
+      hasMany: true,
+    },
+    {
+      name: "seo",
+      type: "group",
+      fields: [
+        { name: "title", type: "text" },
+        { name: "description", type: "textarea" },
+        { name: "image", type: "text" },
+      ],
+    },
   ],
 };

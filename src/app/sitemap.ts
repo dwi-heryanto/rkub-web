@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 
-import { products } from "@/data/products";
+import { getProducts } from "@/lib/cms";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const products = await getProducts();
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rkub-web.example.com";
 
   return [

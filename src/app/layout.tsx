@@ -1,20 +1,22 @@
-import type { Metadata } from "next";
-
 import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { Navbar } from "@/components/navbar";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { getSiteSettings } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 
 import "./globals.css";
 
-export const metadata: Metadata = createMetadata(
-  "RKUB Family Tailoring Store",
-  "Minimalist mobile-first catalog for tailoring tools, fabrics, accessories, rentals, and custom tailoring services.",
-);
+export async function generateMetadata() {
+  const settings = await getSiteSettings();
+  return createMetadata(settings.seo.title, settings.seo.description, "/", settings.seo.image);
+}
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const gscVerification = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
+
   return (
     <html lang="en" className="h-full antialiased">
+      <head>{gscVerification ? <meta name="google-site-verification" content={gscVerification} /> : null}</head>
       <body className="min-h-full bg-[--color-bg] text-[--color-text]">
         <AnalyticsScripts />
         <Navbar />

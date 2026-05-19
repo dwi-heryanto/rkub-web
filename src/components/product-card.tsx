@@ -8,10 +8,21 @@ import type { Product } from "@/types/catalog";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <motion.article whileHover={{ y: -2 }} transition={{ duration: 0.15 }} className="rounded-2xl border border-black/5 bg-white p-4">
+    <motion.article
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.15 }}
+      className="rounded-[var(--radius-card)] border border-[--color-border] bg-[--color-surface] p-4"
+    >
       <Link href={`/products/${product.slug}`} className="space-y-3">
-        <div className="overflow-hidden rounded-2xl bg-[--color-soft-peach]">
-          <Image src={product.image} alt={product.name} width={704} height={396} className="h-44 w-full object-cover" />
+        <div className="overflow-hidden rounded-[var(--radius-card)] bg-[--color-soft-peach]">
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={704}
+            height={396}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className="h-44 w-full object-cover"
+          />
         </div>
         <div>
           <h3 className="text-base font-semibold text-[--color-text]">{product.name}</h3>

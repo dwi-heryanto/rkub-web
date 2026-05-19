@@ -2,18 +2,34 @@
 
 :root {
   --color-bg: #fff5ee;
+  --color-surface: #ffffff;
   --color-text: #0f161e;
-  --color-text-muted: #4a5663;
+  --color-text-muted: #333942;
   --color-deep-teal: #004038;
   --color-forest-canopy: #012620;
   --color-soft-peach: #fde8ce;
   --color-muted-mandarin: #ffdcbf;
   --color-sky-haze: #bee9f4;
+  --color-border: rgba(15, 22, 30, 0.08);
+  --color-border-strong: rgba(15, 22, 30, 0.15);
+  --radius-card: 16px;
+  --radius-pill: 25px;
+  --radius-input: 14px;
+  --shadow-soft: 0 12px 24px rgba(15, 22, 30, 0.08);
 }
 
 @theme inline {
   --color-background: var(--color-bg);
   --color-foreground: var(--color-text);
+  --color-surface: var(--color-surface);
+  --color-muted: var(--color-soft-peach);
+  --color-accent: var(--color-muted-mandarin);
+  --color-primary: var(--color-deep-teal);
+  --color-secondary: var(--color-sky-haze);
+  --color-border: var(--color-border);
+  --radius-card: var(--radius-card);
+  --radius-pill: var(--radius-pill);
+  --radius-input: var(--radius-input);
 }
 
 * {
@@ -31,6 +47,17 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 a {

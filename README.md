@@ -8,7 +8,7 @@ A minimalist, mobile-first catalog website for a family tailoring store.
 - Tailwind CSS
 - Framer Motion
 - Payload CMS schema stubs
-- Supabase/Cloudinary-ready abstractions
+- Supabase-hosted Postgres (via Payload CMS) with Cloudinary-ready abstractions
 
 ## Key Features
 
@@ -27,10 +27,16 @@ NEXT_PUBLIC_SITE_URL=
 NEXT_PUBLIC_WHATSAPP_NUMBER=
 NEXT_PUBLIC_GA_ID=
 NEXT_PUBLIC_CLARITY_ID=
+NEXT_PUBLIC_GSC_VERIFICATION=
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_PAYLOAD_URL=
+PAYLOAD_URL=
 STORAGE_PROVIDER=cloudinary
 CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_FOLDER=rkub
 DATABASE_URL=
 ```
 
@@ -42,3 +48,13 @@ npm run dev
 npm run lint
 npm run build
 ```
+
+## Payload CMS
+
+- Payload admin is expected at `/admin` within the same Next.js deployment.
+- REST API is expected at `/api` (set `PAYLOAD_URL` / `NEXT_PUBLIC_PAYLOAD_URL` when hosted separately).
+- Supabase is used only as the managed Postgres host for Payload; apply SQL in `supabase/migrations` to enable FTS indexes.
+
+## Cloudinary Signed Uploads
+
+The upload API route (`/api/uploads`) returns signed Cloudinary parameters. Provide `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET` to enable signing.
