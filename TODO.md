@@ -1,9 +1,9 @@
 # RKUB Web Progress Tracker
 
 ## Summary
-- Total tracked tasks: **17**
-- Completed: **11**
-- Remaining: **6**
+- Total tracked tasks: **21**
+- Completed: **12**
+- Remaining: **9**
 
 ## Tasks
 - [x] Apply DESIGN.md color palette and typography base tokens
@@ -16,6 +16,7 @@
 - [x] Fix navbar anchor flow so Services/FAQ always route to homepage sections
 - [x] Introduce shadcn/ui baseline (`components.json`) and migrate catalog filters to shadcn Select/Toggle
 - [x] Align key controls with DESIGN.md tokens and migrate key handmade controls to UI primitives (FAB, mobile menu toggle, retry actions, product card wrapper)
+- [x] P0 redesign rental catalog screen from Stitch reference (Modern Tailoring Digital Catalog)
 - [ ] Remove remaining style mismatches against latest DESIGN.md updates
 - [ ] Replace fallback seed content with fully managed Payload CMS content in production
 - [ ] Validate Supabase search ranking and typo tolerance against real catalog data
@@ -23,3 +24,7 @@
 - [ ] Audit and either migrate/remove unused handmade UI helper components (`ui/chip`) to keep primitive usage consistent
 - [x] Add optional light/dark theme changer (non-priority)
 - [ ] Finalize launch checklist (analytics verification, accessibility pass, production QA)
+
+- [ ] Run full-site axe audit and produce report
+- [ ] Add CI job to run Playwright + axe on PRs
+- [ ] Open PR for primary button text change and add dev guidance note
