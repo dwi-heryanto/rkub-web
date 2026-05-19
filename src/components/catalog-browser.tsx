@@ -156,7 +156,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
           <ul className="mt-3 flex flex-wrap gap-2">
             {suggestions.map((suggestion) => (
               <li key={suggestion}>
-                <Badge className="bg-[--color-sky-haze] font-medium text-[--color-forest-canopy]">{suggestion}</Badge>
+                <Badge variant="suggestion">{suggestion}</Badge>
               </li>
             ))}
           </ul>
