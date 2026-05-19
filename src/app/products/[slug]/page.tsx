@@ -1,72 +1,134 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import { products } from "@/data/products";
+import { ProductCard } from "@/components/product-card";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { WhatsAppButton } from "@/components/whatsapp-button";
+import { getProductBySlug, getProducts, getRelatedProducts, getSiteSettings } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 import { createInquiryMessage, createWhatsAppUrl } from "@/lib/whatsapp";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const products = await getProducts();
   return products.map((product) => ({ slug: product.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const product = products.find((item) => item.slug === params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const product = await getProductBySlug(params.slug);
   if (!product) {
     return createMetadata("Product Not Found", "Product was not found.");
   }
-  return createMetadata(`${product.name} | RKUB`, product.description, `/products/${product.slug}`);
+  return createMetadata(`${product.name} | RKUB`, product.description, `/products/${product.slug}`, product.image);
 }
 
-export default function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = products.find((item) => item.slug === params.slug);
-
+export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
+  const product = await getProductBySlug(params.slug);
   if (!product) notFound();
+
+  const related = await getRelatedProducts(product);
+  const settings = await getSiteSettings();
 
   const whatsappUrl = createWhatsAppUrl(createInquiryMessage(product));
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.gallery,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "IDR",
+      price: product.unitPrice,
+      availability: "https://schema.org/InStock",
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://rkub-web.example.com"}/products/${product.slug}`,
+    },
+    brand: settings.siteName,
+  };
+
   return (
-    <article className="space-y-6">
+    <article className="space-y-8">
+      <Script id="product-jsonld" type="application/ld+json">
+        {JSON.stringify(productJsonLd)}
+      </Script>
+
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4">
-          <div className="overflow-hidden rounded-3xl bg-[--color-soft-peach]">
-            <Image src={product.image} alt={product.name} width={1200} height={800} className="w-full object-cover" priority />
+          <div className="overflow-hidden rounded-[var(--radius-card)] bg-[--color-soft-peach]">
+            <Image
+              src={product.image}
+              alt={product.name}
+              width={1200}
+              height={800}
+              className="w-full object-cover"
+              priority
+              sizes="(max-width: 1024px) 100vw, 60vw"
+            />
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {product.gallery.map((image) => (
-              <div key={image} className="overflow-hidden rounded-2xl bg-[--color-muted-mandarin]">
-                <Image src={image} alt={`${product.name} preview`} width={800} height={600} className="h-40 w-full object-cover" loading="lazy" />
+              <div key={image} className="overflow-hidden rounded-[var(--radius-card)] bg-[--color-muted-mandarin]">
+                <Image
+                  src={image}
+                  alt={`${product.name} preview`}
+                  width={800}
+                  height={600}
+                  className="h-40 w-full object-cover"
+                  loading="lazy"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />
               </div>
             ))}
           </div>
         </div>
-        <aside className="space-y-4 rounded-3xl border border-black/5 bg-white p-6">
+        <aside className="space-y-4 rounded-[var(--radius-card)] border border-[--color-border] bg-[--color-surface] p-6">
           <p className="text-xs font-semibold uppercase tracking-wide text-[--color-deep-teal]">{product.category.replace(/-/g, " ")}</p>
           <h1 className="text-2xl font-bold">{product.name}</h1>
-          <div className="text-sm text-[--color-text-muted]">
-            <p className="font-medium text-[--color-text]">Aliases</p>
-            <ul className="mt-1 list-inside list-disc">
-              {product.aliases.map((alias) => (
-                <li key={alias}>{alias}</li>
-              ))}
-            </ul>
+          <div className="flex flex-wrap gap-2">
+            {product.aliases.map((alias) => (
+              <Badge key={alias}>{alias}</Badge>
+            ))}
           </div>
           <p className="text-lg font-semibold">{product.unitPrice}</p>
           <p className="text-sm leading-6 text-[--color-text-muted]">{product.description}</p>
           <ul className="space-y-2 text-sm">
             {product.attributes.map((attribute) => (
-              <li key={attribute.key} className="flex justify-between gap-4 border-b border-black/5 pb-2">
+              <li key={attribute.key} className="flex justify-between gap-4 border-b border-[--color-border] pb-2">
                 <span className="font-medium">{attribute.label}</span>
                 <span>{attribute.value}</span>
               </li>
             ))}
           </ul>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer">
-            <Button className="w-full">Ask via WhatsApp</Button>
-          </a>
+          <WhatsAppButton url={whatsappUrl} location="product_detail" productName={product.name} className="w-full">
+            Ask via WhatsApp
+          </WhatsAppButton>
         </aside>
       </div>
+
+      {related.length ? (
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Related Products</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {related.map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Need a custom request?</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-[--color-text-muted]">
+            Share your design reference, measurements, and timeline. The RKUB team will reply with availability and next steps.
+          </p>
+        </CardContent>
+      </Card>
     </article>
   );
 }
