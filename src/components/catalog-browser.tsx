@@ -58,7 +58,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
     <section className="space-y-5">
       <Card>
         <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-          <label className="space-y-2 text-sm font-medium text-[--color-text]">
+          <label className="space-y-2 text-sm font-medium text-[var(--color-text)]">
             Search by name, alias, tags, or category
             <Input
               type="search"
@@ -73,7 +73,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
               placeholder="e.g. brokat, kebaya, beads"
             />
           </label>
-          <label className="space-y-2 text-sm font-medium text-[--color-text]">
+          <label className="space-y-2 text-sm font-medium text-[var(--color-text)]">
             Category
             <Select
               value={category ?? "all"}
@@ -101,7 +101,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
         </div>
         {availableTags.length ? (
           <div className="mt-4 space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[--color-text-muted]">Popular tags</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">Popular tags</p>
             <div className="flex flex-wrap gap-2">
               {availableTags.map((tag) => (
                 <Toggle
@@ -120,7 +120,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
         {attributeOptions.length ? (
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {attributeOptions.map(({ definition, options }) => (
-              <label key={definition.key} className="space-y-2 text-xs font-semibold uppercase tracking-wide text-[--color-text-muted]">
+              <label key={definition.key} className="space-y-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
                 {definition.label}
                 <Select
                   value={attributeFilters[definition.key] ?? "all"}
@@ -170,7 +170,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
           ))}
         </div>
       ) : (
-        <Card className="border-dashed border-[--color-border-strong] text-center text-sm text-[--color-text-muted]">
+        <Card className="border-dashed border-[var(--color-border-strong)] text-center text-sm text-[var(--color-text-muted)]">
           No matching products yet. Try another keyword or category.
         </Card>
       )}

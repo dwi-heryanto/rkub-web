@@ -8,8 +8,8 @@ export const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[--color-soft-peach] text-[--color-forest-canopy]",
-        suggestion: "bg-[--color-sky-haze] font-medium text-[--color-forest-canopy]",
+        default: "bg-[var(--color-soft-peach)] text-[var(--color-forest-canopy)]",
+        suggestion: "bg-[var(--color-sky-haze)] font-medium text-[var(--color-forest-canopy)]",
       },
     },
     defaultVariants: {

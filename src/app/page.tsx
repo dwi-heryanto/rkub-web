@@ -25,10 +25,10 @@ export default async function Home() {
         {JSON.stringify(localBusinessJsonLd)}
       </Script>
 
-      <Card className="border-0 bg-[--color-soft-peach] p-6 sm:p-10">
-        <p className="text-sm font-semibold uppercase tracking-wide text-[--color-deep-teal]">{content.hero.eyebrow}</p>
+      <Card className="border-0 bg-[var(--color-soft-peach)] p-6 sm:p-10">
+        <p className="text-sm font-semibold uppercase tracking-wide text-[var(--color-deep-teal)]">{content.hero.eyebrow}</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-5xl">{content.hero.title}</h1>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-[--color-text-muted]">{content.hero.description}</p>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--color-text-muted)]">{content.hero.description}</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href={content.hero.primaryCta.href}>
             <Button>{content.hero.primaryCta.label}</Button>
@@ -59,7 +59,7 @@ export default async function Home() {
       <section className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-2xl font-semibold">Featured Collections</h2>
-          <Link href="/catalog" className="text-sm font-semibold text-[--color-deep-teal]">
+          <Link href="/catalog" className="text-sm font-semibold text-[var(--color-deep-teal)]">
             View all
           </Link>
         </div>
@@ -86,7 +86,7 @@ export default async function Home() {
         <div className="grid gap-4 lg:grid-cols-3">
           {content.gallery.map((item) => (
             <Card key={item.title} className="overflow-hidden p-0">
-              <div className="bg-[--color-sky-haze]">
+              <div className="bg-[var(--color-sky-haze)]">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -114,7 +114,7 @@ export default async function Home() {
             <ul className="space-y-3 text-sm">
               {content.testimonials.map((item) => (
                 <li key={item.name}>
-                  <p className="text-[--color-text-muted]">“{item.quote}”</p>
+                  <p className="text-[var(--color-text-muted)]">“{item.quote}”</p>
                   <p className="mt-1 font-semibold">— {item.name}</p>
                 </li>
               ))}
@@ -130,7 +130,7 @@ export default async function Home() {
               {content.faqs.map((item) => (
                 <li key={item.question}>
                   <p className="font-semibold">{item.question}</p>
-                  <p className="text-[--color-text-muted]">{item.answer}</p>
+                  <p className="text-[var(--color-text-muted)]">{item.answer}</p>
                 </li>
               ))}
             </ul>
@@ -138,12 +138,12 @@ export default async function Home() {
         </Card>
       </section>
 
-      <Card className="border-0 bg-[--color-sky-haze] p-6 sm:p-8">
+      <Card className="border-0 bg-[var(--color-sky-haze)] p-6 sm:p-8">
         <div className="flex flex-wrap items-center gap-3">
           <Badge>WhatsApp Ready</Badge>
           <h2 className="text-xl font-semibold">{content.whatsappCta.title}</h2>
         </div>
-        <p className="mt-2 text-sm text-[--color-text-muted]">{content.whatsappCta.description}</p>
+        <p className="mt-2 text-sm text-[var(--color-text-muted)]">{content.whatsappCta.description}</p>
         <div className="mt-4">
           <a href={createWhatsAppUrl(content.whatsappCta.message)} target="_blank" rel="noreferrer">
             <Button>Ask via WhatsApp</Button>
@@ -153,7 +153,7 @@ export default async function Home() {
 
       <Card>
         <h2 className="text-xl font-semibold">{content.map.title}</h2>
-        <p className="mt-2 text-sm text-[--color-text-muted]">{content.map.description}</p>
+        <p className="mt-2 text-sm text-[var(--color-text-muted)]">{content.map.description}</p>
       </Card>
     </div>
   );

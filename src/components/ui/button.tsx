@@ -4,16 +4,16 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--color-deep-teal]/30 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-deep-teal)]/30 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary: "bg-[--color-deep-teal] text-white hover:bg-[--color-forest-canopy]",
+        primary: "bg-[var(--color-deep-teal)] text-[var(--color-on-primary)] hover:bg-[var(--color-forest-canopy)]",
         secondary:
-          "border border-[--color-deep-teal] bg-transparent text-[--color-deep-teal] hover:bg-[--color-soft-peach]",
-        ghost: "bg-transparent text-[--color-text] hover:bg-[--color-soft-peach]",
-        chip: "border border-[--color-border] bg-white text-[--color-text] hover:border-[--color-deep-teal]",
-        chipActive: "border border-[--color-deep-teal] bg-[--color-deep-teal] text-white",
+          "border border-[var(--color-deep-teal)] bg-transparent text-[var(--color-deep-teal)] hover:bg-[var(--color-soft-peach)]",
+        ghost: "bg-transparent text-[var(--color-text)] hover:bg-[var(--color-soft-peach)]",
+        chip: "border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] hover:border-[var(--color-deep-teal)]",
+        chipActive: "border border-[var(--color-deep-teal)] bg-[var(--color-deep-teal)] text-[var(--color-on-primary)]",
       },
       size: {
         default: "min-h-[44px] rounded-[var(--radius-card)] px-5 py-3 text-sm font-semibold",

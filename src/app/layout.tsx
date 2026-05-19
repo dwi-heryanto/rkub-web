@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { getSiteSettings } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
+import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme";
 
 import "./globals.css";
 
@@ -16,8 +17,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html lang="en" className="h-full antialiased">
-      <head>{gscVerification ? <meta name="google-site-verification" content={gscVerification} /> : null}</head>
-      <body className="min-h-full bg-[--color-bg] text-[--color-text]">
+      <head>
+        {gscVerification ? <meta name="google-site-verification" content={gscVerification} /> : null}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: THEME_BOOTSTRAP_SCRIPT,
+          }}
+        />
+      </head>
+      <body className="min-h-full bg-[var(--color-bg)] text-[var(--color-text)]">
         <AnalyticsScripts />
         <Navbar />
         <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>

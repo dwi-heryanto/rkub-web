@@ -59,7 +59,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4">
-          <Card className="overflow-hidden border-0 bg-[--color-soft-peach] p-0">
+          <Card className="overflow-hidden border-0 bg-[var(--color-soft-peach)] p-0">
             <Image
               src={product.image}
               alt={product.name}
@@ -72,7 +72,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </Card>
           <div className="grid gap-3 sm:grid-cols-2">
             {product.gallery.map((image) => (
-              <Card key={image} className="overflow-hidden border-0 bg-[--color-muted-mandarin] p-0">
+              <Card key={image} className="overflow-hidden border-0 bg-[var(--color-muted-mandarin)] p-0">
                 <Image
                   src={image}
                   alt={`${product.name} preview`}
@@ -87,7 +87,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
         <Card className="space-y-4 p-6">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[--color-deep-teal]">{product.category.replace(/-/g, " ")}</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-deep-teal)]">{product.category.replace(/-/g, " ")}</p>
           <h1 className="text-2xl font-bold">{product.name}</h1>
           <div className="flex flex-wrap gap-2">
             {product.aliases.map((alias) => (
@@ -95,10 +95,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             ))}
           </div>
           <p className="text-lg font-semibold">{product.unitPrice}</p>
-          <p className="text-sm leading-6 text-[--color-text-muted]">{product.description}</p>
+          <p className="text-sm leading-6 text-[var(--color-text-muted)]">{product.description}</p>
           <ul className="space-y-2 text-sm">
             {product.attributes.map((attribute) => (
-              <li key={attribute.key} className="flex justify-between gap-4 border-b border-[--color-border] pb-2">
+              <li key={attribute.key} className="flex justify-between gap-4 border-b border-[var(--color-border)] pb-2">
                 <span className="font-medium">{attribute.label}</span>
                 <span>{attribute.value}</span>
               </li>
@@ -126,7 +126,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <CardTitle>Need a custom request?</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-[--color-text-muted]">
+          <p className="text-sm text-[var(--color-text-muted)]">
             Share your design reference, measurements, and timeline. The RKUB team will reply with availability and next steps.
           </p>
         </CardContent>

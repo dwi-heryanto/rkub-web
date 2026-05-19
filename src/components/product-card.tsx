@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
     >
       <Card className="h-full p-4">
         <Link href={`/products/${product.slug}`} className="space-y-3">
-          <div className="overflow-hidden rounded-[var(--radius-card)] bg-[--color-soft-peach]">
+          <div className="overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-soft-peach)]">
             <Image
               src={product.image}
               alt={product.name}
@@ -27,9 +27,9 @@ export function ProductCard({ product }: { product: Product }) {
             />
           </div>
           <div>
-            <h3 className="text-base font-semibold text-[--color-text]">{product.name}</h3>
-            <p className="text-sm text-[--color-text-muted]">{product.unitPrice}</p>
-            <p className="mt-1 text-xs uppercase tracking-wide text-[--color-deep-teal]">{product.category.replace(/-/g, " ")}</p>
+            <h3 className="text-base font-semibold text-[var(--color-text)]">{product.name}</h3>
+            <p className="text-sm text-[var(--color-text-muted)]">{product.unitPrice}</p>
+            <p className="mt-1 text-xs uppercase tracking-wide text-[var(--color-deep-teal)]">{product.category.replace(/-/g, " ")}</p>
           </div>
         </Link>
       </Card>
