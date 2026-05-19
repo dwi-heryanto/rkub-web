@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { ProductCard } from "@/components/product-card";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Toggle } from "@/components/ui/toggle";
@@ -54,7 +55,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
 
   return (
     <section className="space-y-5">
-      <div className="rounded-[var(--radius-card)] border border-[--color-border] bg-[--color-surface] p-4 sm:p-6">
+      <Card>
         <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
           <label className="space-y-2 text-sm font-medium text-[--color-text]">
             Search by name, alias, tags, or category
@@ -159,7 +160,7 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
             ))}
           </ul>
         ) : null}
-      </div>
+      </Card>
 
       {filtered.length ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -168,9 +169,9 @@ export function CatalogBrowser({ products, categories }: { products: Product[]; 
           ))}
         </div>
       ) : (
-        <div className="rounded-[var(--radius-card)] border border-dashed border-[--color-border-strong] bg-[--color-surface] p-8 text-center text-sm text-[--color-text-muted]">
+        <Card className="border-dashed border-[--color-border-strong] text-center text-sm text-[--color-text-muted]">
           No matching products yet. Try another keyword or category.
-        </div>
+        </Card>
       )}
     </section>
   );
