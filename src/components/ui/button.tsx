@@ -8,12 +8,12 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-[var(--color-deep-teal)] text-white hover:bg-[var(--color-forest-canopy)]",
+        primary: "bg-[var(--color-deep-teal)] !text-white hover:bg-[var(--color-forest-canopy)]",
         secondary:
           "border border-[var(--color-deep-teal)] bg-transparent text-[var(--color-deep-teal)] hover:bg-[var(--color-soft-peach)]",
         ghost: "bg-transparent text-[var(--color-text)] hover:bg-[var(--color-soft-peach)]",
-        chip: "border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] hover:border-[var(--color-deep-teal)]",
-        chipActive: "border border-[var(--color-deep-teal)] bg-[var(--color-deep-teal)] text-[var(--color-on-primary)]",
+        inverse: "bg-white !text-primary hover:bg-[#f7f7f7]",
+        "outline-light": "border border-white/60 bg-transparent !text-white hover:bg-white/10",
       },
       size: {
         default: "min-h-[44px] rounded-[var(--radius-card)] px-5 py-3 text-sm font-semibold",
@@ -29,6 +29,6 @@ export const buttonVariants = cva(
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> { }
 
-export function Button({ className, variant, ...props }: ButtonProps) {
-  return <button className={cn(buttonVariants({ variant }), className)} {...props} />;
+export function Button({ className, variant, size, ...props }: ButtonProps) {
+  return <button className={cn(buttonVariants({ variant, size }), className)} {...props} />;
 }
