@@ -61,6 +61,7 @@ export default async function Home() {
               height={900}
               className="h-full w-full object-cover"
               priority
+              loading="eager"
             />
           </Card>
         </div>
@@ -142,10 +143,10 @@ export default async function Home() {
         <h2 className="mb-6 text-center text-3xl font-semibold">The Art of Craftsmanship</h2>
         <div className="grid auto-rows-[180px] grid-cols-2 gap-2 md:grid-cols-4 md:auto-rows-[220px]">
           <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl">
-            <Image src={content.gallery[0]?.image ?? "/gallery/fabric-roll.svg"} alt={content.gallery[0]?.title ?? "Craft gallery"} width={1200} height={1200} className="h-full w-full object-cover" />
+            <Image src={content.gallery[0]?.image ?? "/gallery/fabric-roll.svg"} alt={content.gallery[0]?.title ?? "Craft gallery"} width={1200} height={1200} className="h-full w-full object-cover" priority />
           </div>
           <div className="overflow-hidden rounded-2xl bg-[var(--color-soft-peach)]">
-            <Image src={content.gallery[1]?.image ?? "/gallery/bead-set.svg"} alt={content.gallery[1]?.title ?? "Gallery item"} width={600} height={600} className="h-full w-full object-cover opacity-85 mix-blend-multiply" />
+            <Image src={content.gallery[1]?.image ?? "/gallery/bead-set.svg"} alt={content.gallery[1]?.title ?? "Gallery item"} width={600} height={600} className="h-full w-full object-cover opacity-85 mix-blend-multiply" priority />
           </div>
           <div className="row-span-2 overflow-hidden rounded-2xl">
             <Image src={content.gallery[2]?.image ?? "/gallery/rental-showcase.svg"} alt={content.gallery[2]?.title ?? "Gallery item"} width={900} height={1200} className="h-full w-full object-cover" />

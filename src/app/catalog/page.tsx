@@ -230,6 +230,7 @@ export default async function CatalogPage({
                   height={800}
                   className="h-full w-full object-cover"
                   priority
+                  loading="eager"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-(--color-forest-canopy)/60 via-transparent to-transparent" />
@@ -306,16 +307,17 @@ export default async function CatalogPage({
           </section>
 
           <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {tabProducts.map((product) => {
+            {tabProducts.map((product, index) => {
               const primaryTag = product.tags[0] || "Tools";
               return (
                 <Card key={product.id} className="group flex h-full flex-col gap-4 rounded-xl border-border bg-white p-5">
-                  <Link href={`/products/${product.slug}`} className="flex h-full flex-col gap-4">
+                  <Link href={`/products/${product.slug}`} className="flex flex-col gap-4">
                     <div className="relative aspect-square overflow-hidden rounded-lg bg-[var(--color-soft-peach)]">
                       <Image
                         src={product.image}
                         alt={product.name}
                         fill
+                        priority={index === 0}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                       />
@@ -405,41 +407,50 @@ export default async function CatalogPage({
               ) : null}
             </Card>
           </aside>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {tabProducts.map((product) => (
-              <Card key={product.id} className="group flex h-full flex-col rounded-2xl border-border bg-white p-5 shadow-none transition-transform duration-300 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
-                <Link href={`/products/${product.slug}`} className="flex h-full flex-col">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-[var(--color-sky-haze)]">
+          <div className="space-y-4">
+            <div>
+              <h1 className="text-4xl font-bold leading-tight text-primary sm:text-5xl lg:text-6xl">Explore Materials</h1>
+              <p className="mt-2 max-w-3xl text-lg text-[var(--color-text-muted)]">
+                Browse fabrics, beads, and decorative accents for tailoring and custom garment work.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {tabProducts.map((product, index) => (
+                <Card key={product.id} className="group flex h-full flex-col rounded-2xl border-border bg-white p-5 shadow-none transition-transform duration-300 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
+                  <Link href={`/products/${product.slug}`} className="flex h-full flex-col">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-[var(--color-sky-haze)]">
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
+                      priority={index === 0}
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 33vw"
                     />
-                  </div>
-                  <div className="mt-4 flex grow flex-col">
-                    <div className="flex flex-wrap gap-2">
-                      {product.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} className="rounded-full bg-[var(--color-soft-peach)] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em]">
-                          #{tag}
-                        </span>
-                      ))}
                     </div>
-                    <h3 className="mt-2 text-xl font-semibold text-primary">{product.name}</h3>
-                    <p className="mt-1 text-lg text-[var(--color-text-muted)]">{product.unitPrice}</p>
-                    <span className="mt-4 inline-flex min-h-[42px] items-center justify-center gap-2 rounded-[16px] border-2 border-primary px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white">
-                      <MessageCircle className="h-4 w-4" /> WhatsApp Inquiry
-                    </span>
-                  </div>
-                </Link>
-              </Card>
-            ))}
-            {!tabProducts.length ? (
-              <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-[var(--color-text-muted)] shadow-none md:col-span-2 xl:col-span-3">
-                No matching material items yet.
-              </Card>
-            ) : null}
+                    <div className="mt-4 flex grow flex-col">
+                      <div className="flex flex-wrap gap-2">
+                        {product.tags.slice(0, 2).map((tag) => (
+                          <span key={tag} className="rounded-full bg-[var(--color-soft-peach)] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em]">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="mt-2 text-xl font-semibold text-primary">{product.name}</h3>
+                      <p className="mt-1 text-lg text-[var(--color-text-muted)]">{product.unitPrice}</p>
+                      <span className="mt-4 inline-flex min-h-[42px] items-center justify-center gap-2 rounded-[16px] border-2 border-primary px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white">
+                        <MessageCircle className="h-4 w-4" /> WhatsApp Inquiry
+                      </span>
+                    </div>
+                  </Link>
+                </Card>
+              ))}
+              {!tabProducts.length ? (
+                <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-[var(--color-text-muted)] shadow-none md:col-span-2 xl:col-span-3">
+                  No matching material items yet.
+                </Card>
+              ) : null}
+            </div>
           </div>
         </section>
       ) : !isTraditional ? (
@@ -452,7 +463,7 @@ export default async function CatalogPage({
             <p className="max-w-xl text-sm text-(--color-text-muted)">{featuredDescription}</p>
           </div>
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {featuredProducts.map((product) => (
+            {featuredProducts.map((product, index) => (
               <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
                 <Link href={`/products/${product.slug}`} className="block h-full">
                   <div className="relative overflow-hidden bg-muted">
@@ -461,6 +472,7 @@ export default async function CatalogPage({
                       alt={product.name}
                       width={704}
                       height={396}
+                      priority={index === 0}
                       className="h-52 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     />
@@ -560,7 +572,7 @@ export default async function CatalogPage({
               </CardContent>
             </Card>
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5">
-              {rentalProducts.map((product) => (
+              {rentalProducts.map((product, index) => (
                 <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
                   <Link href={`/products/${product.slug}`} className="block h-full">
                     <div className="relative aspect-[3/4] overflow-hidden bg-muted">
@@ -569,6 +581,7 @@ export default async function CatalogPage({
                         alt={product.name}
                         width={704}
                         height={396}
+                        priority={index === 0}
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                       />
@@ -736,7 +749,7 @@ export default async function CatalogPage({
 
             {tabProducts.length ? (
               <div className={`grid gap-4 sm:grid-cols-2 xl:grid-cols-3 ${isTraditional ? "xl:gap-5" : ""}`}>
-                {tabProducts.map((product) => (
+                {tabProducts.map((product, index) => (
                   <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
                     <Link href={`/products/${product.slug}`} className="block h-full">
                       <div className={`relative overflow-hidden bg-muted ${isTraditional ? "aspect-[3/4]" : ""}`}>
@@ -745,6 +758,7 @@ export default async function CatalogPage({
                           alt={product.name}
                           width={704}
                           height={396}
+                          priority={index === 0}
                           className={`${isTraditional ? "h-full w-full" : "h-52 w-full"} object-cover transition-transform duration-300 group-hover:scale-[1.02]`}
                           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                         />
