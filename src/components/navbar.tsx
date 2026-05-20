@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -34,9 +34,9 @@ export function Navbar() {
             </Link>
           ))}
           <ThemeToggle />
-          <a href="https://wa.me/628123456789" target="_blank" rel="noreferrer">
-            <Button>WhatsApp Inquiry</Button>
-          </a>
+          <Link href="https://wa.me/628123456789" target="_blank" rel="noreferrer" className={buttonVariants()}>
+            WhatsApp Inquiry
+          </Link>
         </div>
         <Button
           type="button"
@@ -67,9 +67,9 @@ export function Navbar() {
             </Link>
           ))}
           <ThemeToggle className="w-full" />
-          <a href="https://wa.me/628123456789" target="_blank" rel="noreferrer">
-            <Button className="w-full">WhatsApp Inquiry</Button>
-          </a>
+          <Link href="https://wa.me/628123456789" target="_blank" rel="noreferrer" className={cn(buttonVariants(), "w-full")}>
+            WhatsApp Inquiry
+          </Link>
         </div>
       </div>
     </header>

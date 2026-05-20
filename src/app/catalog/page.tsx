@@ -4,13 +4,14 @@ import Link from "next/link";
 import { MessageCircle, Search } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { getProducts } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 import { getSiteSettings } from "@/lib/cms";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = createMetadata(
   "Catalog | RKUB Family Tailoring Store",
@@ -177,8 +178,8 @@ export default async function CatalogPage({
                 <p className="max-w-2xl text-base leading-7 text-white/80 sm:text-lg">{hero.description}</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Link href="#catalog-browser" className="inline-flex">
-                  <Button className="rounded-2xl bg-background px-6 !text-primary hover:bg-white">Browse Catalog</Button>
+                <Link href="#catalog-browser" className={cn(buttonVariants(), "rounded-2xl bg-background px-6 !text-primary hover:bg-white")}>
+                  Browse Catalog
                 </Link>
                 <WhatsAppButton
                   url={inquiryUrl}

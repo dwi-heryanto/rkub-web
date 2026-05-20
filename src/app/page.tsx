@@ -4,12 +4,13 @@ import Script from "next/script";
 import { ArrowRight, Gem, MapPin, Scissors, Shirt, Sparkles, Wrench } from "lucide-react";
 
 import { ProductCard } from "@/components/product-card";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { getCategories, getHomepageContent, getProducts, getSiteSettings } from "@/lib/cms";
 import { createLocalBusinessJsonLd } from "@/lib/seo";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
+import { cn } from "@/lib/utils";
 
 const categoryMeta: Record<string, { href: string; icon: typeof Scissors; tint: string; cta: string }> = {
   "tailoring-tools": { href: "/catalog?tab=tools", icon: Wrench, tint: "bg-[var(--color-soft-peach)]", cta: "Browse Tools" },
@@ -44,13 +45,11 @@ export default async function Home() {
             <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">Heritage in Every Stitch</h1>
             <p className="max-w-xl text-lg text-white/80">{content.hero.description}</p>
             <div className="flex flex-wrap gap-3">
-              <Link href={content.hero.primaryCta.href}>
-                <Button variant="inverse" className="rounded-2xl px-6">{content.hero.primaryCta.label}</Button>
+              <Link href={content.hero.primaryCta.href} className={cn(buttonVariants({ variant: "inverse" }), "rounded-2xl px-6")}>
+                {content.hero.primaryCta.label}
               </Link>
-              <Link href="/services">
-                <Button variant="secondary" className="rounded-2xl border-white/60 px-6 text-white hover:bg-white/10">
-                  Our Services
-                </Button>
+              <Link href="/services" className={cn(buttonVariants({ variant: "outline-light" }), "rounded-2xl px-6")}>
+                Our Services
               </Link>
             </div>
           </div>
@@ -108,14 +107,14 @@ export default async function Home() {
           <Card className="overflow-hidden rounded-3xl p-0 lg:col-span-7">
             <div className="grid md:grid-cols-2">
               <div className="relative aspect-square">
-                <Image src={products[0]?.image ?? "/gallery/fabric-brocade.svg"} alt={products[0]?.name ?? "Featured product"} fill className="object-cover" />
+                <Image src={products[0]?.image ?? "/gallery/fabric-brocade.svg"} alt={products[0]?.name ?? "Featured product"} fill className="object-cover" priority loading="eager" />
               </div>
               <div className="p-7">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-deep-teal)]">New Arrival</p>
                 <h3 className="mt-2 text-2xl font-semibold">{products[0]?.name ?? "Premium Brocade Lace"}</h3>
                 <p className="mt-2 text-sm text-[var(--color-text-muted)]">{products[0]?.description ?? "Premium featured collection."}</p>
-                <Link href={`/products/${products[0]?.slug ?? "premium-brocade-lace"}`}>
-                  <Button variant="secondary" className="mt-5 rounded-2xl px-5">View Details</Button>
+                <Link href={`/products/${products[0]?.slug ?? "premium-brocade-lace"}`} className={cn(buttonVariants({ variant: "secondary" }), "mt-5 rounded-2xl px-5")}>
+                  View Details
                 </Link>
               </div>
             </div>
@@ -131,8 +130,8 @@ export default async function Home() {
             <div className="relative z-10 flex min-h-[360px] flex-col justify-end">
               <h3 className="text-2xl font-semibold">Traditional Wedding Attire</h3>
               <p className="mt-2 max-w-sm text-sm text-white/80">Bespoke garments tailored to honor cultural significance with modern structural elegance.</p>
-              <Link href="/catalog?tab=traditional">
-                <Button variant="inverse" className="mt-5 w-fit rounded-2xl px-5">Explore Collection</Button>
+              <Link href="/catalog?tab=traditional" className={cn(buttonVariants({ variant: "inverse" }), "mt-5 w-fit rounded-2xl px-5")}>
+                Explore Collection
               </Link>
             </div>
           </div>
