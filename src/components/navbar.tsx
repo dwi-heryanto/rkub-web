@@ -8,35 +8,40 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/catalog", label: "Catalog" },
-  { href: "/#services", label: "Services" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/catalog?tab=tools", label: "Tools" },
+  { href: "/catalog?tab=fabric", label: "Fabrics" },
+  { href: "/catalog?tab=rental", label: "Rentals" },
+  { href: "/services", label: "Services" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
-      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 border-b border-[var(--color-border-strong)] bg-[var(--color-bg)]/95 backdrop-blur">
+      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="text-lg font-bold text-[var(--color-deep-teal)]">
-          RKUB Tailoring
+          Stitch & Sew
         </Link>
-        <div className="hidden items-center gap-4 sm:flex">
+        <div className="hidden items-center gap-2 md:flex">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-deep-teal)]">
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-lg px-3 py-1 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-soft-peach)] hover:text-[var(--color-deep-teal)]"
+            >
               {link.label}
             </Link>
           ))}
           <ThemeToggle />
-          <Link href="/catalog">
-            <Button variant="secondary">Browse</Button>
-          </Link>
+          <a href="https://wa.me/628123456789" target="_blank" rel="noreferrer">
+            <Button>WhatsApp Inquiry</Button>
+          </a>
         </div>
         <Button
           type="button"
           variant="secondary"
-          className="sm:hidden"
+          className="md:hidden"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
           aria-label="Toggle navigation"
@@ -62,11 +67,9 @@ export function Navbar() {
             </Link>
           ))}
           <ThemeToggle className="w-full" />
-          <Link href="/catalog" onClick={() => setOpen(false)}>
-            <Button variant="secondary" className="w-full">
-              Browse Catalog
-            </Button>
-          </Link>
+          <a href="https://wa.me/628123456789" target="_blank" rel="noreferrer">
+            <Button className="w-full">WhatsApp Inquiry</Button>
+          </a>
         </div>
       </div>
     </header>
