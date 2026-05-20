@@ -1,5 +1,7 @@
 import { test } from '@playwright/test';
 
+type ContrastScanRow = { text: string; fg: string; bg: string; ratio: number };
+
 test('scan all buttons for color-contrast issues', async ({ page }) => {
   await page.goto('/');
   await page.waitForLoadState('networkidle');
@@ -36,7 +38,7 @@ test('scan all buttons for color-contrast issues', async ({ page }) => {
     }
 
     const buttons = Array.from(document.querySelectorAll('button')) as HTMLElement[];
-    const out: Array<any> = [];
+    const out: ContrastScanRow[] = [];
     for (const btn of buttons) {
       const txt = (btn.textContent || '').trim().slice(0, 60);
       const cs = window.getComputedStyle(btn);
@@ -71,11 +73,9 @@ test('scan all buttons for color-contrast issues', async ({ page }) => {
   });
 
   // report any with ratio < 4.5
-  const failures = results.filter((r: any) => r.ratio < 4.5);
-  // eslint-disable-next-line no-console
+  const failures = results.filter((r) => r.ratio < 4.5);
   console.log('buttons scanned:', results.length, 'failures:', failures.length);
   for (const f of failures) {
-    // eslint-disable-next-line no-console
     console.log(`- ${f.text} -> fg:${f.fg} bg:${f.bg} ratio:${f.ratio.toFixed(2)}`);
   }
 });

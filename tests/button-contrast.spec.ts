@@ -1,12 +1,19 @@
 import { test } from '@playwright/test';
 
+type AxeNode = { target: string[] };
+type AxeViolation = { id: string; description: string; nodes: AxeNode[] };
+type AxeRunResult = { violations?: AxeViolation[] };
+
 test('compute contrast ratio for Browse Catalog button', async ({ page }) => {
   await page.goto('/');
   await page.waitForLoadState('networkidle');
 
   await page.addScriptTag({ url: 'https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.6.3/axe.min.js' });
 
-  const result = await page.evaluate(async () => {
+  const result = await page.evaluate(async (): Promise<
+    | { found: false }
+    | { found: true; fg: string; bg: string; ratio: number; axe: AxeRunResult }
+  > => {
     function srgbToLinear(c: number) {
       c = c / 255;
       return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
@@ -54,31 +61,26 @@ test('compute contrast ratio for Browse Catalog button', async ({ page }) => {
     const fg = normalizeColorViaCanvas(rawFg);
     const bg = normalizeColorViaCanvas(rawBg);
 
-    const axeResult = await (window as any).axe.run(btn, { runOnly: { type: 'rule', values: ['color-contrast'] } });
+    const axe = (window as Window & { axe: { run: (node: HTMLElement, options: unknown) => Promise<AxeRunResult> } }).axe;
+    const axeResult = await axe.run(btn, { runOnly: { type: 'rule', values: ['color-contrast'] } });
     return { found: true, fg, bg, ratio: contrastRatio(fg, bg), axe: axeResult };
   });
 
   if (!result.found) {
-    // eslint-disable-next-line no-console
     console.log('Button not found on the page');
     return;
   }
-  // eslint-disable-next-line no-console
   console.log('Button foreground:', result.fg, 'background:', result.bg, 'contrastRatio:', isNaN(result.ratio) ? result.ratio : result.ratio.toFixed(2));
   if (result.axe && result.axe.violations && result.axe.violations.length) {
-    // eslint-disable-next-line no-console
     console.log('axe color-contrast violations:');
     // print id and failure summary and nodes count
     for (const v of result.axe.violations) {
-      // eslint-disable-next-line no-console
       console.log(`- ${v.id}: ${v.description} -- nodes: ${v.nodes.length}`);
       for (const node of v.nodes) {
-        // eslint-disable-next-line no-console
         console.log('  target:', node.target.join(', '));
       }
     }
   } else {
-    // eslint-disable-next-line no-console
     console.log('No axe color-contrast violations reported for this element.');
   }
 });
