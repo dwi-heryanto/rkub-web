@@ -1,3 +1,35 @@
+UPDATE — CURRENT IMPLEMENTATION STATUS (May 20, 2026)
+
+Design direction has been refreshed to the latest Stitch screen set from project `8598452241295074689` (Modern Tailoring Digital Catalog). This document now tracks both original product requirements and redesign status.
+
+What is already implemented:
+
+* Stitch export pipeline with `curl -L` via `scripts/download-stitch-assets.sh`
+* Updated `stitch/screens.manifest.csv` with latest hosted screen URLs
+* Shared global navbar style aligned to Stitch detail reference `dcd3ea8749c54abb884727ae3c73a94e`
+* Shared global footer added and wired in app layout
+* Catalog modes expanded to:
+  * `/catalog?tab=rental`
+  * `/catalog?tab=fabric`
+  * `/catalog?tab=tools`
+  * `/catalog?tab=traditional`
+  * `/catalog?tab=materials`
+* URL-driven catalog filters for `fabric/tools` modes (`tab`, `color`, `width`, `toolKind`)
+* Baseline `/services` page aligned to Stitch services direction
+* Baseline product detail bento/sticky-CTA layout pass completed
+* Seed data expanded with tailoring tools for filter validation
+
+What remains in redesign phase:
+
+* UI parity for the latest Stitch screen set is now complete across homepage, catalog variants, service page, and targeted product detail variants.
+* Remaining work has shifted to QA/launch follow-up (visual baseline updates, CI accessibility automation, launch checklist, and production content rollout).
+
+Non-goal for this phase:
+
+* Payload CMS production integration is intentionally deferred until UI parity is complete
+
+---
+
 MASTER PROMPT — Family Tailoring Store Catalog Website (DESIGN SYSTEM INTEGRATED)
 
 You are a senior full-stack engineer, UI/UX architect, and system designer.
@@ -439,13 +471,30 @@ The final product should feel:
 * optimized for product browsing
 * optimized for WhatsApp conversion
 * maintainable for family business operations
-# Implementation Notes (2026-05-19)
+# Implementation Notes (2026-05-20)
 
 - Fixed Next.js 16 dynamic API usage in `/products/[slug]` by unwrapping async `params` before reading `slug`.
 - Fixed cross-page anchor navigation: navbar `Services` and `FAQ` now point to `/#services` and `/#faq`.
 - Introduced shadcn/ui baseline configuration via `components.json`.
 - Migrated catalog filters from handmade controls to shadcn-compatible `Select` (Radix) and `Toggle` components.
-- Remaining migration work is tracked in `TODO.md` under the shadcn rework task.
-- Aligned key controls to the current design system: input radius is now 16px and select popover no longer uses elevated shadows.
-- Continued shadcn-style migration on high-traffic surfaces by reusing UI primitives for product cards, navbar mobile toggle, WhatsApp FAB, and retry actions.
-- Added a non-priority theme changer item (light/dark) to the TODO tracker for future implementation.
+- Completed Stitch parity pass for:
+  - `/`
+  - `/catalog?tab=traditional`
+  - `/catalog?tab=tools`
+  - `/catalog?tab=materials`
+  - `/catalog?tab=rental`
+  - `/services`
+  - targeted detail variants (`premium-brocade-lace`, `premium-glass-seed-beads`, `gingher-shears-tool`, `premium-javanese-beskap`)
+- Consolidated design tokens from both latest design-system assets in `src/app/globals.css` with backward-compatible aliases.
+- Removed legacy/unaligned components no longer used by current Stitch direction:
+  - `src/components/catalog-browser.tsx`
+  - `src/components/ui/chip.tsx`
+  - `src/components/ui/input.tsx`
+  - `src/components/ui/select.tsx`
+  - `src/components/ui/toggle.tsx`
+  - `src/components/ui/tabs.tsx`
+- Ran contrast/accessibility checks in current test suite:
+  - `tests/accessibility.spec.ts`
+  - `tests/button-contrast.spec.ts`
+  - `tests/scan-button-contrasts.spec.ts`
+  - `tests/scan-multiple-pages-contrasts.spec.ts`
