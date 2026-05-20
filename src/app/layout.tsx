@@ -1,4 +1,5 @@
 import { AnalyticsScripts } from "@/components/analytics-scripts";
+import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { getSiteSettings } from "@/lib/cms";
@@ -28,7 +29,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="min-h-full bg-[var(--color-bg)] text-[var(--color-text)]">
         <AnalyticsScripts />
         <Navbar />
-        <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
+        <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
+        <Footer />
         <WhatsAppFab />
       </body>
     </html>
