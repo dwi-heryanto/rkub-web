@@ -27,10 +27,10 @@ export function Footer() {
         <div className="space-y-2 text-sm">
           <p className="font-semibold text-white/90">Support</p>
           <div className="flex flex-col gap-2 text-white/70">
-            <a href="#">Sizing Guide</a>
-            <a href="#">Fabric Care</a>
-            <a href="#">Shipping</a>
-            <a href="#">Privacy Policy</a>
+            <Link href="/support/sizing-guide">Sizing Guide</Link>
+            <Link href="/support/fabric-care">Fabric Care</Link>
+            <Link href="/support/shipping">Shipping</Link>
+            <Link href="/support/privacy-policy">Privacy Policy</Link>
           </div>
         </div>
 
