@@ -113,7 +113,7 @@ export default async function CatalogPage({
           ? {
             badge: "Premium Selection",
             label: "Traditional Collection",
-            title: "Rental Catalog",
+            title: "Traditional Attire Catalog",
             description: "Discover our collection of traditional attire curated for ceremonies, formal occasions, and cultural events.",
           }
           : activeTab === "materials"
@@ -328,20 +328,22 @@ export default async function CatalogPage({
                     <div className="flex grow flex-col">
                       <h3 className="text-lg font-semibold leading-snug">{product.name}</h3>
                       <p className="mt-1 line-clamp-2 text-sm text-[var(--color-text-muted)]">{product.description}</p>
-                      <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
+                      <div className="mt-4 border-t border-border pt-4">
                         <span className="text-2xl font-bold text-primary">{product.unitPrice}</span>
-                        <WhatsAppButton
-                          url={toolsInquiryUrl}
-                          location="catalog_tools_card"
-                          aria-label={`Inquire about ${product.name} via WhatsApp`}
-                          className="min-h-0 rounded-lg bg-transparent p-2 text-primary hover:bg-[var(--color-soft-peach)]"
-                          variant="ghost"
-                        >
-                          <MessageCircle className="h-5 w-5" />
-                        </WhatsAppButton>
                       </div>
                     </div>
                   </Link>
+                  <div className="mt-auto flex justify-end">
+                    <WhatsAppButton
+                      url={toolsInquiryUrl}
+                      location="catalog_tools_card"
+                      aria-label={`Inquire about ${product.name} via WhatsApp`}
+                      className="min-h-0 rounded-lg bg-transparent p-2 text-primary hover:bg-[var(--color-soft-peach)]"
+                      variant="ghost"
+                    >
+                      <MessageCircle className="h-5 w-5" />
+                    </WhatsAppButton>
+                  </div>
                 </Card>
               );
             })}
