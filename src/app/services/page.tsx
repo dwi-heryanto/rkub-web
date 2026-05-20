@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { CalendarDays, Info, Scissors, Shirt, Wrench } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { createMetadata } from "@/lib/seo";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 import { getSiteSettings } from "@/lib/cms";
@@ -68,7 +69,17 @@ export default async function ServicesPage() {
           </div>
         </div>
         <div className="relative overflow-hidden rounded-2xl border border-border bg-white">
-          <div className="aspect-[4/5] bg-[url('/gallery/service-tailoring.svg')] bg-cover bg-center" />
+          <div className="relative aspect-[4/5]">
+            <Image
+              src="/gallery/service-tailoring.svg"
+              alt="Tailoring consultation showcase"
+              fill
+              className="object-cover"
+              priority
+              loading="eager"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+            />
+          </div>
           <div className="absolute inset-x-6 bottom-6 flex items-center justify-between rounded-xl border border-white/50 bg-white/90 px-4 py-3 backdrop-blur">
             <div>
               <p className="text-sm font-semibold">Consultations</p>
@@ -95,9 +106,9 @@ export default async function ServicesPage() {
                 className="min-h-36 w-full rounded-[var(--radius-card)] border border-border bg-white p-4 text-sm text-foreground outline-none focus:border-[var(--color-deep-teal)]"
                 placeholder="Provide details about the garment, fabric type (if known), and specific alterations required..."
               />
-              <a href={waLink} target="_blank" rel="noreferrer">
-                <Button className="w-full sm:w-auto">Request via WhatsApp</Button>
-              </a>
+              <WhatsAppButton url={waLink} location="services_request" className="w-full sm:w-auto">
+                Request via WhatsApp
+              </WhatsAppButton>
               <p className="flex items-center justify-center gap-2 text-center text-xs text-[var(--color-text-muted)]">
                 <Info className="h-4 w-4" />
                 Clicking this button will open WhatsApp and pre-fill a message to our master tailor.
