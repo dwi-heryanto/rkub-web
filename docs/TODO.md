@@ -1,9 +1,16 @@
 # RKUB Web Progress Tracker
 
 ## Summary
-- Current phase: **Stitch Redesign Refresh (v2)**
+- Current phase: **QA + Launch Follow-up**
 - Source project: **Modern Tailoring Digital Catalog** (`8598452241295074689`)
 - Payload CMS integration: **deferred** (intentional)
+- Last verification scan: **May 21, 2026**
+
+## User Story Tracking Rules
+- Canonical status tracker: [`docs/USER_STORIES.md`](./USER_STORIES.md) `Implementation Status Matrix`.
+- Every TODO task must include at least one user story reference in the format `(US-xxx)`.
+- A task is not considered fully complete until its linked story row is updated to `Implemented` or `Verified` with evidence and `Last Verified`.
+- Keep TODO task-oriented only; detailed requirements stay in `docs/USER_STORIES.md` and must not be duplicated here.
 
 ## Core Foundation
 - [x] Apply DESIGN.md color palette and typography base tokens
@@ -40,20 +47,18 @@
 - [x] Consolidate token usage from both design systems:
 - [x] `asset-stub-assets-6bba25e210bd44c3a7c33c10c553b733-1779227066713`
 - [x] `asset-stub-assets-74f14d30c2b9423b95ca56102975ad60-1779265690867`
-- [x] shadcn/ui migration: continue migrating remaining handmade UI components to shadcn/ui primitives (cards, buttons, inputs, tabs) and audit/remove any unused handmade UI helper components (`ui/chip`) to keep primitive usage consistent across the codebase
-- [x] cleanup old implementation/design/components that are not aligned with the latest Stitch screen set and design direction
-- [x] run thorough WCAG contrast and accessibility audit against latest screens and update any failing elements (color, typography, spacing) to meet standards
-
-
-## QA and Launch Follow-up
-- [ ] Remove remaining style mismatches against latest DESIGN.md updates
-- [ ] Replace fallback seed content with fully managed Payload CMS content in production (deferred for now)
-- [ ] Validate Supabase search ranking and typo tolerance against real catalog data
 - [x] Continue migrating remaining handmade UI components to shadcn/ui primitives (cards, buttons, inputs, tabs)
 - [x] Audit and either migrate/remove unused handmade UI helper components (`ui/chip`) to keep primitive usage consistent
-- [ ] Finalize launch checklist (analytics verification, accessibility pass, production QA)
+- [x] Cleanup old implementation/design/components not aligned with latest Stitch direction
+- [x] Run thorough WCAG contrast and accessibility audit against latest screens
+
+## QA and Launch Follow-up
+- [ ] Remove remaining style mismatches against latest DESIGN.md updates (US-019)
+- [ ] Replace fallback seed content with fully managed Payload CMS content in production (deferred for now) (US-014)
+- [ ] Validate Supabase search ranking and typo tolerance against real catalog data (US-003)
+- [ ] Finalize launch checklist (analytics verification, accessibility pass, production QA) (US-018, US-019, US-021)
 - [x] Run full-site axe audit and produce report
 - [x] Add CI job to run Playwright + axe on PRs
-- [ ] Update Playwright visual baselines after redesign pass and run accessibility sweep
-- [ ] Open PR for primary button text change and add dev guidance note
+- [ ] Update Playwright visual baselines after redesign pass and run accessibility sweep (snapshot test exists; `tests/catalog-visual.spec.ts-snapshots` is currently empty) (US-002, US-019)
+- [ ] Open PR for primary button text change and add dev guidance note (US-019)
 - [x] Update `DETAIL.md` final section again after UI parity is complete
