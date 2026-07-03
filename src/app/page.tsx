@@ -181,7 +181,7 @@ export default async function Home() {
           <div className="space-y-3">
             {content.faqs.map((item) => (
               <details key={item.question} className="rounded-2xl border border-border bg-white p-5">
-                <summary className="cursor-pointer list-none font-semibold">{item.question}</summary>
+                <summary className="cursor-pointer list-none font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 rounded">{item.question}</summary>
                 <p className="mt-2 text-sm text-(--color-text-muted)">{item.answer}</p>
               </details>
             ))}
@@ -196,7 +196,7 @@ export default async function Home() {
                 src={mapEmbedUrl}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="pointer-events-none absolute inset-0 h-full w-full border-0"
+                className="absolute inset-0 h-full w-full border-0"
                 allowFullScreen
               />
             ) : (
