@@ -109,7 +109,7 @@ This section is the canonical implementation tracker used before starting tasks 
 | US ID | Priority | Status | Evidence | Last Verified |
 | --- | --- | --- | --- | --- |
 | US-001 | P0 | Verified | [src/app/page.tsx](../src/app/page.tsx), [src/app/catalog/page.tsx](../src/app/catalog/page.tsx) | 2026-05-21 |
-| US-002 | P0 | Verified | [src/app/catalog/page.tsx](../src/app/catalog/page.tsx), [tests/catalog-visual.spec.ts](../tests/catalog-visual.spec.ts) | 2026-05-21 |
+| US-002 | P0 | Implemented | [src/app/catalog/page.tsx](../src/app/catalog/page.tsx), [tests/catalog-visual.spec.ts](../tests/catalog-visual.spec.ts) | 2026-05-26 |
 | US-003 | P0 | In Progress | [src/app/api/search/route.ts](../src/app/api/search/route.ts), [src/lib/search.ts](../src/lib/search.ts), [supabase/migrations/001_catalog_search.sql](../supabase/migrations/001_catalog_search.sql) | 2026-05-21 |
 | US-004 | P1 | Implemented | [src/app/catalog/page.tsx](../src/app/catalog/page.tsx), [src/types/catalog.ts](../src/types/catalog.ts) | 2026-05-21 |
 | US-005 | P0 | Verified | [src/app/products/[slug]/page.tsx](../src/app/products/[slug]/page.tsx), [src/components/product-card.tsx](../src/components/product-card.tsx) | 2026-05-21 |

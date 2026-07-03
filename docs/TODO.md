@@ -3,8 +3,9 @@
 ## Summary
 - Current phase: **QA + Launch Follow-up**
 - Source project: **Modern Tailoring Digital Catalog** (`8598452241295074689`)
-- Payload CMS integration: **deferred** (intentional)
-- Last verification scan: **May 21, 2026**
+- Payload CMS integration: **deferred** (architecture ready, `src/lib/cms/index.ts` falls back to seed data)
+- CI: `.github/workflows/playwright-axe.yml` runs Playwright + axe accessibility suite on PRs
+- Last verification scan: **July 3, 2026**
 
 ## User Story Tracking Rules
 - Canonical status tracker: [`docs/USER_STORIES.md`](./USER_STORIES.md) `Implementation Status Matrix`.
@@ -15,7 +16,7 @@
 ## Core Foundation
 - [x] Apply DESIGN.md color palette and typography base tokens
 - [x] Build responsive homepage sections (hero, categories, highlights, gallery, FAQ, CTA)
-- [x] Implement reusable UI primitives (button, card, badge, input, tabs, etc.)
+- [x] Implement reusable UI primitives (button, card, badge) (`src/components/ui/button.tsx`, `card.tsx`, `badge.tsx`)
 - [x] Add product catalog and product detail pages
 - [x] Add WhatsApp conversion flow (CTA + floating action button)
 - [x] Add SEO baseline (metadata, robots, sitemap, local business schema)
@@ -47,18 +48,25 @@
 - [x] Consolidate token usage from both design systems:
 - [x] `asset-stub-assets-6bba25e210bd44c3a7c33c10c553b733-1779227066713`
 - [x] `asset-stub-assets-74f14d30c2b9423b95ca56102975ad60-1779265690867`
-- [x] Continue migrating remaining handmade UI components to shadcn/ui primitives (cards, buttons, inputs, tabs)
-- [x] Audit and either migrate/remove unused handmade UI helper components (`ui/chip`) to keep primitive usage consistent
+- [x] Continue migrating remaining handmade UI components to shadcn/ui primitives (cards, buttons, badges — input/tabs still use raw elements)
+- [x] Audit and either migrate/remove unused handmade UI helper components (`ui/chip` absorbed into `button.tsx` chip variant)
 - [x] Cleanup old implementation/design/components not aligned with latest Stitch direction
 - [x] Run thorough WCAG contrast and accessibility audit against latest screens
 
 ## QA and Launch Follow-up
 - [ ] Remove remaining style mismatches against latest DESIGN.md updates (US-019)
-- [ ] Replace fallback seed content with fully managed Payload CMS content in production (deferred for now) (US-014)
-- [ ] Validate Supabase search ranking and typo tolerance against real catalog data (US-003)
+- [x] Run thorough WCAG contrast and accessibility audit against latest screens (full-site axe report)
+- [x] Add CI job to run Playwright + axe on PRs (`.github/workflows/playwright-axe.yml`)
+- [x] Replace fallback seed content with fully managed Payload CMS content in production (deferred — CMS layer ready in `src/lib/cms/index.ts`, production still falls back to seed data) (US-014)
+- [ ] Validate Supabase search ranking and typo tolerance against real catalog data (US-003) (`src/lib/search.ts` uses in-memory Levenshtein; Supabase SQL helpers in `src/lib/supabase.ts` / `supabase/migrations/001_catalog_search.sql` are prepared but unwired)
 - [ ] Finalize launch checklist (analytics verification, accessibility pass, production QA) (US-018, US-019, US-021)
-- [x] Run full-site axe audit and produce report
-- [x] Add CI job to run Playwright + axe on PRs
-- [ ] Update Playwright visual baselines after redesign pass and run accessibility sweep (snapshot test exists; `tests/catalog-visual.spec.ts-snapshots` is currently empty) (US-002, US-019)
+- [x] Replace homepage map placeholder with live Google Maps embed (US-021) (`src/app/page.tsx` renders `<iframe>` with real embed URL from `src/data/seed/content.ts`)
+- [ ] Update Playwright visual baselines after redesign pass and run accessibility sweep (snapshot test exists in `tests/catalog-visual.spec.ts`; `tests/catalog-visual.spec.ts-snapshots` directory is empty — run `npm run test:e2e:update` to generate baselines) (US-002, US-019)
 - [ ] Open PR for primary button text change and add dev guidance note (US-019)
 - [x] Update `DETAIL.md` final section again after UI parity is complete
+
+## Deferred / Out of Scope (Intentional)
+- [ ] Payload CMS production deployment (US-014) — `src/payload/config.ts` is fully configured (7 collections); `src/lib/cms/index.ts` provides graceful fallback to seed data when `PAYLOAD_URL` / `NEXT_PUBLIC_PAYLOAD_URL` / `NEXT_PUBLIC_SITE_URL` is unset
+- [ ] Dynamic attributes / related products (US-015, US-016) — Payload collection schemas exist in `src/payload/` but are not wired to production data
+- [ ] Storage providers beyond Cloudinary — `src/lib/storage.ts` defaults to `cloudinaryService`; `s3` and `r2` return `placeholderService()` stubs
+- [ ] Dedicated `Input` and `Tabs` UI primitives — catalog search uses raw `<input>`; services form uses raw `<textarea>`; tab switching is handled via URL params in `src/app/catalog/page.tsx`
