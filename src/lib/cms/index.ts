@@ -36,16 +36,16 @@ function mapPayloadCategory(entry: Record<string, unknown>): Category {
     description: entry.description ? String(entry.description) : undefined,
     attributes: Array.isArray(entry.attributes)
       ? entry.attributes.map((item) => {
-          const optionsRaw = (item as Record<string, unknown>).options;
-          return {
-            key: String((item as Record<string, unknown>).key ?? ""),
-            label: String((item as Record<string, unknown>).label ?? ""),
-            type: ((item as Record<string, unknown>).type ?? "text") as "text" | "select",
-            options: Array.isArray(optionsRaw)
-              ? optionsRaw.map((option) => String((option as Record<string, unknown>).value ?? option))
-              : undefined,
-          };
-        })
+        const optionsRaw = (item as Record<string, unknown>).options;
+        return {
+          key: String((item as Record<string, unknown>).key ?? ""),
+          label: String((item as Record<string, unknown>).label ?? ""),
+          type: ((item as Record<string, unknown>).type ?? "text") as "text" | "select",
+          options: Array.isArray(optionsRaw)
+            ? optionsRaw.map((option) => String((option as Record<string, unknown>).value ?? option))
+            : undefined,
+        };
+      })
       : [],
   };
 }
@@ -70,10 +70,10 @@ function mapPayloadProduct(entry: Record<string, unknown>): Product {
     gallery: gallery.length ? gallery : ["/gallery/fabric-brocade.svg"],
     attributes: Array.isArray(entry.attributes)
       ? entry.attributes.map((item) => ({
-          key: String((item as Record<string, unknown>).key ?? ""),
-          label: String((item as Record<string, unknown>).label ?? ""),
-          value: String((item as Record<string, unknown>).value ?? ""),
-        }))
+        key: String((item as Record<string, unknown>).key ?? ""),
+        label: String((item as Record<string, unknown>).label ?? ""),
+        value: String((item as Record<string, unknown>).value ?? ""),
+      }))
       : [],
     relatedSlugs: Array.isArray(entry.related)
       ? entry.related.map((item) => String((item as Record<string, unknown>).slug ?? "")).filter(Boolean)
@@ -112,16 +112,16 @@ export const getHomepageContent = cache(async (): Promise<HomepageContent> => {
 
   const testimonials = testimonialsResponse?.docs?.length
     ? testimonialsResponse.docs.map((item) => ({
-        name: String(item.name ?? ""),
-        quote: String(item.quote ?? ""),
-      }))
+      name: String(item.name ?? ""),
+      quote: String(item.quote ?? ""),
+    }))
     : seedHomepage.testimonials;
 
   const faqs = faqsResponse?.docs?.length
     ? faqsResponse.docs.map((item) => ({
-        question: String(item.question ?? ""),
-        answer: String(item.answer ?? ""),
-      }))
+      question: String(item.question ?? ""),
+      answer: String(item.answer ?? ""),
+    }))
     : seedHomepage.faqs;
 
   if (entry) {
@@ -141,16 +141,16 @@ export const getHomepageContent = cache(async (): Promise<HomepageContent> => {
       },
       highlights: Array.isArray(entry.highlights)
         ? entry.highlights.map((item) => ({
-            title: String((item as Record<string, unknown>).title ?? ""),
-            description: String((item as Record<string, unknown>).description ?? ""),
-          }))
+          title: String((item as Record<string, unknown>).title ?? ""),
+          description: String((item as Record<string, unknown>).description ?? ""),
+        }))
         : seedHomepage.highlights,
       gallery: Array.isArray(entry.gallery)
         ? entry.gallery.map((item) => ({
-            title: String((item as Record<string, unknown>).title ?? ""),
-            description: String((item as Record<string, unknown>).description ?? ""),
-            image: String((item as Record<string, unknown>).image ?? ""),
-          }))
+          title: String((item as Record<string, unknown>).title ?? ""),
+          description: String((item as Record<string, unknown>).description ?? ""),
+          image: String((item as Record<string, unknown>).image ?? ""),
+        }))
         : seedHomepage.gallery,
       testimonials,
       faqs,
