@@ -34,7 +34,7 @@ export interface HomepageContent {
   testimonials: Testimonial[];
   faqs: FaqItem[];
   whatsappCta: { title: string; description: string; message: string };
-  map: { title: string; description: string };
+  map: { title: string; description: string; embedUrl?: string; placeUrl?: string };
 }
 
 export interface SiteSettings {

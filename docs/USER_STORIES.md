@@ -126,9 +126,9 @@ This section is the canonical implementation tracker used before starting tasks 
 | US-016 | P1 | Deferred | [src/payload/collections/Products.ts](../src/payload/collections/Products.ts), [docs/TODO.md](./TODO.md) | 2026-05-21 |
 | US-017 | P1 | Implemented | [src/lib/seo.ts](../src/lib/seo.ts), [src/app/layout.tsx](../src/app/layout.tsx), [src/app/products/[slug]/page.tsx](../src/app/products/[slug]/page.tsx) | 2026-05-21 |
 | US-018 | P1 | Implemented | [src/components/analytics-scripts.tsx](../src/components/analytics-scripts.tsx), [src/lib/analytics.ts](../src/lib/analytics.ts) | 2026-05-21 |
-| US-019 | P0 | Verified | [src/app/globals.css](../src/app/globals.css), [src/components/navbar.tsx](../src/components/navbar.tsx), [src/components/whatsapp-fab.tsx](../src/components/whatsapp-fab.tsx) | 2026-05-21 |
+| US-019 | P0 | Implemented | [src/app/globals.css](../src/app/globals.css), [src/components/navbar.tsx](../src/components/navbar.tsx), [src/components/whatsapp-fab.tsx](../src/components/whatsapp-fab.tsx) | 2026-05-26 |
 | US-020 | P0 | Verified | [next.config.ts](../next.config.ts), [src/app/catalog/page.tsx](../src/app/catalog/page.tsx), [src/app/products/[slug]/page.tsx](../src/app/products/[slug]/page.tsx) | 2026-05-21 |
-| US-021 | P0 | Verified | [src/app/sitemap.ts](../src/app/sitemap.ts), [src/app/robots.ts](../src/app/robots.ts), [src/lib/seo.ts](../src/lib/seo.ts) | 2026-05-21 |
+| US-021 | P0 | Implemented | [src/app/page.tsx](../src/app/page.tsx), [src/app/sitemap.ts](../src/app/sitemap.ts), [src/app/robots.ts](../src/app/robots.ts), [src/lib/seo.ts](../src/lib/seo.ts) | 2026-05-26 |
 
 ---
 

@@ -162,6 +162,8 @@ export const getHomepageContent = cache(async (): Promise<HomepageContent> => {
       map: {
         title: String(entry.mapTitle ?? seedHomepage.map.title),
         description: String(entry.mapDescription ?? seedHomepage.map.description),
+        embedUrl: String(entry.mapEmbedUrl ?? seedHomepage.map.embedUrl ?? ""),
+        placeUrl: String(entry.mapPlaceUrl ?? seedHomepage.map.placeUrl ?? ""),
       },
     };
   }

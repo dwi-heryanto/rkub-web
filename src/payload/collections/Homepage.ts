@@ -36,5 +36,7 @@ export const HomepageCollection = {
     { name: "whatsappMessage", type: "textarea" },
     { name: "mapTitle", type: "text" },
     { name: "mapDescription", type: "textarea" },
+    { name: "mapEmbedUrl", type: "text" },
+    { name: "mapPlaceUrl", type: "text" },
   ],
 };

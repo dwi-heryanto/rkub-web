@@ -30,6 +30,8 @@ export default async function Home() {
     getSiteSettings(),
   ]);
   const localBusinessJsonLd = createLocalBusinessJsonLd(settings);
+  const mapEmbedUrl = content.map.embedUrl?.trim();
+  const mapPlaceUrl = content.map.placeUrl?.trim();
 
   return (
     <div className="space-y-16 pb-16">
@@ -178,31 +180,62 @@ export default async function Home() {
           <h2 className="mb-4 text-3xl font-semibold">Common Questions</h2>
           <div className="space-y-3">
             {content.faqs.map((item) => (
-              <details key={item.question} className="rounded-2xl border border-[var(--color-border)] bg-white p-5">
+              <details key={item.question} className="rounded-2xl border border-border bg-white p-5">
                 <summary className="cursor-pointer list-none font-semibold">{item.question}</summary>
-                <p className="mt-2 text-sm text-[var(--color-text-muted)]">{item.answer}</p>
+                <p className="mt-2 text-sm text-(--color-text-muted)">{item.answer}</p>
               </details>
             ))}
           </div>
         </div>
         <div>
           <h2 className="mb-4 text-3xl font-semibold">{content.map.title}</h2>
-          <div className="relative flex h-[320px] items-center justify-center overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-sky-haze)]">
-            <Image src="/gallery/rental-showcase.svg" alt="Store location map placeholder" fill className="object-cover opacity-35 grayscale" />
-            <div className="relative rounded-xl border border-[var(--color-border)] bg-white px-4 py-3 text-center">
-              <MapPin className="mx-auto h-5 w-5 text-[var(--color-deep-teal)]" />
-              <p className="mt-1 text-sm font-semibold">{settings.siteName}</p>
-              <p className="text-xs text-[var(--color-text-muted)]">{settings.address}</p>
+          <div className="relative h-80 overflow-hidden rounded-2xl border border-border bg-secondary">
+            {mapEmbedUrl ? (
+              <iframe
+                title={`${settings.siteName} location`}
+                src={mapEmbedUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="pointer-events-none absolute inset-0 h-full w-full border-0"
+                allowFullScreen
+              />
+            ) : (
+              <Image src="/gallery/rental-showcase.svg" alt="Store location map" fill className="object-cover opacity-35 grayscale" />
+            )}
+            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-(--color-forest-canopy)/35 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/90 px-3 py-1 text-xs font-semibold text-primary backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-spring-bud" />
+              Visit our atelier
+            </div>
+            <div className={`absolute bottom-4 left-4 max-w-65 rounded-2xl border border-border bg-white/95 p-4 text-left shadow-(--shadow-soft) backdrop-blur ${mapEmbedUrl ? "pointer-events-none" : ""}`}>
+              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-(--color-text-muted)">
+                <MapPin className="h-4 w-4 text-primary" />
+                Location
+              </div>
+              <p className="mt-2 text-sm font-semibold">{settings.siteName}</p>
+              <p className="mt-1 text-xs text-(--color-text-muted)">{settings.address}</p>
             </div>
           </div>
-          <p className="mt-3 text-sm text-[var(--color-text-muted)]">{content.map.description}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-(--color-text-muted)">
+            <p className="flex-1">{content.map.description}</p>
+            {mapPlaceUrl ? (
+              <Link
+                href={mapPlaceUrl}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-primary"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open in Google Maps <ArrowRight className="h-4 w-4" />
+              </Link>
+            ) : null}
+          </div>
         </div>
       </section>
 
-      <section className="space-y-5 rounded-[28px] bg-[var(--color-surface)] p-6 sm:p-8">
+      <section className="space-y-5 rounded-[28px] bg-surface p-6 sm:p-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-2xl font-semibold">Featured Catalog Picks</h2>
-          <Link href="/catalog?tab=rental" className="text-sm font-semibold text-[var(--color-deep-teal)]">
+          <Link href="/catalog?tab=rental" className="text-sm font-semibold text-primary">
             View all
           </Link>
         </div>
