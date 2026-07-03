@@ -217,13 +217,9 @@ export default async function CatalogPage({
                   src={
                     activeTab === "fabric"
                       ? "/gallery/fabric-roll.svg"
-                      : activeTab === "tools"
-                        ? "/gallery/service-tailoring.svg"
-                        : activeTab === "traditional"
-                          ? "/gallery/rental-kebaya.svg"
-                          : activeTab === "materials"
-                            ? "/gallery/bead-set.svg"
-                            : "/gallery/rental-showcase.svg"
+                      : activeTab === "traditional"
+                        ? "/gallery/rental-kebaya.svg"
+                        : "/gallery/rental-showcase.svg"
                   }
                   alt="Rental showcase"
                   width={1200}
@@ -620,10 +616,10 @@ export default async function CatalogPage({
           <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
             <Card className={`border-border p-0 shadow-none ${isTraditional ? "rounded-2xl bg-white" : "bg-surface"}`}>
               <CardContent className="space-y-5 p-6">
-                {activeTab === "fabric" || activeTab === "materials" ? (
+                {activeTab === "fabric" ? (
                   <>
                     <div className="space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Color</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--color-text-muted)">Color</p>
                       <div className="flex flex-wrap gap-2">
                         {fabricPalette.map((item) => (
                           <Link
@@ -666,25 +662,10 @@ export default async function CatalogPage({
                       </div>
                     ) : null}
                   </>
-                ) : activeTab === "tools" ? (
-                  <div className="space-y-2">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Tool categories</p>
-                    <div className="flex flex-wrap gap-2">
-                      {toolKinds.map((item) => (
-                        <Link
-                          href={buildCatalogHref({ tab: "tools", toolKind: item.value })}
-                          key={item.value}
-                          className={`rounded-full border px-3 py-1 text-xs ${activeToolKind === item.value ? "border-primary bg-primary !text-white" : "border-border text-[var(--color-text-muted)]"}`}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
                 ) : (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between border-b border-border pb-3">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Traditional filters</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--color-text-muted)">Traditional filters</p>
                       <Link href={buildCatalogHref({ tab: "traditional" })} className="text-xs font-semibold text-primary">
                         Reset
                       </Link>
