@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 
 import { ProductCard } from "@/components/product-card";
+import { ProductInquiryPanel } from "@/components/product-inquiry-panel";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -74,7 +75,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       spotlightAttributeIndex: 1,
     },
     "premium-brocade-lace": {
-      badge: "Best Seller",
+      badge: "Featured Product",
       highlight: "Heritage lace with modern finish",
       highlightPanelClass: "border-0 bg-[var(--color-sky-haze)] p-4 shadow-none",
       badgeClass: "bg-[var(--color-soft-peach)] text-[var(--color-deep-teal)]",
@@ -196,22 +197,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {isBeadsDetail ? (
-            <div className="space-y-3 border-t border-[var(--color-border)] pt-4">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-primary">Quantity</p>
-                <div className="flex items-center rounded-lg border border-[var(--color-border)] bg-white">
-                  <span className="px-3 py-1 text-primary">-</span>
-                  <span className="border-x border-[var(--color-border)] px-3 py-1 text-sm">1</span>
-                  <span className="px-3 py-1 text-primary">+</span>
-                </div>
-              </div>
-              <p className="text-xs text-[var(--color-text-muted)]">Stock availability may vary. Please inquire for bulk orders.</p>
-            </div>
-          ) : null}
-
-          <WhatsAppButton url={whatsappUrl} location="product_detail" productName={product.name} className="w-full">
-            Inquire via WhatsApp
-          </WhatsAppButton>
+            <ProductInquiryPanel
+              product={product}
+              location="product_detail"
+              showQuantity
+              className="space-y-3"
+            />
+          ) : (
+            <WhatsAppButton url={whatsappUrl} location="product_detail" productName={product.name} className="w-full">
+              Inquire via WhatsApp
+            </WhatsAppButton>
+          )}
         </Card>
       </div>
 
