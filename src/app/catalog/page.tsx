@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle, Search } from "lucide-react";
 
+import { ClientSearchInput } from "@/components/search-input";
+import { ProductCard } from "@/components/product-card";
+import { RentalAgeGroupSelect } from "@/components/rental-age-group-select";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { getProducts } from "@/lib/cms";
+import { getProducts, getSiteSettings } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
-import { getSiteSettings } from "@/lib/cms";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = createMetadata(
@@ -36,21 +37,24 @@ function getAttribute(product: { attributes: Array<{ key: string; value: string 
   return product.attributes.find((item) => item.key === key)?.value;
 }
 
-function buildCatalogHref(params: { tab: CatalogTab; color?: string; width?: string; toolKind?: ToolKind }) {
+function buildCatalogHref(params: { tab: CatalogTab; color?: string; width?: string; toolKind?: ToolKind; region?: string; gender?: string; ageGroup?: string }) {
   const query = new URLSearchParams();
   query.set("tab", params.tab);
   if (params.color) query.set("color", params.color);
   if (params.width) query.set("width", params.width);
   if (params.toolKind && params.toolKind !== "all-tools") query.set("toolKind", params.toolKind);
+  if (params.region) query.set("region", params.region);
+  if (params.gender) query.set("gender", params.gender);
+  if (params.ageGroup) query.set("ageGroup", params.ageGroup);
   return `/catalog?${query.toString()}`;
 }
 
 export default async function CatalogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tab?: string; color?: string; width?: string; toolKind?: string }>;
+  searchParams: Promise<{ tab?: string; color?: string; width?: string; toolKind?: string; region?: string; gender?: string; ageGroup?: string }>;
 }) {
-  const { tab, color, width, toolKind } = await searchParams;
+  const { tab, color, width, toolKind, region, gender, ageGroup } = await searchParams;
   const activeTab = resolveTab(tab);
   const isTraditional = activeTab === "traditional";
   const isTools = activeTab === "tools";
@@ -59,8 +63,15 @@ export default async function CatalogPage({
   const activeToolKind = resolveToolKind(toolKind);
   const activeFabricColor = color?.trim() || "";
   const activeFabricWidth = width?.trim() || "";
+  const activeRegion = region?.trim() || "";
+  const activeGender = gender?.trim() || "";
+  const activeAgeGroup = ageGroup?.trim() || "";
   const [products, settings] = await Promise.all([getProducts(), getSiteSettings()]);
-  const rentalProducts = products.filter((product) => product.category === "rental-costumes");
+  const rentalProducts = products
+    .filter((product) => product.category === "rental-costumes")
+    .filter((product) => (activeRegion ? product.tags.some((t) => t.toLowerCase() === activeRegion.toLowerCase()) : true))
+    .filter((product) => (activeGender ? product.tags.some((t) => t.toLowerCase() === activeGender.toLowerCase()) : true))
+    .filter((product) => (activeAgeGroup ? getAttribute(product, "age-group")?.toLowerCase() === activeAgeGroup.toLowerCase() : true));
   const traditionalProducts = products.filter((product) => product.category === "traditional-clothing");
   const fabricProducts = products
     .filter((product) => product.category === "fabrics")
@@ -250,23 +261,25 @@ export default async function CatalogPage({
         </section>
       ) : null}
 
-      <section className={`flex flex-wrap gap-2 ${isTraditional || isTools || isMaterials ? "rounded-2xl border border-border bg-white p-2" : ""}`}>
-        <Link href={buildCatalogHref({ tab: "rental" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "rental" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
-          Rental
-        </Link>
-        <Link href={buildCatalogHref({ tab: "fabric" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "fabric" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
-          Fabrics
-        </Link>
-        <Link href={buildCatalogHref({ tab: "tools" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "tools" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
-          Tools
-        </Link>
-        <Link href={buildCatalogHref({ tab: "traditional" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "traditional" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
-          Traditional
-        </Link>
-        <Link href={buildCatalogHref({ tab: "materials" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "materials" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
-          Materials
-        </Link>
-      </section>
+      <nav aria-label="Catalog categories" className={`flex flex-wrap gap-2 ${isTraditional || isTools || isMaterials ? "rounded-2xl border border-border bg-white p-2" : ""}`}>
+        {([
+          { value: "rental", label: "Rental" },
+          { value: "fabric", label: "Fabrics" },
+          { value: "tools", label: "Tools" },
+          { value: "traditional", label: "Traditional" },
+          { value: "materials", label: "Materials" },
+        ] as const).map((tabItem) => (
+          <Link
+            key={tabItem.value}
+            href={buildCatalogHref({ tab: tabItem.value })}
+            role="tab"
+            aria-selected={activeTab === tabItem.value}
+            className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === tabItem.value ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}
+          >
+            {tabItem.label}
+          </Link>
+        ))}
+      </nav>
 
       {isTools ? (
         <>
@@ -278,11 +291,10 @@ export default async function CatalogPage({
               </p>
             </div>
             <div className="relative">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-(--color-text-muted)" />
-              <input
-                type="text"
+              <ClientSearchInput
                 placeholder="Search tools..."
-                className="w-full rounded-full border border-border bg-white py-3 pl-12 pr-4 text-sm outline-hidden ring-primary/20 placeholder:text-(--color-text-muted) focus:ring-2"
+                location="catalog_tools_search"
+                inputClassName="rounded-full"
               />
             </div>
           </section>
@@ -303,46 +315,24 @@ export default async function CatalogPage({
           </section>
 
           <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {tabProducts.map((product, index) => {
-              const primaryTag = product.tags[0] || "Tools";
-              return (
-                <Card key={product.id} className="group flex h-full flex-col gap-4 rounded-xl border-border bg-white p-5">
-                  <Link href={`/products/${product.slug}`} className="flex flex-col gap-4">
-                    <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        priority={index === 0}
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                      />
-                      <span className="absolute left-3 top-3 rounded-full bg-background px-3 py-1 text-xs font-semibold text-primary">
-                        {primaryTag}
-                      </span>
-                    </div>
-                    <div className="flex grow flex-col">
-                      <h3 className="text-lg font-semibold leading-snug">{product.name}</h3>
-                      <p className="mt-1 line-clamp-2 text-sm text-(--color-text-muted)">{product.description}</p>
-                      <div className="mt-4 border-t border-border pt-4">
-                        <span className="text-2xl font-bold text-primary">{product.unitPrice}</span>
-                      </div>
-                    </div>
-                  </Link>
-                  <div className="mt-auto flex justify-end">
-                    <WhatsAppButton
-                      url={toolsInquiryUrl}
-                      location="catalog_tools_card"
-                      aria-label={`Inquire about ${product.name} via WhatsApp`}
-                      className="min-h-0 rounded-lg bg-transparent p-2 text-primary hover:bg-muted"
-                      variant="ghost"
-                    >
-                      <MessageCircle className="h-5 w-5" />
-                    </WhatsAppButton>
-                  </div>
-                </Card>
-              );
-            })}
+            {tabProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                variant="compact"
+                showWhatsAppAction
+                whatsappUrl={toolsInquiryUrl}
+              />
+            ))}
+            {!tabProducts.length ? (
+              <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none sm:col-span-2 lg:col-span-3 xl:col-span-4">
+                <p className="font-semibold">No tools found</p>
+                <p className="mt-1">Try selecting a different tool category or inquire via WhatsApp.</p>
+                <WhatsAppButton url={toolsInquiryUrl} location="catalog_tools_empty" variant="secondary" className="mt-4">
+                  Ask on WhatsApp
+                </WhatsAppButton>
+              </Card>
+            ) : null}
           </section>
         </>
       ) : isMaterials ? (
@@ -351,12 +341,11 @@ export default async function CatalogPage({
             <Card className="rounded-2xl border-border bg-white p-5 shadow-none">
               <h2 className="text-xl font-semibold text-primary">Explore Materials</h2>
               <p className="mt-1 text-sm text-(--color-text-muted)">Find the right fabrics, beads, and decorative accents for your next piece.</p>
-              <div className="relative mt-4">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--color-text-muted)" />
-                <input
-                  type="text"
+              <div className="mt-4">
+                <ClientSearchInput
                   placeholder="Search by name or alias..."
-                  className="w-full rounded-2xl border border-border bg-white py-2.5 pl-9 pr-3 text-sm outline-hidden ring-primary/20 placeholder:text-(--color-text-muted) focus:ring-2"
+                  location="catalog_materials_search"
+                  inputClassName="rounded-2xl py-2.5"
                 />
               </div>
             </Card>
@@ -413,35 +402,8 @@ export default async function CatalogPage({
               </p>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {tabProducts.map((product, index) => (
-                <Card key={product.id} className="group flex h-full flex-col rounded-2xl border-border bg-white p-5 shadow-none transition-transform duration-300 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
-                  <Link href={`/products/${product.slug}`} className="flex h-full flex-col">
-                    <div className="relative aspect-4/3 overflow-hidden rounded-lg bg-secondary">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        priority={index === 0}
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 1024px) 100vw, 33vw"
-                      />
-                    </div>
-                    <div className="mt-4 flex grow flex-col">
-                      <div className="flex flex-wrap gap-2">
-                        {product.tags.slice(0, 2).map((tag) => (
-                          <span key={tag} className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em]">
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                      <h3 className="mt-2 text-xl font-semibold text-primary">{product.name}</h3>
-                      <p className="mt-1 text-lg text-(--color-text-muted)">{product.unitPrice}</p>
-                      <span className="mt-4 inline-flex min-h-10.5 items-center justify-center gap-2 rounded-2xl border-2 border-primary px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white">
-                        <MessageCircle className="h-4 w-4" /> WhatsApp Inquiry
-                      </span>
-                    </div>
-                  </Link>
-                </Card>
+              {tabProducts.map((product) => (
+                <ProductCard key={product.id} product={product} variant="materials" />
               ))}
               {!tabProducts.length ? (
                 <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none md:col-span-2 xl:col-span-3">
@@ -461,42 +423,14 @@ export default async function CatalogPage({
             <p className="max-w-xl text-sm text-(--color-text-muted)">{featuredDescription}</p>
           </div>
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {featuredProducts.map((product, index) => (
-              <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
-                <Link href={`/products/${product.slug}`} className="block h-full">
-                  <div className="relative overflow-hidden bg-muted">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      width={704}
-                      height={396}
-                      priority={index === 0}
-                      className="h-52 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    />
-                    <div className="absolute left-4 top-4 flex gap-2">
-                      <Badge variant="suggestion">{product.category.replace(/-/g, " ")}</Badge>
-                    </div>
-                  </div>
-                  <CardContent className="space-y-3 p-5">
-                    <div className="space-y-1">
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="text-base font-semibold text-foreground">{product.name}</h3>
-                        <span className="text-sm font-semibold text-primary">{product.unitPrice}</span>
-                      </div>
-                      <p className="text-sm text-(--color-text-muted)">{product.description}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {product.tags.slice(0, 3).map((tag) => (
-                        <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-(--color-text-muted)">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Link>
-              </Card>
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} variant="featured" />
             ))}
+            {!featuredProducts.length ? (
+              <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none md:col-span-2 xl:col-span-3">
+                No featured products available in this category yet.
+              </Card>
+            ) : null}
           </div>
         </section>
       ) : null}
@@ -512,34 +446,45 @@ export default async function CatalogPage({
                     Reset
                   </Link>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold">Region</p>
+                <fieldset>
+                  <legend className="text-sm font-semibold">Region</legend>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {["Java", "Bali", "Sumatra", "Sulawesi"].map((region) => (
-                      <span key={region} className="rounded-full border border-border px-3 py-1 text-xs text-(--color-text-muted)">
+                      <Link
+                        key={region}
+                        href={buildCatalogHref({ tab: "rental", region: activeRegion.toLowerCase() === region.toLowerCase() ? undefined : region, gender: activeGender || undefined, ageGroup: activeAgeGroup || undefined })}
+                        className={`rounded-full border px-3 py-1 text-xs ${activeRegion.toLowerCase() === region.toLowerCase() ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}
+                      >
                         {region}
-                      </span>
+                      </Link>
                     ))}
                   </div>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold">Gender</p>
+                </fieldset>
+                <fieldset>
+                  <legend className="text-sm font-semibold">Gender</legend>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    {["All", "Male", "Female"].map((gender, idx) => (
-                      <span key={gender} className={`rounded-full border px-3 py-1 text-xs ${idx === 0 ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}>
-                        {gender}
-                      </span>
-                    ))}
+                    {["All", "Male", "Female"].map((gender) => {
+                      const isAll = gender === "All";
+                      const isActive = isAll ? !activeGender : activeGender.toLowerCase() === gender.toLowerCase();
+                      return (
+                        <Link
+                          key={gender}
+                          href={buildCatalogHref({ tab: "rental", region: activeRegion || undefined, gender: isAll ? undefined : (isActive ? undefined : gender), ageGroup: activeAgeGroup || undefined })}
+                          className={`rounded-full border px-3 py-1 text-xs ${isActive ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}
+                        >
+                          {gender}
+                        </Link>
+                      );
+                    })}
                   </div>
-                </div>
+                </fieldset>
                 <div>
-                  <p className="text-sm font-semibold">Age Group</p>
-                  <select aria-label="Age Group" className="mt-2 w-full rounded-2xl border border-border bg-white px-3 py-2 text-sm">
-                    <option>Adult</option>
-                    <option>Teen</option>
-                    <option>Child (5-12)</option>
-                    <option>Toddler</option>
-                  </select>
+                  <label htmlFor="age-group-select" className="text-sm font-semibold">Age Group</label>
+                  <RentalAgeGroupSelect
+                    currentAgeGroup={activeAgeGroup}
+                    currentRegion={activeRegion}
+                    currentGender={activeGender}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -560,49 +505,43 @@ export default async function CatalogPage({
                 <p className="text-sm text-(--color-text-muted)">
                   Showing <span className="font-semibold text-foreground">{rentalProducts.length}</span> rental costumes
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {["Java", "Bali"].map((tag) => (
-                    <span key={tag} className="rounded-full border border-border bg-muted px-3 py-1 text-xs">
-                      {tag}
-                    </span>
-                  ))}
+                <div className="flex flex-wrap items-center gap-2">
+                  {activeRegion ? (
+                    <Link href={buildCatalogHref({ tab: "rental", gender: activeGender || undefined, ageGroup: activeAgeGroup || undefined })} className="rounded-full border border-border bg-muted px-3 py-1 text-xs">
+                      {activeRegion} ✕
+                    </Link>
+                  ) : null}
+                  {activeGender ? (
+                    <Link href={buildCatalogHref({ tab: "rental", region: activeRegion || undefined, ageGroup: activeAgeGroup || undefined })} className="rounded-full border border-border bg-muted px-3 py-1 text-xs">
+                      {activeGender} ✕
+                    </Link>
+                  ) : null}
+                  {activeAgeGroup ? (
+                    <Link href={buildCatalogHref({ tab: "rental", region: activeRegion || undefined, gender: activeGender || undefined })} className="rounded-full border border-border bg-muted px-3 py-1 text-xs">
+                      {activeAgeGroup} ✕
+                    </Link>
+                  ) : null}
+                  {(activeRegion || activeGender || activeAgeGroup) ? (
+                    <Link href={buildCatalogHref({ tab: "rental" })} className="text-xs font-semibold text-primary">
+                      Clear all
+                    </Link>
+                  ) : null}
                 </div>
               </CardContent>
             </Card>
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-5">
-              {rentalProducts.map((product, index) => (
-                <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
-                  <Link href={`/products/${product.slug}`} className="block h-full">
-                    <div className="relative aspect-3/4 overflow-hidden bg-muted">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        width={704}
-                        height={396}
-                        priority={index === 0}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                      />
-                    </div>
-                    <CardContent className="space-y-3 p-5">
-                      <div className="space-y-1">
-                        <div className="flex items-start justify-between gap-3">
-                          <h3 className="text-base font-semibold text-foreground">{product.name}</h3>
-                          <span className="text-sm font-semibold text-primary">{product.unitPrice}</span>
-                        </div>
-                        <p className="text-sm text-(--color-text-muted)">{product.description}</p>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {product.tags.slice(0, 2).map((tag) => (
-                          <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-(--color-text-muted)">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Link>
-                </Card>
+              {rentalProducts.map((product) => (
+                <ProductCard key={product.id} product={product} variant="rental" />
               ))}
+              {!rentalProducts.length ? (
+                <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none sm:col-span-2 xl:col-span-3">
+                  <p className="font-semibold">No rental costumes found</p>
+                  <p className="mt-1">Try adjusting your filters or inquire about availability via WhatsApp.</p>
+                  <WhatsAppButton url={inquiryUrl} location="catalog_rental_empty" variant="secondary" className="mt-4">
+                    Ask on WhatsApp
+                  </WhatsAppButton>
+                </Card>
+              ) : null}
             </div>
             <div className="flex justify-center">
               <Button variant="secondary" className="rounded-2xl border-border px-6 py-3 text-(--color-text-muted) hover:text-primary">
@@ -732,38 +671,12 @@ export default async function CatalogPage({
 
             {tabProducts.length ? (
               <div className={`grid gap-4 sm:grid-cols-2 xl:grid-cols-3 ${isTraditional ? "xl:gap-5" : ""}`}>
-                {tabProducts.map((product, index) => (
-                  <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
-                    <Link href={`/products/${product.slug}`} className="block h-full">
-                      <div className={`relative overflow-hidden bg-muted ${isTraditional ? "aspect-3/4" : ""}`}>
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          width={704}
-                          height={396}
-                          priority={index === 0}
-                          className={`${isTraditional ? "h-full w-full" : "h-52 w-full"} object-cover transition-transform duration-300 group-hover:scale-[1.02]`}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                        />
-                      </div>
-                      <CardContent className="space-y-3 p-5">
-                        <div className="space-y-1">
-                          <div className="flex items-start justify-between gap-3">
-                            <h3 className="text-base font-semibold text-foreground">{product.name}</h3>
-                            <span className="text-sm font-semibold text-primary">{product.unitPrice}</span>
-                          </div>
-                          <p className="text-sm text-(--color-text-muted)">{product.description}</p>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {product.tags.slice(0, 3).map((tag) => (
-                            <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-(--color-text-muted)">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Link>
-                  </Card>
+                {tabProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    variant={isTraditional ? "rental" : "default"}
+                  />
                 ))}
               </div>
             ) : (
