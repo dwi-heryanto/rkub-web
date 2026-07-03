@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { createWhatsAppUrl } from "@/lib/whatsapp";
 
 export function Footer() {
+  const waUrl = createWhatsAppUrl("Hello, I have a question and would like to chat.");
+
   return (
     <footer className="bg-[var(--color-deep-teal)] text-white">
       <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-4 lg:px-8">
@@ -38,7 +41,7 @@ export function Footer() {
           <p className="font-semibold text-white/90">Quick Inquiry</p>
           <p className="text-white/70">Have a specific request? Chat with our specialist directly.</p>
           <WhatsAppButton
-            url="https://wa.me/628123456789"
+            url={waUrl}
             location="footer_quick_inquiry"
             variant="inverse"
             className="px-4 py-2 font-semibold shadow-[0_4px_12px_rgba(0,0,0,0.18)]"
