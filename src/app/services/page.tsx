@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { CalendarDays, Info, Scissors, Shirt, Wrench } from "lucide-react";
+import { CalendarDays, Scissors, Shirt, Wrench } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { WhatsAppButton } from "@/components/whatsapp-button";
+import { ServiceRequestForm } from "@/components/service-request-form";
 import { createMetadata } from "@/lib/seo";
-import { createWhatsAppUrl } from "@/lib/whatsapp";
 import { getSiteSettings } from "@/lib/cms";
 
 export const metadata: Metadata = createMetadata(
@@ -34,10 +32,6 @@ const services = [
 
 export default async function ServicesPage() {
   const settings = await getSiteSettings();
-  const waLink = createWhatsAppUrl(
-    "Hello, I want to request tailoring services. Can I share my garment details and timeline?",
-    settings.whatsappNumber,
-  );
 
   return (
     <div className="space-y-12 pb-12">
@@ -96,25 +90,7 @@ export default async function ServicesPage() {
             <h2 className="text-4xl font-bold">Describe your request</h2>
             <p className="text-base text-[var(--color-text-muted)]">Tell us what you need, and we&apos;ll prepare a quote and timeline.</p>
           </div>
-          <Card className="bg-white p-5 shadow-none">
-            <CardContent className="space-y-4 p-0">
-              <label className="text-sm font-semibold text-foreground">How can we help you today?</label>
-              <p className="text-sm text-[var(--color-text-muted)]">
-                e.g., &quot;Hemming a suit jacket&quot;, &quot;Tapering dress pants&quot;, or &quot;Custom silk blouse design.&quot;
-              </p>
-              <textarea
-                className="min-h-36 w-full rounded-[var(--radius-card)] border border-border bg-white p-4 text-sm text-foreground outline-hidden focus:border-[var(--color-deep-teal)]"
-                placeholder="Provide details about the garment, fabric type (if known), and specific alterations required..."
-              />
-              <WhatsAppButton url={waLink} location="services_request" className="w-full sm:w-auto">
-                Request via WhatsApp
-              </WhatsAppButton>
-              <p className="flex items-center justify-center gap-2 text-center text-xs text-[var(--color-text-muted)]">
-                <Info className="h-4 w-4" />
-                Clicking this button will open WhatsApp and pre-fill a message to our master tailor.
-              </p>
-            </CardContent>
-          </Card>
+          <ServiceRequestForm whatsappNumber={settings.whatsappNumber} />
         </div>
       </section>
     </div>
