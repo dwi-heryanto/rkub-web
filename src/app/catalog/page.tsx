@@ -168,7 +168,7 @@ export default async function CatalogPage({
   return (
     <div className="space-y-12 pb-12">
       {!isTools && !isMaterials ? (
-        <section className={`overflow-hidden border border-border text-white ${isTraditional ? "bg-[var(--color-deep-teal)]" : "rounded-[calc(var(--radius-card)+12px)] bg-primary"}`}>
+        <section className={`overflow-hidden border border-border text-white ${isTraditional ? "bg-primary" : "rounded-[calc(var(--radius-card)+12px)] bg-primary"}`}>
           <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.05fr_.95fr] lg:p-10">
             <div className="flex flex-col justify-center space-y-6">
               <Badge className="w-fit bg-white/10 text-white">{hero.badge}</Badge>
@@ -178,7 +178,7 @@ export default async function CatalogPage({
                 <p className="max-w-2xl text-base leading-7 text-white/80 sm:text-lg">{hero.description}</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Link href="#catalog-browser" className={cn(buttonVariants(), "rounded-2xl bg-background px-6 !text-primary hover:bg-white")}>
+                <Link href="#catalog-browser" className={cn(buttonVariants(), "rounded-2xl bg-background px-6 text-primary! hover:bg-white")}>
                   Browse Catalog
                 </Link>
                 <WhatsAppButton
@@ -251,19 +251,19 @@ export default async function CatalogPage({
       ) : null}
 
       <section className={`flex flex-wrap gap-2 ${isTraditional || isTools || isMaterials ? "rounded-2xl border border-border bg-white p-2" : ""}`}>
-        <Link href={buildCatalogHref({ tab: "rental" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "rental" ? "border-primary bg-primary !text-white" : "border-border text-foreground"}`}>
+        <Link href={buildCatalogHref({ tab: "rental" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "rental" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
           Rental
         </Link>
-        <Link href={buildCatalogHref({ tab: "fabric" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "fabric" ? "border-primary bg-primary !text-white" : "border-border text-foreground"}`}>
+        <Link href={buildCatalogHref({ tab: "fabric" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "fabric" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
           Fabrics
         </Link>
-        <Link href={buildCatalogHref({ tab: "tools" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "tools" ? "border-primary bg-primary !text-white" : "border-border text-foreground"}`}>
+        <Link href={buildCatalogHref({ tab: "tools" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "tools" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
           Tools
         </Link>
-        <Link href={buildCatalogHref({ tab: "traditional" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "traditional" ? "border-primary bg-primary !text-white" : "border-border text-foreground"}`}>
+        <Link href={buildCatalogHref({ tab: "traditional" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "traditional" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
           Traditional
         </Link>
-        <Link href={buildCatalogHref({ tab: "materials" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "materials" ? "border-primary bg-primary !text-white" : "border-border text-foreground"}`}>
+        <Link href={buildCatalogHref({ tab: "materials" })} className={`rounded-full border px-4 py-2 text-sm font-semibold ${activeTab === "materials" ? "border-primary bg-primary text-white!" : "border-border text-foreground"}`}>
           Materials
         </Link>
       </section>
@@ -273,16 +273,16 @@ export default async function CatalogPage({
           <section className="grid gap-6 md:grid-cols-[1fr_320px] md:items-end">
             <div className="space-y-3">
               <h1 className="text-4xl font-bold leading-tight text-primary sm:text-5xl lg:text-6xl">Professional Tools</h1>
-              <p className="max-w-3xl text-lg text-[var(--color-text-muted)]">
+              <p className="max-w-3xl text-lg text-(--color-text-muted)">
                 Precision instruments designed for longevity and exactness. Equip your workspace with reliable shears, measuring devices, and hand-sewing essentials.
               </p>
             </div>
             <div className="relative">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-muted)]" />
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-(--color-text-muted)" />
               <input
                 type="text"
                 placeholder="Search tools..."
-                className="w-full rounded-full border border-border bg-white py-3 pl-12 pr-4 text-sm outline-none ring-primary/20 placeholder:text-[var(--color-text-muted)] focus:ring-2"
+                className="w-full rounded-full border border-border bg-white py-3 pl-12 pr-4 text-sm outline-hidden ring-primary/20 placeholder:text-(--color-text-muted) focus:ring-2"
               />
             </div>
           </section>
@@ -293,8 +293,8 @@ export default async function CatalogPage({
                 key={item.value}
                 href={buildCatalogHref({ tab: "tools", toolKind: item.value })}
                 className={`whitespace-nowrap rounded-full border px-5 py-2 text-sm font-semibold transition-colors ${activeToolKind === item.value
-                  ? "border-primary bg-primary !text-white"
-                  : "border-border bg-[var(--color-surface)] text-[var(--color-midnight-ink)] hover:bg-[var(--color-soft-peach)]"
+                  ? "border-primary bg-primary text-white!"
+                  : "border-border bg-surface text-midnight-ink hover:bg-muted"
                   }`}
               >
                 {item.label}
@@ -308,7 +308,7 @@ export default async function CatalogPage({
               return (
                 <Card key={product.id} className="group flex h-full flex-col gap-4 rounded-xl border-border bg-white p-5">
                   <Link href={`/products/${product.slug}`} className="flex flex-col gap-4">
-                    <div className="relative aspect-square overflow-hidden rounded-lg bg-[var(--color-soft-peach)]">
+                    <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
                       <Image
                         src={product.image}
                         alt={product.name}
@@ -317,13 +317,13 @@ export default async function CatalogPage({
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                       />
-                      <span className="absolute left-3 top-3 rounded-full bg-[var(--color-bg)] px-3 py-1 text-xs font-semibold text-primary">
+                      <span className="absolute left-3 top-3 rounded-full bg-background px-3 py-1 text-xs font-semibold text-primary">
                         {primaryTag}
                       </span>
                     </div>
                     <div className="flex grow flex-col">
                       <h3 className="text-lg font-semibold leading-snug">{product.name}</h3>
-                      <p className="mt-1 line-clamp-2 text-sm text-[var(--color-text-muted)]">{product.description}</p>
+                      <p className="mt-1 line-clamp-2 text-sm text-(--color-text-muted)">{product.description}</p>
                       <div className="mt-4 border-t border-border pt-4">
                         <span className="text-2xl font-bold text-primary">{product.unitPrice}</span>
                       </div>
@@ -334,7 +334,7 @@ export default async function CatalogPage({
                       url={toolsInquiryUrl}
                       location="catalog_tools_card"
                       aria-label={`Inquire about ${product.name} via WhatsApp`}
-                      className="min-h-0 rounded-lg bg-transparent p-2 text-primary hover:bg-[var(--color-soft-peach)]"
+                      className="min-h-0 rounded-lg bg-transparent p-2 text-primary hover:bg-muted"
                       variant="ghost"
                     >
                       <MessageCircle className="h-5 w-5" />
@@ -350,21 +350,21 @@ export default async function CatalogPage({
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
             <Card className="rounded-2xl border-border bg-white p-5 shadow-none">
               <h2 className="text-xl font-semibold text-primary">Explore Materials</h2>
-              <p className="mt-1 text-sm text-[var(--color-text-muted)]">Find the right fabrics, beads, and decorative accents for your next piece.</p>
+              <p className="mt-1 text-sm text-(--color-text-muted)">Find the right fabrics, beads, and decorative accents for your next piece.</p>
               <div className="relative mt-4">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-muted)]" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--color-text-muted)" />
                 <input
                   type="text"
                   placeholder="Search by name or alias..."
-                  className="w-full rounded-[16px] border border-border bg-white py-2.5 pl-9 pr-3 text-sm outline-none ring-primary/20 placeholder:text-[var(--color-text-muted)] focus:ring-2"
+                  className="w-full rounded-2xl border border-border bg-white py-2.5 pl-9 pr-3 text-sm outline-hidden ring-primary/20 placeholder:text-(--color-text-muted) focus:ring-2"
                 />
               </div>
             </Card>
             <Card className="rounded-2xl border-border bg-white p-5 shadow-none">
               <p className="text-sm font-semibold">Category</p>
               <div className="mt-3 space-y-2 text-sm">
-                <p className="rounded-lg bg-[var(--color-soft-peach)] px-3 py-2">Fabrics</p>
-                <p className="rounded-lg px-3 py-2 text-[var(--color-text-muted)]">Beads &amp; Accessories</p>
+                <p className="rounded-lg bg-muted px-3 py-2">Fabrics</p>
+                <p className="rounded-lg px-3 py-2 text-(--color-text-muted)">Beads &amp; Accessories</p>
               </div>
               <p className="mt-4 text-sm font-semibold">Color</p>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -376,7 +376,7 @@ export default async function CatalogPage({
                       color: activeFabricColor.toLowerCase() === item.toLowerCase() ? undefined : item,
                       width: activeFabricWidth || undefined,
                     })}
-                    className={`rounded-full border px-3 py-1 text-xs ${activeFabricColor.toLowerCase() === item.toLowerCase() ? "border-primary bg-primary !text-white" : "border-border text-[var(--color-text-muted)]"}`}
+                    className={`rounded-full border px-3 py-1 text-xs ${activeFabricColor.toLowerCase() === item.toLowerCase() ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}
                   >
                     {item}
                   </Link>
@@ -392,7 +392,7 @@ export default async function CatalogPage({
                       color: activeFabricColor || undefined,
                       width: activeFabricWidth.toLowerCase() === size.toLowerCase() ? undefined : size,
                     })}
-                    className={`rounded-full border px-3 py-1 text-xs ${activeFabricWidth.toLowerCase() === size.toLowerCase() ? "border-primary bg-primary !text-white" : "border-border text-[var(--color-text-muted)]"}`}
+                    className={`rounded-full border px-3 py-1 text-xs ${activeFabricWidth.toLowerCase() === size.toLowerCase() ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}
                   >
                     {size}
                   </Link>
@@ -408,7 +408,7 @@ export default async function CatalogPage({
           <div className="space-y-4">
             <div>
               <h1 className="text-4xl font-bold leading-tight text-primary sm:text-5xl lg:text-6xl">Explore Materials</h1>
-              <p className="mt-2 max-w-3xl text-lg text-[var(--color-text-muted)]">
+              <p className="mt-2 max-w-3xl text-lg text-(--color-text-muted)">
                 Browse fabrics, beads, and decorative accents for tailoring and custom garment work.
               </p>
             </div>
@@ -416,27 +416,27 @@ export default async function CatalogPage({
               {tabProducts.map((product, index) => (
                 <Card key={product.id} className="group flex h-full flex-col rounded-2xl border-border bg-white p-5 shadow-none transition-transform duration-300 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
                   <Link href={`/products/${product.slug}`} className="flex h-full flex-col">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-[var(--color-sky-haze)]">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      priority={index === 0}
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                    />
+                    <div className="relative aspect-4/3 overflow-hidden rounded-lg bg-secondary">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        priority={index === 0}
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 100vw, 33vw"
+                      />
                     </div>
                     <div className="mt-4 flex grow flex-col">
                       <div className="flex flex-wrap gap-2">
                         {product.tags.slice(0, 2).map((tag) => (
-                          <span key={tag} className="rounded-full bg-[var(--color-soft-peach)] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em]">
+                          <span key={tag} className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em]">
                             #{tag}
                           </span>
                         ))}
                       </div>
                       <h3 className="mt-2 text-xl font-semibold text-primary">{product.name}</h3>
-                      <p className="mt-1 text-lg text-[var(--color-text-muted)]">{product.unitPrice}</p>
-                      <span className="mt-4 inline-flex min-h-[42px] items-center justify-center gap-2 rounded-[16px] border-2 border-primary px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white">
+                      <p className="mt-1 text-lg text-(--color-text-muted)">{product.unitPrice}</p>
+                      <span className="mt-4 inline-flex min-h-10.5 items-center justify-center gap-2 rounded-2xl border-2 border-primary px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white">
                         <MessageCircle className="h-4 w-4" /> WhatsApp Inquiry
                       </span>
                     </div>
@@ -444,7 +444,7 @@ export default async function CatalogPage({
                 </Card>
               ))}
               {!tabProducts.length ? (
-                <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-[var(--color-text-muted)] shadow-none md:col-span-2 xl:col-span-3">
+                <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none md:col-span-2 xl:col-span-3">
                   No matching material items yet.
                 </Card>
               ) : null}
@@ -452,7 +452,7 @@ export default async function CatalogPage({
           </div>
         </section>
       ) : !isTraditional ? (
-        <section className="space-y-5 rounded-[28px] bg-[var(--color-surface)] p-6 sm:p-8">
+        <section className="space-y-5 rounded-[28px] bg-surface p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">Featured Picks</p>
@@ -507,7 +507,7 @@ export default async function CatalogPage({
             <Card className="rounded-2xl border-border bg-white p-0 shadow-none">
               <CardContent className="space-y-5 p-6">
                 <div className="flex items-center justify-between border-b border-border pb-3">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Filters</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--color-text-muted)">Filters</p>
                   <Link href={buildCatalogHref({ tab: "rental" })} className="text-xs font-semibold text-primary">
                     Reset
                   </Link>
@@ -516,7 +516,7 @@ export default async function CatalogPage({
                   <p className="text-sm font-semibold">Region</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {["Java", "Bali", "Sumatra", "Sulawesi"].map((region) => (
-                      <span key={region} className="rounded-full border border-border px-3 py-1 text-xs text-[var(--color-text-muted)]">
+                      <span key={region} className="rounded-full border border-border px-3 py-1 text-xs text-(--color-text-muted)">
                         {region}
                       </span>
                     ))}
@@ -526,7 +526,7 @@ export default async function CatalogPage({
                   <p className="text-sm font-semibold">Gender</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {["All", "Male", "Female"].map((gender, idx) => (
-                      <span key={gender} className={`rounded-full border px-3 py-1 text-xs ${idx === 0 ? "border-primary bg-primary !text-white" : "border-border text-[var(--color-text-muted)]"}`}>
+                      <span key={gender} className={`rounded-full border px-3 py-1 text-xs ${idx === 0 ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}>
                         {gender}
                       </span>
                     ))}
@@ -534,7 +534,7 @@ export default async function CatalogPage({
                 </div>
                 <div>
                   <p className="text-sm font-semibold">Age Group</p>
-                  <select aria-label="Age Group" className="mt-2 w-full rounded-[16px] border border-border bg-white px-3 py-2 text-sm">
+                  <select aria-label="Age Group" className="mt-2 w-full rounded-2xl border border-border bg-white px-3 py-2 text-sm">
                     <option>Adult</option>
                     <option>Teen</option>
                     <option>Child (5-12)</option>
@@ -547,22 +547,22 @@ export default async function CatalogPage({
           <div className="space-y-5">
             <Card className="rounded-2xl border-border bg-white p-2 shadow-none">
               <div className="flex gap-2">
-                <Link href={buildCatalogHref({ tab: "rental" })} className="flex-1 rounded-xl border border-primary bg-primary px-4 py-2 text-center text-sm font-semibold !text-white">
+                <Link href={buildCatalogHref({ tab: "rental" })} className="flex-1 rounded-xl border border-primary bg-primary px-4 py-2 text-center text-sm font-semibold text-white!">
                   Rental Costumes
                 </Link>
-                <Link href={buildCatalogHref({ tab: "traditional" })} className="flex-1 rounded-xl border border-border bg-[var(--color-surface)] px-4 py-2 text-center text-sm font-semibold text-[var(--color-text-muted)]">
+                <Link href={buildCatalogHref({ tab: "traditional" })} className="flex-1 rounded-xl border border-border bg-surface px-4 py-2 text-center text-sm font-semibold text-(--color-text-muted)">
                   Traditional Clothing
                 </Link>
               </div>
             </Card>
             <Card className="rounded-2xl border-border bg-white p-0 shadow-none">
               <CardContent className="flex flex-wrap items-center justify-between gap-3 p-5">
-                <p className="text-sm text-[var(--color-text-muted)]">
+                <p className="text-sm text-(--color-text-muted)">
                   Showing <span className="font-semibold text-foreground">{rentalProducts.length}</span> rental costumes
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {["Java", "Bali"].map((tag) => (
-                    <span key={tag} className="rounded-full border border-border bg-[var(--color-soft-peach)] px-3 py-1 text-xs">
+                    <span key={tag} className="rounded-full border border-border bg-muted px-3 py-1 text-xs">
                       {tag}
                     </span>
                   ))}
@@ -573,7 +573,7 @@ export default async function CatalogPage({
               {rentalProducts.map((product, index) => (
                 <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
                   <Link href={`/products/${product.slug}`} className="block h-full">
-                    <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+                    <div className="relative aspect-3/4 overflow-hidden bg-muted">
                       <Image
                         src={product.image}
                         alt={product.name}
@@ -605,7 +605,7 @@ export default async function CatalogPage({
               ))}
             </div>
             <div className="flex justify-center">
-              <Button variant="secondary" className="rounded-[16px] border-border px-6 py-3 text-[var(--color-text-muted)] hover:text-primary">
+              <Button variant="secondary" className="rounded-2xl border-border px-6 py-3 text-(--color-text-muted) hover:text-primary">
                 Load More Options
               </Button>
             </div>
@@ -629,7 +629,7 @@ export default async function CatalogPage({
                               color: activeFabricColor.toLowerCase() === item.toLowerCase() ? undefined : item,
                               width: activeFabricWidth || undefined,
                             })}
-                            className={`rounded-full border px-3 py-1 text-xs ${activeFabricColor.toLowerCase() === item.toLowerCase() ? "border-primary bg-primary !text-white" : "border-border text-[var(--color-text-muted)]"}`}
+                            className={`rounded-full border px-3 py-1 text-xs ${activeFabricColor.toLowerCase() === item.toLowerCase() ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}
                           >
                             {item}
                           </Link>
@@ -637,7 +637,7 @@ export default async function CatalogPage({
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Width</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--color-text-muted)">Width</p>
                       <div className="flex flex-wrap gap-2">
                         {fabricWidths.map((size) => (
                           <Link
@@ -647,7 +647,7 @@ export default async function CatalogPage({
                               color: activeFabricColor || undefined,
                               width: activeFabricWidth.toLowerCase() === size.toLowerCase() ? undefined : size,
                             })}
-                            className={`rounded-full border px-3 py-1 text-xs ${activeFabricWidth.toLowerCase() === size.toLowerCase() ? "border-primary bg-primary !text-white" : "border-border text-[var(--color-text-muted)]"}`}
+                            className={`rounded-full border px-3 py-1 text-xs ${activeFabricWidth.toLowerCase() === size.toLowerCase() ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}
                           >
                             {size}
                           </Link>
@@ -673,7 +673,7 @@ export default async function CatalogPage({
                     <p className="text-sm font-semibold">Region</p>
                     <div className="flex flex-wrap gap-2">
                       {["Java", "Bali", "Sumatra"].map((region) => (
-                        <span key={region} className="rounded-full border border-border px-3 py-1 text-xs text-[var(--color-text-muted)]">
+                        <span key={region} className="rounded-full border border-border px-3 py-1 text-xs text-(--color-text-muted)">
                           {region}
                         </span>
                       ))}
@@ -681,7 +681,7 @@ export default async function CatalogPage({
                     <p className="text-sm font-semibold">Gender</p>
                     <div className="flex flex-wrap gap-2">
                       {["All", "Male", "Female"].map((gender, idx) => (
-                        <span key={gender} className={`rounded-full border px-3 py-1 text-xs ${idx === 0 ? "border-primary bg-primary !text-white" : "border-border text-[var(--color-text-muted)]"}`}>
+                        <span key={gender} className={`rounded-full border px-3 py-1 text-xs ${idx === 0 ? "border-primary bg-primary text-white!" : "border-border text-(--color-text-muted)"}`}>
                           {gender}
                         </span>
                       ))}
@@ -696,12 +696,12 @@ export default async function CatalogPage({
             {isTraditional ? (
               <Card className="border-border bg-white p-0 shadow-none">
                 <CardContent className="flex flex-wrap items-center justify-between gap-3 p-5">
-                  <p className="text-sm text-[var(--color-text-muted)]">
+                  <p className="text-sm text-(--color-text-muted)">
                     Showing <span className="font-semibold text-foreground">{tabProducts.length}</span> traditional costumes
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {["Java", "Bali"].map((tag) => (
-                      <span key={tag} className="rounded-full border border-border bg-[var(--color-soft-peach)] px-3 py-1 text-xs">
+                      <span key={tag} className="rounded-full border border-border bg-muted px-3 py-1 text-xs">
                         {tag}
                       </span>
                     ))}
@@ -713,7 +713,7 @@ export default async function CatalogPage({
                 <CardContent className="flex flex-wrap items-center justify-between gap-3 p-5">
                   <div>
                     <p className="text-sm font-semibold text-foreground">{tabProducts.length} items available</p>
-                    <p className="text-sm text-[var(--color-text-muted)]">
+                    <p className="text-sm text-(--color-text-muted)">
                       {activeTab === "fabric"
                         ? "Fabric catalog curated for motif, drape, and finishing requirements."
                         : activeTab === "tools"
@@ -735,7 +735,7 @@ export default async function CatalogPage({
                 {tabProducts.map((product, index) => (
                   <Card key={product.id} className="group overflow-hidden p-0 transition-all duration-200 hover:-translate-y-1 hover:shadow-(--shadow-soft)">
                     <Link href={`/products/${product.slug}`} className="block h-full">
-                      <div className={`relative overflow-hidden bg-muted ${isTraditional ? "aspect-[3/4]" : ""}`}>
+                      <div className={`relative overflow-hidden bg-muted ${isTraditional ? "aspect-3/4" : ""}`}>
                         <Image
                           src={product.image}
                           alt={product.name}
@@ -767,7 +767,7 @@ export default async function CatalogPage({
                 ))}
               </div>
             ) : (
-              <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-[var(--color-text-muted)] shadow-none">
+              <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none">
                 No matching items yet.
               </Card>
             )}
