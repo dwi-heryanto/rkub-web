@@ -13,13 +13,13 @@ import { createWhatsAppUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 const categoryMeta: Record<string, { href: string; icon: typeof Scissors; tint: string; cta: string }> = {
-  "tailoring-tools": { href: "/catalog?tab=tools", icon: Wrench, tint: "bg-[var(--color-soft-peach)]", cta: "Browse Tools" },
-  fabrics: { href: "/catalog?tab=fabric", icon: Sparkles, tint: "bg-[var(--color-sky-haze)]", cta: "View Fabrics" },
-  "beads-accessories": { href: "/catalog?tab=materials", icon: Gem, tint: "bg-[var(--color-muted-mandarin)]", cta: "Shop Embellishments" },
-  "rental-costumes": { href: "/catalog?tab=rental", icon: Shirt, tint: "bg-[var(--color-soft-peach)]", cta: "View Rentals" },
-  "traditional-clothing": { href: "/catalog?tab=traditional", icon: Shirt, tint: "bg-[var(--color-sky-haze)]", cta: "Discover Heritage" },
-  "tailoring-services": { href: "/services", icon: Scissors, tint: "bg-[var(--color-muted-mandarin)]", cta: "Book Consultation" },
-  "decorative-materials": { href: "/catalog?tab=materials", icon: Gem, tint: "bg-[var(--color-soft-peach)]", cta: "Shop Materials" },
+  "tailoring-tools": { href: "/catalog?tab=tools", icon: Wrench, tint: "bg-muted", cta: "Browse Tools" },
+  fabrics: { href: "/catalog?tab=fabric", icon: Sparkles, tint: "bg-secondary", cta: "View Fabrics" },
+  "beads-accessories": { href: "/catalog?tab=materials", icon: Gem, tint: "bg-(--color-muted-mandarin)", cta: "Shop Embellishments" },
+  "rental-costumes": { href: "/catalog?tab=rental", icon: Shirt, tint: "bg-muted", cta: "View Rentals" },
+  "traditional-clothing": { href: "/catalog?tab=traditional", icon: Shirt, tint: "bg-secondary", cta: "Discover Heritage" },
+  "tailoring-services": { href: "/services", icon: Scissors, tint: "bg-(--color-muted-mandarin)", cta: "Book Consultation" },
+  "decorative-materials": { href: "/catalog?tab=materials", icon: Gem, tint: "bg-muted", cta: "Shop Materials" },
 };
 
 export default async function Home() {
@@ -39,7 +39,7 @@ export default async function Home() {
         {JSON.stringify(localBusinessJsonLd)}
       </Script>
 
-      <section className="relative overflow-hidden rounded-[32px] bg-[var(--color-forest-canopy)] px-6 py-10 text-white sm:px-10 sm:py-14">
+      <section className="relative overflow-hidden rounded-4xl bg-(--color-forest-canopy) px-6 py-10 text-white sm:px-10 sm:py-14">
         <div className="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(circle_at_70%_25%,#b6ede2_0%,transparent_45%)]" />
         <div className="relative z-10 grid gap-8 lg:grid-cols-2 lg:items-center">
           <div className="space-y-6">
@@ -55,7 +55,7 @@ export default async function Home() {
               </Link>
             </div>
           </div>
-          <Card className="overflow-hidden rounded-[24px] border-white/15 bg-white/10 p-0 shadow-none">
+          <Card className="overflow-hidden rounded-3xl border-white/15 bg-white/10 p-0 shadow-none">
             <Image
               src="/gallery/service-tailoring.svg"
               alt="Tailoring craftsmanship"
@@ -72,7 +72,7 @@ export default async function Home() {
       <section className="space-y-4">
         <div className="space-y-1">
           <h2 className="text-3xl font-semibold">Explore the Store</h2>
-          <p className="text-[var(--color-text-muted)]">Everything you need to bring your sartorial visions to life.</p>
+          <p className="text-(--color-text-muted)">Everything you need to bring your sartorial visions to life.</p>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
@@ -81,13 +81,13 @@ export default async function Home() {
               const Icon = meta.icon;
               return (
                 <Link key={category.slug} href={meta.href}>
-                  <Card className="group h-full rounded-3xl border-[var(--color-border)] p-7 transition-transform duration-300 hover:-translate-y-1">
+                  <Card className="group h-full rounded-3xl border-border p-7 transition-transform duration-300 hover:-translate-y-1">
                     <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${meta.tint}`}>
-                      <Icon className="h-6 w-6 text-[var(--color-deep-teal)]" />
+                      <Icon className="h-6 w-6 text-primary" />
                     </div>
                     <p className="text-xl font-semibold">{category.name}</p>
-                    <p className="mt-2 text-sm text-[var(--color-text-muted)]">{category.description}</p>
-                    <p className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-deep-teal)]">
+                    <p className="mt-2 text-sm text-(--color-text-muted)">{category.description}</p>
+                    <p className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
                       {meta.cta}
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </p>
@@ -99,11 +99,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="rounded-[32px] bg-[var(--color-surface)] p-6 sm:p-10">
+      <section className="rounded-4xl bg-surface p-6 sm:p-10">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-3xl font-semibold">Featured Collections</h2>
-            <p className="text-[var(--color-text-muted)]">Curated highlights from our extensive catalog.</p>
+            <p className="text-(--color-text-muted)">Curated highlights from our extensive catalog.</p>
           </div>
         </div>
         <div className="grid gap-5 lg:grid-cols-12">
@@ -113,24 +113,24 @@ export default async function Home() {
                 <Image src={products[0]?.image ?? "/gallery/fabric-brocade.svg"} alt={products[0]?.name ?? "Featured product"} fill className="object-cover" priority loading="eager" />
               </div>
               <div className="p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-deep-teal)]">New Arrival</p>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">New Arrival</p>
                 <h3 className="mt-2 text-2xl font-semibold">{products[0]?.name ?? "Premium Brocade Lace"}</h3>
-                <p className="mt-2 text-sm text-[var(--color-text-muted)]">{products[0]?.description ?? "Premium featured collection."}</p>
+                <p className="mt-2 text-sm text-(--color-text-muted)">{products[0]?.description ?? "Premium featured collection."}</p>
                 <Link href={`/products/${products[0]?.slug ?? "premium-brocade-lace"}`} className={cn(buttonVariants({ variant: "secondary" }), "mt-5 rounded-2xl px-5")}>
                   View Details
                 </Link>
               </div>
             </div>
           </Card>
-          <div className="relative overflow-hidden rounded-3xl bg-[var(--color-forest-canopy)] p-7 text-white lg:col-span-5">
+          <div className="relative overflow-hidden rounded-3xl bg-(--color-forest-canopy) p-7 text-white lg:col-span-5">
             <Image
               src="/gallery/rental-showcase.svg"
               alt="Traditional wedding attire"
               fill
               className="object-cover opacity-35"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-forest-canopy)] via-[var(--color-forest-canopy)]/70 to-transparent" />
-            <div className="relative z-10 flex min-h-[360px] flex-col justify-end">
+            <div className="absolute inset-0 bg-linear-to-t from-(--color-forest-canopy) via-(--color-forest-canopy)/70 to-transparent" />
+            <div className="relative z-10 flex min-h-90 flex-col justify-end">
               <h3 className="text-2xl font-semibold">Traditional Wedding Attire</h3>
               <p className="mt-2 max-w-sm text-sm text-white/80">Bespoke garments tailored to honor cultural significance with modern structural elegance.</p>
               <Link href="/catalog?tab=traditional" className={cn(buttonVariants({ variant: "inverse" }), "mt-5 w-fit rounded-2xl px-5")}>
@@ -147,20 +147,20 @@ export default async function Home() {
           <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl">
             <Image src={content.gallery[0]?.image ?? "/gallery/fabric-roll.svg"} alt={content.gallery[0]?.title ?? "Craft gallery"} width={1200} height={1200} className="h-full w-full object-cover" priority />
           </div>
-          <div className="overflow-hidden rounded-2xl bg-[var(--color-soft-peach)]">
+          <div className="overflow-hidden rounded-2xl bg-muted">
             <Image src={content.gallery[1]?.image ?? "/gallery/bead-set.svg"} alt={content.gallery[1]?.title ?? "Gallery item"} width={600} height={600} className="h-full w-full object-cover opacity-85 mix-blend-multiply" priority />
           </div>
           <div className="row-span-2 overflow-hidden rounded-2xl">
             <Image src={content.gallery[2]?.image ?? "/gallery/rental-showcase.svg"} alt={content.gallery[2]?.title ?? "Gallery item"} width={900} height={1200} className="h-full w-full object-cover" />
           </div>
-          <div className="flex items-center justify-center rounded-2xl bg-[var(--color-sky-haze)] p-4 text-center text-lg italic text-[var(--color-deep-teal)]">
+          <div className="flex items-center justify-center rounded-2xl bg-secondary p-4 text-center text-lg italic text-primary">
             &quot;Precision in every cut. Passion in every seam.&quot;
           </div>
         </div>
       </section>
 
       <section className="px-2">
-        <div className="relative mx-auto max-w-4xl overflow-hidden rounded-[32px] bg-[var(--color-deep-teal)] px-6 py-12 text-center text-white sm:px-12 sm:py-16">
+        <div className="relative mx-auto max-w-4xl overflow-hidden rounded-4xl bg-primary px-6 py-12 text-center text-white sm:px-12 sm:py-16">
           <div className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-[radial-gradient(circle,#d5ff4d_0%,#00f5dc_45%,transparent_70%)] opacity-25 blur-2xl" />
           <h2 className="relative text-4xl font-bold leading-tight sm:text-5xl">{content.whatsappCta.title}</h2>
           <p className="relative mx-auto mt-4 max-w-2xl text-lg text-white/80">{content.whatsappCta.description}</p>
