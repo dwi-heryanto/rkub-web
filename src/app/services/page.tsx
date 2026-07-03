@@ -103,7 +103,7 @@ export default async function ServicesPage() {
                 e.g., &quot;Hemming a suit jacket&quot;, &quot;Tapering dress pants&quot;, or &quot;Custom silk blouse design.&quot;
               </p>
               <textarea
-                className="min-h-36 w-full rounded-[var(--radius-card)] border border-border bg-white p-4 text-sm text-foreground outline-none focus:border-[var(--color-deep-teal)]"
+                className="min-h-36 w-full rounded-[var(--radius-card)] border border-border bg-white p-4 text-sm text-foreground outline-hidden focus:border-[var(--color-deep-teal)]"
                 placeholder="Provide details about the garment, fabric type (if known), and specific alterations required..."
               />
               <WhatsAppButton url={waLink} location="services_request" className="w-full sm:w-auto">
