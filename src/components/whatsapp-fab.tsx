@@ -1,10 +1,18 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 import { trackEvent } from "@/lib/analytics";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
 export function WhatsAppFab() {
+  const pathname = usePathname();
   const url = createWhatsAppUrl("Hello, I want to ask about your catalog and tailoring services.");
+
+  // Hide FAB on product detail pages where a sticky mobile CTA bar is shown
+  const isProductDetail = pathname.startsWith("/products/");
+
+  if (isProductDetail) return null;
 
   return (
     <a
