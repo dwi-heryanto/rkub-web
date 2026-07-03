@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { ClientSearchInput } from "@/components/search-input";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { createWhatsAppUrl } from "@/lib/whatsapp";
 
 const links = [
   { href: "/catalog?tab=tools", label: "Tools" },
@@ -16,6 +18,7 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const waUrl = createWhatsAppUrl("Hello, I want to inquire about your products and services.");
 
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--color-border-strong)] bg-[var(--color-bg)]/95 backdrop-blur">
@@ -24,6 +27,12 @@ export function Navbar() {
           Stitch & Sew
         </Link>
         <div className="hidden items-center gap-2 md:flex">
+          <ClientSearchInput
+            placeholder="Search..."
+            location="navbar_search"
+            className="w-48"
+            inputClassName="min-h-9 py-2 text-sm"
+          />
           {links.map((link) => (
             <Link
               key={link.href}
@@ -34,7 +43,7 @@ export function Navbar() {
             </Link>
           ))}
           <ThemeToggle />
-          <Link href="https://wa.me/628123456789" target="_blank" rel="noreferrer" className={buttonVariants()}>
+          <Link href={waUrl} target="_blank" rel="noreferrer" className={buttonVariants()}>
             WhatsApp Inquiry
           </Link>
         </div>
@@ -67,7 +76,7 @@ export function Navbar() {
             </Link>
           ))}
           <ThemeToggle className="w-full" />
-          <Link href="https://wa.me/628123456789" target="_blank" rel="noreferrer" className={cn(buttonVariants(), "w-full")}>
+          <Link href={waUrl} target="_blank" rel="noreferrer" className={cn(buttonVariants(), "w-full")}>
             WhatsApp Inquiry
           </Link>
         </div>
