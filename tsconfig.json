@@ -25,6 +25,12 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@payload-config": [
+        "./src/payload.config.ts"
+      ],
+      "@payloadcms/next/utilities": [
+        "./node_modules/@payloadcms/next/dist/utilities"
       ]
     }
   },
