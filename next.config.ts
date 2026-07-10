@@ -11,3 +11,5 @@ const nextConfig: NextConfig = {
 };
 
 export default withPayload(nextConfig);
+
+import('@opennextjs/cloudflare').then(m => m.initOpenNextCloudflareForDev());
