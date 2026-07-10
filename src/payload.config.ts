@@ -12,6 +12,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  cors: '*',
   // admin: {
   //   user: Users.slug,
   //   importMap: {
@@ -26,6 +27,7 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
+    push: false,
     pool: {
       connectionString: process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/payload',
     }

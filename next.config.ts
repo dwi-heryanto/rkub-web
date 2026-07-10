@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.cloudinary.com" },
     ],
   },
+  serverExternalPackages: ['drizzle-kit', 'drizzle-kit*', 'pg', 'pg-cloudflare'],
 };
 
 export default withPayload(nextConfig);
