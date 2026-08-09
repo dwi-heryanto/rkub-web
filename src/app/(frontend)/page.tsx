@@ -39,7 +39,7 @@ export default async function Home() {
         {JSON.stringify(localBusinessJsonLd)}
       </Script>
 
-      <section className="relative overflow-hidden rounded-4xl bg-(--color-forest-canopy) px-6 py-10 text-white sm:px-10 sm:py-14">
+      <section id="about" className="relative overflow-hidden rounded-4xl bg-(--color-forest-canopy) px-6 py-10 text-white sm:px-10 sm:py-14">
         <div className="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(circle_at_70%_25%,#b6ede2_0%,transparent_45%)]" />
         <div className="relative z-10 grid gap-8 lg:grid-cols-2 lg:items-center">
           <div className="space-y-6">
@@ -159,7 +159,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="px-2">
+      <section id="contact" className="px-2">
         <div className="relative mx-auto max-w-4xl overflow-hidden rounded-4xl bg-primary px-6 py-12 text-center text-white sm:px-12 sm:py-16">
           <div className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-[radial-gradient(circle,#d5ff4d_0%,#00f5dc_45%,transparent_70%)] opacity-25 blur-2xl" />
           <h2 className="relative text-4xl font-bold leading-tight sm:text-5xl">{content.whatsappCta.title}</h2>

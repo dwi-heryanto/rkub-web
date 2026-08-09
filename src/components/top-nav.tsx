@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Menu, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import { MobileMenu } from "@/components/mobile-menu";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
@@ -77,29 +78,7 @@ export function TopNav({ whatsappNumber }: { whatsappNumber: string }) {
         </div>
       </nav>
 
-      <div
-        id="top-nav-menu"
-        className={cn(
-          "border-b border-[var(--color-rule)] bg-[var(--color-paper)] px-4 py-4 shadow-(--shadow-soft) md:hidden",
-          open ? "block" : "hidden",
-        )}
-      >
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-full px-4 py-3 text-sm font-medium text-[var(--color-ink)] hover:bg-[var(--color-paper-2)]"
-              onClick={() => setOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link href={waUrl} target="_blank" rel="noreferrer" className={buttonVariants({ size: "chip" })}>
-            WhatsApp
-          </Link>
-        </div>
-      </div>
+      <MobileMenu open={open} onClose={() => setOpen(false)} />
     </header>
   );
 }
