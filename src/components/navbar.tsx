@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { ClientSearchInput } from "@/components/search-input";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -42,10 +42,9 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <ThemeToggle />
-          <Link href={waUrl} target="_blank" rel="noreferrer" className={buttonVariants()}>
+          <WhatsAppButton url={waUrl} location="navbar" size="sm">
             WhatsApp Inquiry
-          </Link>
+          </WhatsAppButton>
         </div>
         <Button
           type="button"
@@ -75,10 +74,9 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <ThemeToggle className="w-full" />
-          <Link href={waUrl} target="_blank" rel="noreferrer" className={cn(buttonVariants(), "w-full")}>
+          <WhatsAppButton url={waUrl} location="navbar_mobile" className="w-full" onClick={() => setOpen(false)}>
             WhatsApp Inquiry
-          </Link>
+          </WhatsAppButton>
         </div>
       </div>
     </header>

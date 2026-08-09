@@ -328,7 +328,7 @@ export default async function CatalogPage({
               <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none sm:col-span-2 lg:col-span-3 xl:col-span-4">
                 <p className="font-semibold">No tools found</p>
                 <p className="mt-1">Try selecting a different tool category or inquire via WhatsApp.</p>
-                <WhatsAppButton url={toolsInquiryUrl} location="catalog_tools_empty" variant="secondary" className="mt-4">
+                <WhatsAppButton url={toolsInquiryUrl} location="catalog_tools_empty" variant="light" className="mt-4">
                   Ask on WhatsApp
                 </WhatsAppButton>
               </Card>
@@ -537,7 +537,7 @@ export default async function CatalogPage({
                 <Card className="border-dashed border-border bg-surface p-8 text-center text-sm text-(--color-text-muted) shadow-none sm:col-span-2 xl:col-span-3">
                   <p className="font-semibold">No rental costumes found</p>
                   <p className="mt-1">Try adjusting your filters or inquire about availability via WhatsApp.</p>
-                  <WhatsAppButton url={inquiryUrl} location="catalog_rental_empty" variant="secondary" className="mt-4">
+                  <WhatsAppButton url={inquiryUrl} location="catalog_rental_empty" variant="light" className="mt-4">
                     Ask on WhatsApp
                   </WhatsAppButton>
                 </Card>
@@ -686,11 +686,7 @@ export default async function CatalogPage({
             )}
             {isTraditional ? (
               <div>
-                <WhatsAppButton
-                  url={traditionalInquiryUrl}
-                  location="catalog_traditional_cta"
-                  className="px-5 py-3"
-                >
+                <WhatsAppButton url={traditionalInquiryUrl} location="catalog_traditional_cta" className="px-5 py-3">
                   WhatsApp Inquiry
                 </WhatsAppButton>
               </div>

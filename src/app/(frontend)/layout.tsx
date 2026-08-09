@@ -2,7 +2,6 @@ import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { BottomActionBar } from "@/components/bottom-action-bar";
 import { Footer } from "@/components/footer";
 import { TopNav } from "@/components/top-nav";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { getSiteSettings } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
 import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme";
@@ -34,7 +33,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <main className="mx-auto w-full max-w-7xl px-4 py-8 pb-24 sm:px-6 lg:px-8 md:pb-8">{children}</main>
         <BottomActionBar whatsappNumber={settings.whatsappNumber} />
         <Footer />
-        <WhatsAppFab />
       </body>
     </html>
   );

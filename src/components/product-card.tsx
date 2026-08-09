@@ -73,7 +73,7 @@ export function ProductCard({
                   url={resolvedWhatsAppUrl}
                   location="catalog_card"
                   aria-label={`Inquire about ${product.name} via WhatsApp`}
-                  variant="ghost"
+                  variant="outline"
                   size="chip"
                   className="w-full border border-[var(--color-rule)]"
                 >
