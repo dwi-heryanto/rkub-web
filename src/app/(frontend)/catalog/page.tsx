@@ -195,7 +195,7 @@ export default async function CatalogPage({
                 <WhatsAppButton
                   url={inquiryUrl}
                   location="catalog_hero"
-                  variant="secondary"
+                  variant="light"
                   size="lg"
                 >
                   WhatsApp Inquiry

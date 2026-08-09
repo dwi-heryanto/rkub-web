@@ -40,7 +40,7 @@ function ActionButton({ action }: { action: Action }) {
     </>
   );
 
-  if ("href" in action) {
+  if ("href" in action && action.href) {
     return (
       <Link
         href={action.href}

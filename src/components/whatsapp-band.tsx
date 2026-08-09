@@ -35,7 +35,7 @@ export function WhatsAppBand({
         <WhatsAppButton
           url={createWhatsAppUrl(message, whatsappNumber)}
           location={location}
-          variant="secondary"
+          variant="light"
           size="lg"
           className={cn("w-fit rounded-full px-6", "text-[var(--color-accent)]")}
         >
