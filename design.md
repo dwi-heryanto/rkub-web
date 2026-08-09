@@ -45,23 +45,29 @@ RKUB is a family tailoring store catalog website. It is not a full e-commerce pl
 - **Display:** Lora, weight 600, roman, tracking `-0.02em`.
 - **Body:** Source Sans 3, weight 400.
 - **Scale:**
+  - `--text-xs`: 0.75rem
+  - `--text-sm`: 0.875rem
   - `--text-base`: 1rem
-  - `--text-lg`: 1.125rem
-  - `--text-xl`: 1.375rem
-  - `--text-2xl`: 1.75rem
-  - `--text-3xl`: 2.25rem
+  - `--text-md`: 1.125rem
+  - `--text-lg`: 1.375rem
+  - `--text-xl`: 1.75rem
+  - `--text-2xl`: 2.25rem
+  - `--text-3xl`: 3rem
   - `--text-display`: clamp(2.5rem, 7vw, 5.5rem)
+  - `--text-display-lg`: clamp(3rem, 8vw, 6.5rem)
 
 ## Spacing
 
 4-point scale:
-- `--space-xs`: 0.5rem
-- `--space-sm`: 0.75rem
-- `--space-md`: 1rem
-- `--space-lg`: 1.5rem
-- `--space-xl`: 2rem
-- `--space-2xl`: 3rem
-- `--space-3xl`: 5rem
+- `--space-3xs`: 0.25rem
+- `--space-2xs`: 0.5rem
+- `--space-xs`: 0.75rem
+- `--space-sm`: 1rem
+- `--space-md`: 1.5rem
+- `--space-lg`: 2rem
+- `--space-xl`: 3rem
+- `--space-2xl`: 4.5rem
+- `--space-3xl`: 7rem
 - `--page-gutter`: clamp(1rem, 4vw, 2.5rem)
 
 ## Radii
