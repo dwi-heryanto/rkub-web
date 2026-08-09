@@ -41,11 +41,11 @@ export function ProductCard({
     <motion.article
       whileHover={{ y: -2 }}
       transition={{ duration: 0.15 }}
-      className="h-full"
+      className={cn("h-full", className)}
     >
-      <Card className="group flex h-full flex-col overflow-hidden p-0 transition-all duration-200 hover:shadow-(--shadow-soft)">
+      <Card className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border-[var(--color-rule)] bg-[var(--color-paper-2)] p-0 transition-all duration-200 hover:shadow-[var(--shadow-soft)]">
         <Link href={`/products/${product.slug}`} className="flex h-full flex-col">
-          <div className={cn("relative overflow-hidden bg-muted", aspect)}>
+          <div className={cn("relative overflow-hidden bg-[var(--color-paper)]", aspect)}>
             <Image
               src={product.image}
               alt={product.name}
@@ -56,17 +56,17 @@ export function ProductCard({
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             {product.tags[0] ? (
-              <span className="absolute left-3 top-3 rounded-full bg-background px-3 py-1 text-xs font-semibold text-primary">
+              <span className="absolute left-3 top-3 rounded-full border border-[var(--color-rule)] bg-[var(--color-paper-2)]/90 px-3 py-1 text-[11px] font-semibold text-[var(--color-accent)] backdrop-blur">
                 {product.tags[0]}
               </span>
             ) : null}
           </div>
           <div className="flex grow flex-col p-5">
-            <h3 className="text-base font-semibold text-foreground">{product.name}</h3>
-            <p className="mt-1 text-sm font-semibold text-primary">{product.unitPrice}</p>
-            <p className="mt-1 text-xs uppercase tracking-wide text-primary">
+            <span className="inline-flex w-fit rounded-full bg-[var(--color-accent)]/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent)]">
               {product.category.replace(/-/g, " ")}
-            </p>
+            </span>
+            <h3 className="mt-3 text-base font-semibold text-[var(--color-ink)]">{product.name}</h3>
+            <p className="mt-1 text-sm font-semibold text-[var(--color-accent)]">{product.unitPrice}</p>
             {showWhatsAppAction ? (
               <div className="mt-auto pt-4">
                 <WhatsAppButton
@@ -75,7 +75,7 @@ export function ProductCard({
                   aria-label={`Inquire about ${product.name} via WhatsApp`}
                   variant="ghost"
                   size="chip"
-                  className="w-full border border-border"
+                  className="w-full border border-[var(--color-rule)]"
                 >
                   <MessageCircle className="h-4 w-4" /> Inquire
                 </WhatsAppButton>
