@@ -1,6 +1,6 @@
 import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { TopNav } from "@/components/top-nav";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { getSiteSettings } from "@/lib/cms";
 import { createMetadata } from "@/lib/seo";
@@ -13,8 +13,9 @@ export async function generateMetadata() {
   return createMetadata(settings.seo.title, settings.seo.description, "/", settings.seo.image);
 }
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const gscVerification = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
+  const settings = await getSiteSettings();
 
   return (
     <html lang="en" className="h-full antialiased">
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="min-h-full bg-background text-foreground">
         <AnalyticsScripts />
-        <Navbar />
+        <TopNav whatsappNumber={settings.whatsappNumber} />
         <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
         <Footer />
         <WhatsAppFab />
