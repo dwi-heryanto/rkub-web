@@ -12,14 +12,14 @@ import { Card } from "@/components/ui/card";
 import { getCategories, getHomepageContent, getProducts, getSiteSettings } from "@/lib/cms";
 import { createLocalBusinessJsonLd } from "@/lib/seo";
 
-const categoryMeta: Record<string, { href: string; icon: typeof Scissors }> = {
-  "tailoring-tools": { href: "/catalog?tab=tools", icon: Wrench },
-  fabrics: { href: "/catalog?tab=fabric", icon: Sparkles },
-  "beads-accessories": { href: "/catalog?tab=materials", icon: Gem },
-  "rental-costumes": { href: "/catalog?tab=rental", icon: Shirt },
-  "traditional-clothing": { href: "/catalog?tab=traditional", icon: Shirt },
-  "tailoring-services": { href: "/services", icon: Scissors },
-  "decorative-materials": { href: "/catalog?tab=materials", icon: Gem },
+const categoryMeta: Record<string, { href: string; icon: typeof Scissors; image: string }> = {
+  "tailoring-tools": { href: "/catalog?tab=tools", icon: Wrench, image: "https://images.unsplash.com/photo-1605218427306-022ba6c554de?auto=format&fit=crop&w=800&q=80" },
+  fabrics: { href: "/catalog?tab=fabric", icon: Sparkles, image: "https://images.unsplash.com/photo-1620799140408-ed5341cd2431?auto=format&fit=crop&w=800&q=80" },
+  "beads-accessories": { href: "/catalog?tab=materials", icon: Gem, image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=800&q=80" },
+  "rental-costumes": { href: "/catalog?tab=rental", icon: Shirt, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" },
+  "traditional-clothing": { href: "/catalog?tab=traditional", icon: Shirt, image: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?auto=format&fit=crop&w=800&q=80" },
+  "tailoring-services": { href: "/services", icon: Scissors, image: "https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=800&q=80" },
+  "decorative-materials": { href: "/catalog?tab=materials", icon: Gem, image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=800&q=80" },
 };
 
 export default async function Home() {
@@ -32,8 +32,8 @@ export default async function Home() {
 
   const localBusinessJsonLd = createLocalBusinessJsonLd(settings);
   const featuredProducts = products.slice(0, 4);
-  const heroImage = content.gallery[0] ?? { image: "/gallery/service-tailoring.svg", title: content.hero.title, description: content.hero.description };
-  const rentalGallery = content.gallery[2] ?? heroImage;
+  const heroImage = content.gallery[0] ?? { image: "https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=1600&q=80", title: content.hero.title, description: content.hero.description };
+  const rentalGallery = content.gallery[2] ?? { image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80", title: "Traditional pieces, ready for events", description: "Quick size checks and WhatsApp confirmation make rental requests straightforward." };
 
   return (
     <div className="space-y-16 pb-16">
@@ -64,6 +64,7 @@ export default async function Home() {
                 category={category}
                 href={meta.href}
                 icon={meta.icon}
+                image={{ src: meta.image, alt: category.name }}
               />
             );
           })}
@@ -85,19 +86,39 @@ export default async function Home() {
       </section>
 
       <section className="grid gap-5 lg:grid-cols-2">
+        <Card className="relative overflow-hidden rounded-[var(--radius-lg)] border-[var(--color-rule)] p-0">
+          <Image
+            src="https://images.unsplash.com/photo-1605218427306-022ba6c554de?auto=format&fit=crop&w=1200&q=80"
+            alt="Tailoring services"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-[var(--color-ink)] via-[var(--color-ink)]/70 to-transparent" />
+          <div className="relative z-10 flex min-h-[22rem] flex-col justify-end p-6 text-white sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Services</p>
+            <h2 className="mt-2 font-[var(--font-display)] text-[var(--text-2xl)] font-semibold leading-tight sm:text-[var(--text-3xl)]">
+              Services that start with a conversation
+            </h2>
+            <p className="mt-3 max-w-md text-white/80">
+              {content.highlights[1]?.description ?? "Send measurements, references, and timing for a tailored reply."}
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href="/services" className="inline-flex items-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-[var(--color-accent)] transition-opacity hover:opacity-90">
+                Book consultation
+              </Link>
+              <Link href="/support/sizing-guide" className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20">
+                Check sizing guide
+              </Link>
+            </div>
+          </div>
+        </Card>
+
         <Card className="space-y-6 rounded-[var(--radius-lg)] border-[var(--color-rule)] bg-[var(--color-paper-2)] p-6 sm:p-8">
           <SectionHeader
-            title="Services that start with a conversation"
-            description={content.highlights[1]?.description ?? "Send measurements, references, and timing for a tailored reply."}
+            title="Why it works"
+            description="Short proof points that show the store is useful, responsive, and easy to understand."
           />
-          <div className="flex flex-wrap gap-3">
-            <Link href="/services" className="inline-flex items-center rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90">
-              Book consultation
-            </Link>
-            <Link href="/support/sizing-guide" className="inline-flex items-center rounded-full border border-[var(--color-rule)] bg-[var(--color-paper)] px-5 py-3 text-sm font-semibold text-[var(--color-ink)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
-              Check sizing guide
-            </Link>
-          </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {content.highlights.map((highlight) => (
               <div key={highlight.title} className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-4">
@@ -107,7 +128,9 @@ export default async function Home() {
             ))}
           </div>
         </Card>
+      </section>
 
+      <section className="grid gap-5 lg:grid-cols-2">
         <Card className="relative overflow-hidden rounded-[var(--radius-lg)] border-[var(--color-rule)] p-0">
           <Image
             src={rentalGallery.image}
@@ -116,7 +139,7 @@ export default async function Home() {
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-[var(--color-forest-canopy)] via-[var(--color-forest-canopy)]/70 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[var(--color-ink)] via-[var(--color-ink)]/70 to-transparent" />
           <div className="relative z-10 flex min-h-[22rem] flex-col justify-end p-6 text-white sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Rental teaser</p>
             <h2 className="mt-2 font-[var(--font-display)] text-[var(--text-2xl)] font-semibold leading-tight sm:text-[var(--text-3xl)]">
@@ -130,6 +153,18 @@ export default async function Home() {
             </Link>
           </div>
         </Card>
+
+        <Card className="space-y-4 rounded-[var(--radius-lg)] border-[var(--color-rule)] bg-[var(--color-paper-2)] p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-ink-2)]">Why it works</p>
+          <div className="space-y-3">
+            {content.highlights.map((highlight) => (
+              <div key={highlight.title} className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-4">
+                <p className="font-semibold text-[var(--color-ink)]">{highlight.title}</p>
+                <p className="mt-1 text-sm text-[var(--color-ink-2)]">{highlight.description}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
       </section>
 
       <section className="space-y-6">
@@ -138,15 +173,20 @@ export default async function Home() {
           description="Short proof points that show the store is useful, responsive, and easy to understand."
         />
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card className="space-y-4 rounded-[var(--radius-lg)] border-[var(--color-rule)] bg-[var(--color-paper-2)] p-6 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-ink-2)]">Why it works</p>
-            <div className="space-y-3">
-              {content.highlights.map((highlight) => (
-                <div key={highlight.title} className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-paper)] p-4">
-                  <p className="font-semibold text-[var(--color-ink)]">{highlight.title}</p>
-                  <p className="mt-1 text-sm text-[var(--color-ink-2)]">{highlight.description}</p>
-                </div>
-              ))}
+          <Card className="relative overflow-hidden rounded-[var(--radius-lg)] border-[var(--color-rule)] p-0">
+            <Image
+              src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?auto=format&fit=crop&w=1200&q=80"
+              alt="Traditional craftsmanship"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 55vw"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-[var(--color-ink)]/80 via-[var(--color-ink)]/40 to-transparent" />
+            <div className="relative z-10 flex min-h-[20rem] flex-col justify-end p-6 text-white sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Family-run since day one</p>
+              <h2 className="mt-2 font-[var(--font-display)] text-[var(--text-2xl)] font-semibold leading-tight">
+                Craftsmanship passed down with care
+              </h2>
             </div>
           </Card>
 
