@@ -133,7 +133,7 @@ export default async function Home() {
             <div className="relative z-10 flex min-h-90 flex-col justify-end">
               <h3 className="text-2xl font-semibold">Traditional Wedding Attire</h3>
               <p className="mt-2 max-w-sm text-sm text-white/80">Bespoke garments tailored to honor cultural significance with modern structural elegance.</p>
-              <Link href="/catalog?tab=traditional" className={cn(buttonVariants({ variant: "inverse" }), "mt-5 w-fit rounded-2xl px-5")}>
+              <Link href="/catalog?tab=traditional" className={cn(buttonVariants({ variant: "secondary" }), "mt-5 w-fit px-5")}>
                 Explore Collection
               </Link>
             </div>
@@ -167,8 +167,9 @@ export default async function Home() {
           <WhatsAppButton
             url={createWhatsAppUrl(content.whatsappCta.message, settings.whatsappNumber)}
             location="home_whatsapp_cta"
-            variant="inverse"
-            className="relative mt-7 rounded-2xl px-8"
+            variant="secondary"
+            size="lg"
+            className="relative mt-7"
           >
             Chat on WhatsApp <ArrowRight className="ml-1 h-4 w-4" />
           </WhatsAppButton>

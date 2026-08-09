@@ -1,5 +1,6 @@
 "use client";
 
+import type { VariantProps } from "class-variance-authority";
 import type { ReactNode } from "react";
 import type { AnchorHTMLAttributes } from "react";
 
@@ -12,8 +13,8 @@ interface WhatsAppButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode;
   location: string;
   productName?: string;
-  variant?: "primary" | "secondary" | "ghost" | "inverse" | "outline-light";
-  size?: "default" | "chip";
+  variant?: VariantProps<typeof buttonVariants>["variant"];
+  size?: VariantProps<typeof buttonVariants>["size"];
 }
 
 export function WhatsAppButton({
@@ -22,7 +23,7 @@ export function WhatsAppButton({
   location,
   productName,
   className,
-  variant = "primary",
+  variant = "default",
   size = "default",
   onClick,
   ...props

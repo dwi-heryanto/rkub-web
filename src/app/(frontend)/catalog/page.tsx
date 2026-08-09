@@ -189,14 +189,14 @@ export default async function CatalogPage({
                 <p className="max-w-2xl text-base leading-7 text-white/80 sm:text-lg">{hero.description}</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Link href="#catalog-browser" className={cn(buttonVariants(), "rounded-2xl bg-background px-6 text-primary! hover:bg-white")}>
+                <Link href="#catalog-browser" className={cn(buttonVariants({ variant: "default" }), "px-6")}>
                   Browse Catalog
                 </Link>
                 <WhatsAppButton
                   url={inquiryUrl}
                   location="catalog_hero"
-                  variant="outline-light"
-                  className="min-h-11 rounded-card px-5 py-3"
+                  variant="secondary"
+                  size="lg"
                 >
                   WhatsApp Inquiry
                 </WhatsAppButton>
@@ -544,7 +544,7 @@ export default async function CatalogPage({
               ) : null}
             </div>
             <div className="flex justify-center">
-              <Button variant="secondary" className="rounded-2xl border-border px-6 py-3 text-(--color-text-muted) hover:text-primary">
+              <Button variant="secondary" size="lg">
                 Load More Options
               </Button>
             </div>
