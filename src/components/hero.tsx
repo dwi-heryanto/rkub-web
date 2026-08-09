@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface HeroProps {
@@ -35,7 +34,12 @@ export function Hero({ eyebrow, title, description, cta, image, className }: Her
             {title}
           </h1>
           <p className="max-w-2xl text-base text-white/82 sm:text-lg">{description}</p>
-          <Link href={cta.href} className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "w-fit rounded-full px-6") }>
+          <Link
+            href={cta.href}
+            className={cn(
+              "inline-flex w-fit items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[var(--color-accent)] shadow-[var(--shadow-soft)] transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
+            )}
+          >
             {cta.label}
           </Link>
         </div>
