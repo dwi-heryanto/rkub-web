@@ -211,12 +211,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </Card>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-border)] bg-[var(--color-surface)] p-3 md:hidden">
-        <WhatsAppButton url={whatsappUrl} location="product_detail_sticky" productName={product.name} className="w-full">
-          Inquire via WhatsApp
-        </WhatsAppButton>
-      </div>
-
       {related.length ? (
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">{isBrocadeDetail || isShearsDetail ? "You Might Also Like" : isBeskapDetail ? "Recommended for You" : "Related Products"}</h2>
