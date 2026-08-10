@@ -17,13 +17,13 @@ export function CatalogHeader({
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-(--color-accent)">{config.header.eyebrow}</p>
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-(--color-ink) sm:text-4xl">{config.header.title}</h1>
-        <p className="max-w-2xl text-base leading-7 text-(--color-ink-2)">{config.header.description}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-accent)]">{config.header.eyebrow}</p>
+        <h1 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">{config.header.title}</h1>
+        <p className="max-w-2xl text-base leading-7 text-[var(--color-ink-2)]">{config.header.description}</p>
       </div>
       <div className="flex items-center gap-3">
-        <p className="text-sm text-(--color-ink-2)">
-          <span className="font-semibold text-(--color-ink)">{resultCount}</span> items
+        <p className="text-sm text-[var(--color-ink-2)]">
+          <span className="font-semibold text-[var(--color-ink)]">{resultCount}</span> items
         </p>
         <WhatsAppButton url={whatsappUrl} location="catalog_header" variant="outline" size="chip">
           WhatsApp Inquiry
@@ -37,7 +37,7 @@ export function CatalogTabNav({ activeTab }: { activeTab: CatalogTab }) {
   return (
     <nav
       aria-label="Catalog categories"
-      className="sticky top-14 z-30 -mx-4 flex gap-2 overflow-x-auto bg-(--color-paper)/95 px-4 py-3 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:top-16"
+      className="sticky top-14 z-30 -mx-4 flex gap-2 overflow-x-auto bg-[var(--color-paper)]/95 px-4 py-3 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:top-16"
     >
       {CATALOG_TAB_ORDER.map((tab) => (
         <Link
@@ -47,8 +47,8 @@ export function CatalogTabNav({ activeTab }: { activeTab: CatalogTab }) {
           className={cn(
             "whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors",
             activeTab === tab
-              ? "border-(--color-accent) bg-(--color-accent) text-(--color-accent-ink)"
-              : "border-(--color-rule) text-(--color-ink) hover:bg-(--color-paper-2)",
+              ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-accent-ink)]"
+              : "border-[var(--color-rule)] text-[var(--color-ink)] hover:bg-[var(--color-paper-2)]",
           )}
         >
           {CATALOG_TAB_LABELS[tab]}
