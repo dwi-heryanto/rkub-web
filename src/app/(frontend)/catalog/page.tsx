@@ -240,7 +240,7 @@ export default async function CatalogPage({
                   loading="eager"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-(--color-forest-canopy)/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/60 via-transparent to-transparent" />
               </div>
               <CardContent className="space-y-4 p-6 sm:p-8">
                 <div className="flex flex-wrap items-center gap-2">
@@ -261,7 +261,7 @@ export default async function CatalogPage({
         </section>
       ) : null}
 
-      <nav aria-label="Catalog categories" className={`flex flex-wrap gap-2 ${isTraditional || isTools || isMaterials ? "rounded-2xl border border-border bg-white p-2" : ""}`}>
+      <nav aria-label="Catalog categories" role="tablist" className={`flex flex-wrap gap-2 ${isTraditional || isTools || isMaterials ? "rounded-2xl border border-border bg-white p-2" : ""}`}>
         {([
           { value: "rental", label: "Rental" },
           { value: "fabric", label: "Fabrics" },
