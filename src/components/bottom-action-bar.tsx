@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft, Bookmark, Home, LayoutGrid, MessageCircle, Search, Share2, SlidersHorizontal } from "lucide-react";
 
+import { useFilterSheet } from "@/components/catalog/filter-sheet";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
 interface BottomActionBarProps {
@@ -12,21 +13,21 @@ interface BottomActionBarProps {
 
 type Action =
   | {
-      label: string;
-      icon: React.ReactNode;
-      href: string;
-      external?: boolean;
-      pill?: boolean;
-      onClick?: never;
-    }
+    label: string;
+    icon: React.ReactNode;
+    href: string;
+    external?: boolean;
+    pill?: boolean;
+    onClick?: never;
+  }
   | {
-      label: string;
-      icon: React.ReactNode;
-      href?: never;
-      external?: never;
-      pill?: boolean;
-      onClick: () => void;
-    };
+    label: string;
+    icon: React.ReactNode;
+    href?: never;
+    external?: never;
+    pill?: boolean;
+    onClick: () => void;
+  };
 
 function ActionButton({ action }: { action: Action }) {
   const baseClassName = action.pill
@@ -64,6 +65,7 @@ function ActionButton({ action }: { action: Action }) {
 export function BottomActionBar({ whatsappNumber }: BottomActionBarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const filterSheet = useFilterSheet();
   const isCatalog = pathname.startsWith("/catalog");
   const isProductDetail = pathname.startsWith("/products/");
 
@@ -100,42 +102,42 @@ export function BottomActionBar({ whatsappNumber }: BottomActionBarProps) {
 
   const actions: Action[] = isProductDetail
     ? [
-        { label: "Back", icon: <ArrowLeft className="h-4 w-4" />, onClick: backToPreviousPage },
-        { label: "Save", icon: <Bookmark className="h-4 w-4" />, onClick: saveCurrentPage },
-        { label: "Share", icon: <Share2 className="h-4 w-4" />, onClick: shareCurrentPage },
+      { label: "Back", icon: <ArrowLeft className="h-4 w-4" />, onClick: backToPreviousPage },
+      { label: "Save", icon: <Bookmark className="h-4 w-4" />, onClick: saveCurrentPage },
+      { label: "Share", icon: <Share2 className="h-4 w-4" />, onClick: shareCurrentPage },
+      {
+        label: "Inquire on WhatsApp",
+        icon: <MessageCircle className="h-4 w-4" />,
+        href: whatsappUrl,
+        external: true,
+        pill: true,
+      },
+    ]
+    : isCatalog
+      ? [
+        { label: "Home", icon: <Home className="h-4 w-4" />, href: "/" },
+        { label: "Filters", icon: <SlidersHorizontal className="h-4 w-4" />, onClick: filterSheet.open },
+        { label: "Search", icon: <Search className="h-4 w-4" />, onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
         {
-          label: "Inquire on WhatsApp",
+          label: "Chat on WhatsApp",
           icon: <MessageCircle className="h-4 w-4" />,
           href: whatsappUrl,
           external: true,
           pill: true,
         },
       ]
-    : isCatalog
-      ? [
-          { label: "Home", icon: <Home className="h-4 w-4" />, href: "/" },
-          { label: "Filters", icon: <SlidersHorizontal className="h-4 w-4" />, href: "#catalog-browser" },
-          { label: "Search", icon: <Search className="h-4 w-4" />, onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
-          {
-            label: "Chat on WhatsApp",
-            icon: <MessageCircle className="h-4 w-4" />,
-            href: whatsappUrl,
-            external: true,
-            pill: true,
-          },
-        ]
       : [
-          { label: "Home", icon: <Home className="h-4 w-4" />, href: "/" },
-          { label: "Catalog", icon: <LayoutGrid className="h-4 w-4" />, href: "/catalog" },
-          { label: "Search", icon: <Search className="h-4 w-4" />, onClick: () => router.push("/catalog") },
-          {
-            label: "Chat on WhatsApp",
-            icon: <MessageCircle className="h-4 w-4" />,
-            href: whatsappUrl,
-            external: true,
-            pill: true,
-          },
-        ];
+        { label: "Home", icon: <Home className="h-4 w-4" />, href: "/" },
+        { label: "Catalog", icon: <LayoutGrid className="h-4 w-4" />, href: "/catalog" },
+        { label: "Search", icon: <Search className="h-4 w-4" />, onClick: () => router.push("/catalog") },
+        {
+          label: "Chat on WhatsApp",
+          icon: <MessageCircle className="h-4 w-4" />,
+          href: whatsappUrl,
+          external: true,
+          pill: true,
+        },
+      ];
 
   return (
     <section
