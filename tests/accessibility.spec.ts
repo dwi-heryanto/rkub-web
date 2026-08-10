@@ -29,3 +29,25 @@ test('home and product pages have sufficient color contrast', async ({ page }) =
   }
   expect(prod.violations?.length ?? 0).toBe(0);
 });
+
+test('catalog filter sheet opens, closes with Escape, and applies filters', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/catalog');
+
+  const dialog = page.getByRole('dialog', { name: 'Catalog filters' });
+
+  // Open the filter sheet from the bottom action bar
+  await page.getByRole('button', { name: 'Filters' }).click();
+  await expect(dialog).toBeVisible();
+
+  // Escape closes the sheet
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+
+  // Reopen and click a filter chip → URL gains the param and the sheet closes
+  await page.getByRole('button', { name: 'Filters' }).click();
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('link', { name: 'Bali' }).click();
+  await expect(page).toHaveURL(/[?&]region=Bali/);
+  await expect(dialog).toBeHidden();
+});
