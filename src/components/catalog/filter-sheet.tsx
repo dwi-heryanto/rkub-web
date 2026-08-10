@@ -50,9 +50,11 @@ export function FilterSheet({
 
   // Close on navigation (params change means a filter link was clicked)
   const paramsKey = JSON.stringify(params);
-  useEffect(() => {
+  const [prevParamsKey, setPrevParamsKey] = useState(paramsKey);
+  if (prevParamsKey !== paramsKey) {
+    setPrevParamsKey(paramsKey);
     setIsOpen(false);
-  }, [paramsKey]);
+  }
 
   // Escape closes + focus management + body scroll lock
   useEffect(() => {
